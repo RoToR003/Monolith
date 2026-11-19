@@ -1,0 +1,40 @@
+{
+  "testedAt": "2026-11-18T23:11:01.505Z",
+  "baseUrl": "http://127.0.0.1:5173/",
+  "authenticated": false,
+  "engine": "Playwright Chromium",
+  "actualIosDeviceTested": false,
+  "results": [
+    {
+      "name": "desktop-chromium",
+      "loginScreen": true,
+      "phoneForm": true,
+      "themeButton": true,
+      "width": 1360,
+      "scrollWidth": 1360,
+      "serviceWorkerActivated": true,
+      "manifestPresent": true,
+      "qrRendered": true,
+      "pageErrors": [],
+      "failedLocalResponses": []
+    },
+    {
+      "name": "mobile-chromium",
+      "loginScreen": true,
+      "phoneForm": true,
+      "themeButton": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "serviceWorkerActivated": true,
+      "manifestPresent": true,
+      "qrRendered": null,
+      "pageErrors": [],
+      "failedLocalResponses": []
+    }
+  ],
+  "notes": [
+    "Phone, QR approval, 2FA and signed-in chats were deliberately not tested.",
+    "Mobile Chromium viewport is not an iPhone Safari/PWA validation.",
+    "qrRendered=false means the QR screen loaded but a Telegram QR token was not confirmed."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "project": "Monolith",
+  "stage": "0 — Telegram Web K baseline",
+  "repository": "https://github.com/morethanwords/tweb.git",
+  "commit": "2e4bbb52b6aec5e95ee32e5c2882c1f05de32200",
+  "commitDate": "2026-11-11T04:56:14-05:00",
+  "importedOn": "2026-11-19",
+  "license": "GPL-3.0-only",
+  "node": "24.11.1",
+  "packageManager": "pnpm@11.16.0",
+  "submodules": {
+    "src/opus-recorder": "088d20ab45aaf60fa610ee2dfac7933850178bad",
+    "src/solid": {
+      "commit": "563ede1c269817b9d5eb6081696cd6a692b257a5",
+      "required": false,
+      "reason": "Upstream uses the checked-in src/vendor/solid builds by default."
+    }
+  },
+  "checkout": "Pinned Telegram Web K source imported onto a separate branch of the existing Monolith repository; original main history is preserved. Obsolete prebuilt public bundles are omitted. In Arena, unchanged public upstream binary blobs may be fetched lazily from the public upstream remote.",
+  "runtimeSnapshot": "assets/monolith/vendor-runtime.json",
+  "clientPatches": [
+    "src/components/countryInputField.ts: safely ignore nearest-DC countries missing from the phone-country list."
+  ],
+  "notes": "Stage 0 development baseline only. No Monolith RPC interception, anti-recall, ghost mode, user session, production push relay, hosted backend or external app deployment has been implemented. Upstream CI is retained as inactive documentation templates.",
+  "github": {
+    "repository": "RoToR003/Monolith",
+    "url": "https://github.com/RoToR003/Monolith",
+    "cloneUrl": "https://github.com/RoToR003/Monolith.git",
+    "workBranch": "monolith/baseline",
+    "baseBranch": "main",
+    "baseCommit": "96c397b0bf3f2564e39bc5a531aeaba16f64855d",
+    "visibility": "private"
+  }
+}
