@@ -9,6 +9,11 @@ const base = normalizeBasePath(process.env.MONOLITH_BASE_PATH || '/Monolith/');
 const metadata = JSON.parse(fs.readFileSync(path.join(root, 'monolith-build.json'), 'utf8'));
 assert.equal(metadata.basePath, base);
 assert.equal(metadata.sourceUrl, sourceUrl(metadata.sourceCommit));
+if(process.env.MONOLITH_API_CREDENTIAL_SOURCE) {
+  assert.equal(metadata.apiConfigurationSource, process.env.MONOLITH_API_CREDENTIAL_SOURCE);
+  assert.equal(metadata.ownApiCredentialsConfigured, process.env.MONOLITH_API_CREDENTIAL_SOURCE !== 'upstream-development');
+}
+if(process.env.MONOLITH_DEPLOYMENT_MODE) assert.equal(metadata.deploymentMode, process.env.MONOLITH_DEPLOYMENT_MODE);
 if(process.env.MONOLITH_SOURCE_COMMIT) assert.equal(metadata.sourceCommit, process.env.MONOLITH_SOURCE_COMMIT);
 let files = 0, bytes = 0;
 function walk(dir) {

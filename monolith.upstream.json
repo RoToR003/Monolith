@@ -20,7 +20,8 @@
   "runtimeSnapshot": "assets/monolith/vendor-runtime.json",
   "clientPatches": [
     "src/components/countryInputField.ts: safely ignore nearest-DC countries missing from the phone-country list.",
-    "vite.monolith.config.ts and scripts/monolith-pages.mjs: GitHub Pages project paths, test-build identity, scoped PWA manifests and GPL/source links; Telegram protocol unchanged."
+    "vite.monolith.config.ts and scripts/monolith-pages.mjs: GitHub Pages project paths, test-build identity, scoped PWA manifests and GPL/source links; Telegram protocol unchanged.",
+    "scripts/monolith-api-config.mjs and Pages workflow: validate build-time app configuration without printing values, mark own-API provenance and deploy via least-privilege Actions."
   ],
   "notes": "Stage 0 public test baseline only. No Monolith RPC interception, anti-recall, ghost mode, user session, production push relay or hosted backend has been implemented. GitHub Pages hosts static client files only. Upstream CI is retained as inactive documentation templates.",
   "github": {
@@ -37,10 +38,25 @@
     "provider": "GitHub Pages",
     "url": "https://rotor003.github.io/Monolith/",
     "basePath": "/Monolith/",
-    "publishBranch": "gh-pages",
+    "publishBranch": null,
     "sourceBranch": "monolith/baseline",
-    "mode": "Deploy from a branch; build locally with scripts/monolith-pages.sh deploy",
+    "mode": "GitHub Actions Pages artifact; push to monolith/baseline triggers tests/build/deploy",
     "status": "public test baseline; not a completed production release",
-    "sourceAccess": "Public source commit link in about.html; no source archives on site"
+    "sourceAccess": "Public source commit link in about.html; no source archives on site",
+    "historicalPublishBranch": "gh-pages",
+    "workflow": ".github/workflows/monolith-pages.yml",
+    "apiConfigurationSource": "repository-secrets",
+    "secretNames": [
+      "TELEGRAM_API_ID",
+      "TELEGRAM_API_HASH"
+    ],
+    "localBuildApiDefault": "upstream-development unless explicit local configuration is provided"
+  },
+  "testing": {
+    "primaryPlatform": "Android / Google Chrome; physical-device results pending",
+    "selectedUnitTestCount": 47,
+    "fullTypecheckCompleted": false,
+    "authenticatedTestingCompleted": false,
+    "actualIosDeviceTested": false
   }
 }

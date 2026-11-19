@@ -1,14 +1,31 @@
-import {defineConfig, mergeConfig, type Plugin} from 'vite';
+import {defineConfig, loadEnv, mergeConfig, type Plugin} from 'vite';
+import {existsSync, readFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import upstream from './vite.config';
 import {distributionAssets, normalizeBasePath, PAGES_BASE, PAGES_URL} from './scripts/monolith-pages.mjs';
+import {resolveBuildApiConfig} from './scripts/monolith-api-config.mjs';
 
 // Keep Telegram's protocol implementation unchanged.
 // Environment-specific changes live here, not in upstream's Vite configuration.
 const isPages = process.env.MONOLITH_PAGES === '1';
 const pagesBase = normalizeBasePath(process.env.MONOLITH_BASE_PATH || PAGES_BASE);
 const root = fileURLToPath(new URL('.', import.meta.url));
+// Only CI build steps receive repository secrets. Never print this configuration.
+const localApiOverride = existsSync(`${root}.env.local`) &&
+  /^\s*(?:export\s+)?VITE_API_(?:ID|HASH)\s*=/m.test(readFileSync(`${root}.env.local`, 'utf8'));
+const localEnv = localApiOverride ? loadEnv(process.env.NODE_ENV === 'development' ? 'development' : 'production', root, 'VITE_') : {};
+const apiConfiguration = resolveBuildApiConfig({...localEnv, ...process.env});
+if(apiConfiguration.source !== 'upstream-development') {
+  process.env.VITE_API_ID = apiConfiguration.apiId;
+  process.env.VITE_API_HASH = apiConfiguration.apiHash;
+}
+const distributionOptions = {
+  credentialSource: apiConfiguration.source,
+  deploymentMode: process.env.MONOLITH_DEPLOYMENT_MODE || 'branch',
+  runId: process.env.GITHUB_ACTIONS === 'true' ? process.env.GITHUB_RUN_ID : undefined,
+  runAttempt: process.env.GITHUB_RUN_ATTEMPT
+};
 const sourceCommit = isPages ? (process.env.MONOLITH_SOURCE_COMMIT ||
   execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim()) : undefined;
 
@@ -48,7 +65,7 @@ const pagesDistribution: Plugin = {
   apply: 'build',
   generateBundle() {
     if(!isPages) return;
-    for(const [fileName, source] of Object.entries(distributionAssets(sourceCommit, root, pagesBase))) {
+    for(const [fileName, source] of Object.entries(distributionAssets(sourceCommit, root, pagesBase, distributionOptions))) {
       this.emitFile({type: 'asset', fileName, source});
     }
   }

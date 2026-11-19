@@ -36,6 +36,25 @@ describe('Monolith GitHub Pages distribution', () => {
     expect(() => sourceUrl('" onclick="alert(1)')).toThrow();
   });
 
+  test('records own-API workflow provenance without credential values', () => {
+    const options = {credentialSource: 'repository-secrets', deploymentMode: 'workflow', runId: '123456789', runAttempt: '2'};
+    const metadata = buildMetadata(commit, '/Monolith/', options);
+    expect(metadata.ownApiCredentialsConfigured).toBe(true);
+    expect(metadata.apiConfigurationSource).toBe('repository-secrets');
+    expect(metadata.deploymentBranch).toBeNull();
+    expect(metadata.buildVersion).toBe(commit.slice(0, 7) + '-123456789.2');
+    expect(metadata.buildRunUrl).toBe('https://github.com/RoToR003/Monolith/actions/runs/123456789');
+    const html = aboutHtml(commit, '/Monolith/', options);
+    expect(html).toContain('власний Telegram API-застосунок');
+    expect(html).not.toContain('Ця тестова збірка використовує опубліковані upstream development');
+    expect(html).toContain(metadata.buildVersion);
+  });
+
+  test('rejects invalid workflow metadata instead of injecting it into HTML', () => {
+    expect(() => buildMetadata(commit, '/Monolith/', {deploymentMode: 'unknown'})).toThrow();
+    expect(() => aboutHtml(commit, '/Monolith/', {runId: '"<script>'})).toThrow();
+  });
+
   test('provides visible source and GPL links without source archives', () => {
     const html = aboutHtml(commit);
     expect(html).toContain(sourceUrl(commit));

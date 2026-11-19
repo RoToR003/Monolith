@@ -8,7 +8,7 @@
 - Зафіксований commit: `2e4bbb52b6aec5e95ee32e5c2882c1f05de32200`.
 - Робочий каталог у цьому середовищі: `/home/user/monolith`.
 - GitHub: публічний `RoToR003/Monolith` (відкрито з дозволу власника), код у `monolith/baseline`; початкову `main` не змінено.
-- HTTPS-сайт: **https://rotor003.github.io/Monolith/**, GitHub Pages із гілки `gh-pages`. Це публічна тестова версія, не фінальний production-реліз. Налаштування та оновлення: `docs/github-pages.md`.
+- HTTPS-сайт: **https://rotor003.github.io/Monolith/**, GitHub Pages через `.github/workflows/monolith-pages.yml`. Стару `gh-pages` збережено як резерв першої збірки. Це публічна тестова версія, не фінальний production-реліз. Налаштування та оновлення: `docs/github-pages.md`.
 - Node.js `24.11.1`, pnpm `11.16.0`, оригінальний lockfile залежностей збережено.
 - Ліцензія та авторські повідомлення upstream збережені; див. `LICENSE` і `README.md`.
 
@@ -44,7 +44,7 @@ MONOLITH_OPTIMIZE=1 NODE_OPTIONS=--max-old-space-size=4096 bash scripts/monolith
 
 ## Авторизація й API-реквізити
 
-У `.env` upstream уже містяться його загальнодоступні development-реквізити. Під час перевірки клієнт отримав QR-токен від Telegram, але **жодного користувацького акаунта не було авторизовано**.
+У `.env` source tree upstream містяться його загальнодоступні development-реквізити для локальної тестової збірки. Публічний workflow **Monolith Pages** підставляє власні реквізити з repository secrets `TELEGRAM_API_ID` / `TELEGRAM_API_HASH`, перевіряючи формат та підключення в bundle без друку значень. Під час перевірки клієнт отримав QR-токен від Telegram, але **жодного користувацького акаунта не було авторизовано**.
 
 Перед особистим використанням/розгортанням зареєструйте власний застосунок на https://my.telegram.org/apps, скопіюйте `.env.monolith.example` у `.env.local`, розкоментуйте та заповніть `VITE_API_ID` і `VITE_API_HASH`. Потім перебудуйте/перезапустіть клієнт.
 
@@ -59,7 +59,7 @@ MONOLITH_OPTIMIZE=1 NODE_OPTIONS=--max-old-space-size=4096 bash scripts/monolith
 - Mobile Chromium: форма входу на ширині 390 px, без горизонтального переповнення.
 - У фінальному браузерному прогоні — без необроблених JavaScript-помилок і без помилок завантаження локальних ресурсів.
 - Service Worker активувався; manifest завантажується. Це не підтвердження повної працездатності iOS PWA/Web Push.
-- Unit-тести форматування номерів, upstream manifest, захисного патча вибору країни та нового Pages-пакування — **25/25 пройдено**.
+- Unit-тести форматування номерів, upstream manifest, захисного патча вибору країни та нового Pages-пакування — **47/47 пройдено локально**.
 - Vite dev-сервер також стартує: домен прев’ю приймається (`200`), сторонній невідомий Host відхиляється (`403`).
 - HTTP-запити до `/.env`, `/.env.local`, `/.git/config`, `/src/index.ts`, `/package.json` на статичному сервері отримують `404`.
 
@@ -68,7 +68,7 @@ MONOLITH_OPTIMIZE=1 NODE_OPTIONS=--max-old-space-size=4096 bash scripts/monolith
 Повторення базових перевірок:
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts
 
 # Для браузерних тестів потрібен Playwright Chromium з його системними бібліотеками.
 # Після setup, з активним Node.js 24/pnpm 11:
@@ -93,21 +93,22 @@ bash scripts/monolith.sh check
 
 ## GitHub Pages
 
-Сайт збирається окремо в `.cache/monolith-pages/site/` і публікується в `gh-pages` зі збереженням вихідного коду в `monolith/baseline`. GPL і посилання на source commit доступні на сайті; вихідні ZIP/TAR-архіви на сайт не додаються.
+Сайт збирається в `.cache/monolith-pages/site/` і публікується офіційним Pages artifact через Actions, зі збереженням source у `monolith/baseline`. Build job запускає вибрані тести; секрети доступні лише build-step. GPL і посилання на source commit доступні на сайті; вихідні ZIP/TAR-архіви на сайт не додаються.
 
 ```bash
 bash scripts/monolith-pages.sh build
-# Після commit/push чистого source checkout:
+# Push у monolith/baseline тепер запускає workflow автоматично.
+# За потреби окремої перезбірки через авторизований GitHub CLI:
 bash scripts/monolith-pages.sh deploy
 ```
 
-Деталі PWA scope, перевірок, обмежень і оновлення: `docs/github-pages.md`. Простий push коду в `monolith/baseline` сам собою не запускає перебудову сайту.
+Деталі PWA scope, перевірок, обмежень і оновлення: `docs/github-pages.md`. Push у `monolith/baseline` запускає перевірки й публікацію автоматично; `main` не змінюється.
 
 ## Чого тут ще немає
 
-Ghost Mode, Anti-Recall, історії редагувань Monolith, фільтрів, Watcher, проксі перекладу, власного push-relay, серверної синхронізації та повного брендингу PWA. Оригінальні назви й іконки Telegram усередині upstream-інтерфейсу поки залишено. GitHub Pages тепер надає стабільний HTTPS-хостинг публічної тестової збірки: https://rotor003.github.io/Monolith/. Це ще не фінальний production-реліз; хостинг не додає бекенд чи неперевірені можливості Monolith. Upstream CI збережено в `docs/upstream-ci/` як неактивні шаблони; сторонні інтеграції та секрети не створювалися.
+Ghost Mode, Anti-Recall, історії редагувань Monolith, фільтрів, Watcher, проксі перекладу, власного push-relay, серверної синхронізації та повного брендингу PWA. Оригінальні назви й іконки Telegram усередині upstream-інтерфейсу поки залишено. GitHub Pages тепер надає стабільний HTTPS-хостинг публічної тестової збірки: https://rotor003.github.io/Monolith/. Це ще не фінальний production-реліз; хостинг не додає бекенд чи неперевірені можливості Monolith. Upstream CI збережено в `docs/upstream-ci/` як неактивні шаблони; окремий власний Pages workflow активний. Telegram application secrets введені власником у GitHub, їхні значення не копіюються в source-файли чи чат. Інші backend-інтеграції не створені.
 
-Наступний крок — перевірити базу зі своїми API-реквізитами та на реальному iPhone, після чого додавати налаштування Monolith і невеликі окремо протестовані модулі.
+Наступний крок — перевірити власну API-збірку на реальному Android/Chrome; iPhone/Safari — окремий подальший етап, після чого додавати налаштування Monolith і невеликі окремо протестовані модулі.
 
 ## Ліцензія
 

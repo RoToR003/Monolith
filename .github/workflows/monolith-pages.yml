@@ -1,0 +1,97 @@
+name: Monolith Pages
+run-name: Monolith Android test build · ${{ github.sha }}
+
+on:
+  push:
+    branches:
+      - monolith/baseline
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monolith-github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.repository == 'RoToR003/Monolith' && github.ref == 'refs/heads/monolith/baseline'
+    name: Test and build client
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: Checkout pinned source and public submodules
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 1
+          submodules: true
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.11.1
+
+      - name: Set up pinned pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.16.0
+          run_install: false
+
+      - name: Restore runtime and install frozen dependencies
+        run: bash scripts/monolith.sh setup
+
+      - name: Run selected regression and hosting tests
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: >-
+          bash scripts/monolith.sh test
+          src/tests/formatPhoneNumber.test.ts
+          src/tests/webManifest.test.ts
+          src/tests/monolithCountrySelection.test.ts
+          src/tests/monolithPages.test.ts
+          src/tests/monolithApiConfig.test.ts
+
+      - name: Read Pages configuration
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
+      - name: Validate and build with project API configuration
+        env:
+          VITE_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          VITE_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          MONOLITH_API_CREDENTIAL_SOURCE: repository-secrets
+          MONOLITH_DEPLOYMENT_MODE: workflow
+          MONOLITH_OPTIMIZE: '1'
+          NODE_OPTIONS: --max-old-space-size=4096
+          RAYON_NUM_THREADS: '2'
+        run: |
+          node scripts/monolith-api-config.mjs validate
+          bash scripts/monolith-pages.sh build
+          node scripts/monolith-api-config.mjs verify-bundle .cache/monolith-pages/site
+
+      - name: Upload static client only
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: .cache/monolith-pages/site
+          retention-days: 1
+
+  deploy:
+    name: Publish HTTPS test site
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified artifact
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

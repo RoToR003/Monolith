@@ -1,6 +1,6 @@
 # Monolith
 
-Початкова база PWA-клієнта для iOS/iPadOS на основі **Telegram Web K**.
+Початкова база PWA-клієнта для Android та iOS/iPadOS на основі **Telegram Web K**. Перший реальний тестовий етап — Android/Chrome.
 
 > **Етап 0:** перенесено й запущено справжній Telegram Web K. Ghost Mode, Anti-Recall та інші розширення Monolith поки не реалізовані. Це середовище розробки, не готовий клієнт для щоденного використання.
 
@@ -10,11 +10,11 @@
 
 **[Monolith · публічна тестова версія →](https://rotor003.github.io/Monolith/)**
 
-HTTPS-хостинг: GitHub Pages, окрема гілка `gh-pages`. Репозиторій відкрито з дозволу власника. На екрані входу є посилання на GPLv3 і точний вихідний код збірки, без окремих архівів на сайті. `main` не використовується для публікації й не змінюється.
+HTTPS-хостинг: GitHub Pages через workflow **Monolith Pages**. Стару `gh-pages` збережено як історичний резерв. Репозиторій відкрито з дозволу власника. На екрані входу є посилання на GPLv3 і точний вихідний код збірки, без окремих архівів на сайті. `main` не використовується для публікації й не змінюється.
 
-[Як оновлювати сайт та перевіряти збірку](docs/github-pages.md). Push коду в `monolith/baseline` сам собою не перебудовує сайт: після source commit/push виконайте `bash scripts/monolith-pages.sh deploy`.
+[Як оновлювати сайт та перевіряти збірку](docs/github-pages.md). Push коду в `monolith/baseline` **автоматично запускає** тести, мінімізовану збірку з repository secrets і публікацію. `bash scripts/monolith-pages.sh deploy` просить ручну перезбірку через GitHub CLI.
 
-Це тестова база зі загальнодоступними upstream development API defaults, не фінальний реліз для щоденного користування.
+Публічний workflow підключає власний API-застосунок через `TELEGRAM_API_ID` / `TELEGRAM_API_HASH`; локальні клони без overrides лишаються на upstream development defaults. Це тестова база, не фінальний реліз.
 
 ## Швидкий старт
 
@@ -41,7 +41,9 @@ MONOLITH_PROXY_HTTPS=1 bash scripts/monolith.sh dev
 
 ## Авторизація Telegram
 
-Перед особистим використанням/розгортанням отримайте власні `api_id` / `api_hash` на https://my.telegram.org/apps. Створіть `.env.local` за `.env.monolith.example`, заповніть значення, перебудуйте клієнт.
+Для GitHub Actions власник задає **`TELEGRAM_API_ID`** і **`TELEGRAM_API_HASH`** у Settings → Secrets and variables → Actions. Workflow передає їх у `VITE_API_ID` / `VITE_API_HASH` тільки під час збірки й перевіряє формат та присутність конфігурації в bundle без друку значень. Після зміни секретів потрібен новий запуск.
+
+Для локальної власної збірки отримайте реквізити на https://my.telegram.org/apps і заповніть ігнорований `.env.local` за `.env.monolith.example`. На публічний GitHub вони не комітяться.
 
 - `.env.local`, сесії, ключі, кеші й `node_modules` не входять у Git.
 - У `.env` залишені **опубліковані upstream development-значення**, не особисті реквізити власника цього репозиторію.
@@ -50,12 +52,12 @@ MONOLITH_PROXY_HTTPS=1 bash scripts/monolith.sh dev
 
 ## Перевірки та обмеження
 
-Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **25 вибраних unit-тестів**.
+Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **47 вибраних unit-тестів**.
 
-Повний typecheck не завершено в обмеженому sandbox. Вхід у користувацький акаунт, реальний iPhone/Safari, встановлення PWA, чати після входу, дзвінки й push ще потребують перевірки. За замовчуванням збірка полегшена й без мінімізації.
+Повний typecheck не завершено в обмеженому sandbox. Вхід у користувацький акаунт, реальний iPhone/Safari, встановлення PWA, чати після входу, дзвінки й push ще потребують перевірки. Локальна збірка за замовчуванням полегшена й без мінімізації; Actions вмикає мінімізацію на окремому runner.
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts
 # Для smoke-тесту потрібен встановлений Playwright Chromium із системними бібліотеками:
 MONOLITH_REQUIRE_QR=1 bash scripts/monolith.sh smoke
 ```
