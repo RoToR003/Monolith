@@ -1,0 +1,32 @@
+._HiddenPeerIcon_7jl7z_1 {
+  flex: 0 0 auto;
+  color: var(--chatlist-pinned-color, var(--secondary-text-color));
+}
+
+.chatlist-chat.active ._HiddenPeerIcon_7jl7z_1 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+._AddChatButton_7jl7z_10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: calc(100% - 2rem);
+  margin: 0.75rem 1rem 1rem;
+}
+._AddChatButton_7jl7z_10 .button-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+._LoadError_7jl7z_23 {
+  padding: 2rem 1rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+}
+
+._LoadErrorButton_7jl7z_29 {
+  display: block;
+  margin: 0.75rem auto 0;
+}

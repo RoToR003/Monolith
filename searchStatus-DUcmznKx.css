@@ -1,0 +1,15 @@
+._loading_125tt_1 {
+  position: relative;
+  min-height: 4rem;
+}
+
+._preloader_125tt_6 {
+  width: 2rem;
+  height: 2rem;
+}
+
+._empty_125tt_11 {
+  padding: 0.5rem 1rem 1rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+}

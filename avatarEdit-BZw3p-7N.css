@@ -1,0 +1,30 @@
+._wrap_1kgx1_1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  max-width: 80%;
+  max-height: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+._fill_1kgx1_15 {
+  inset: 0;
+  transform: none;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+._ring_1kgx1_26 {
+  --color: #fff;
+  position: absolute;
+  inset: 0;
+}

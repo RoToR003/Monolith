@@ -1,0 +1,403 @@
+@charset "UTF-8";
+/*
+ * Empty-column tip cards (see `@components/chatTips/index.tsx`), laid out after the macOS client's
+ * widgets — `WidgetView` for the card, `WidgetListView` for the carousel and its nav pills.
+ *
+ * `.mount` is the zero-height hook appended next to `.chats-container`; everything visible hangs
+ * off `.host`, which fills `#column-center` (its positioned ancestor) and centres the stage.
+ */
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._mount_1bofx_6 {
+  display: contents;
+}
+
+._host_1bofx_7 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1;
+}
+
+._hostHidden_1bofx_36 {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+._scrollable_1bofx_41 {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+._toggleButton_1bofx_49 {
+  background-color: var(--message-highlighting-color);
+  color: #fff;
+}
+html.no-touch ._toggleButton_1bofx_49:hover, html.no-touch ._toggleButton_1bofx_49:active {
+  background-color: rgba(var(--message-highlighting-color-rgb), calc(var(--message-highlighting-alpha) + 0.24)) !important;
+}
+._toggleButton_1bofx_49 {
+  position: fixed;
+  top: 1rem;
+  inset-inline-end: 1rem;
+  z-index: 3;
+  display: flex;
+}
+
+._selectChat_1bofx_64 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-standard-in);
+}
+body.animation-level-0 ._selectChat_1bofx_64 {
+  transition: none;
+}
+
+._selectChatShown_1bofx_79 {
+  opacity: 1;
+}
+
+._selectChatPill_1bofx_83 {
+  padding: 0.3125rem 0.75rem;
+  border-radius: 1rem;
+  background-color: var(--message-highlighting-color);
+  color: #fff;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--messages-service-text-size);
+  line-height: calc(var(--messages-service-text-size) + 5px);
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+._placeholder_1bofx_95 {
+  flex: 1;
+  min-height: 1rem;
+  width: 100%;
+}
+
+._carousel_1bofx_101 {
+  width: min(20rem, 100%);
+  margin: 0 auto;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  transform-origin: center;
+  transition: opacity var(--transition-standard-out), transform var(--btn-corner-transition), visibility 0s;
+}
+body.animation-level-0 ._carousel_1bofx_101 {
+  transition: none;
+}
+
+._carouselHidden_1bofx_114 {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.1);
+  transition: opacity var(--transition-standard-out), transform var(--transition-standard-out), visibility 0s var(--transition-standard-out-time);
+}
+body:not(.animation-level-2) ._carouselHidden_1bofx_114 {
+  transform: none;
+}
+
+._stage_1bofx_125 {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+}
+
+._card_1bofx_131 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: var(--main-column-border-radius);
+  background-color: var(--surface-color);
+}
+
+._cardTitle_1bofx_141 {
+  flex: 0 0 auto;
+  text-align: center;
+  text-wrap: balance;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-16);
+}
+
+._buttons_1bofx_150 {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+._button_1bofx_150 {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 1.875rem;
+  padding: 0 0.375rem;
+  border: none;
+  background: none;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  overflow: hidden;
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-13);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-text-color);
+  box-shadow: inset 0 0 0 1px var(--border-color);
+  transition: box-shadow var(--transition-standard-in), color var(--transition-standard-in);
+}
+body.animation-level-0 ._button_1bofx_150 {
+  transition: none;
+}
+._button_1bofx_150._buttonSelected_1bofx_181 {
+  box-shadow: inset 0 0 0 1.66px var(--primary-color);
+  color: var(--primary-color);
+  --ripple-color: var(--light-primary-color);
+}
+:root:where(.a11y) ._button_1bofx_150:focus-visible {
+  outline-offset: var(--focus-ring-width);
+}
+
+._buttonIcon_1bofx_190 {
+  flex: 0 0 auto;
+  font-size: 1rem;
+}
+
+._buttonText_1bofx_195 {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+._content_1bofx_202 {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+._contentTitle_1bofx_210 {
+  flex: 0 0 auto;
+  text-align: center;
+  text-wrap: balance;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  margin-bottom: 0.625rem;
+}
+
+._description_1bofx_220 {
+  flex: 0 0 auto;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-13);
+}
+._description_1bofx_220 a {
+  color: var(--primary-color);
+}
+
+._themes_1bofx_232 {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+._themes_1bofx_232 .themes-container {
+  height: 7.625rem;
+  width: calc(100% + 2rem);
+  margin-inline: -1rem;
+}
+._themes_1bofx_232 .themes-container:before, ._themes_1bofx_232 .themes-container:after {
+  width: 1rem;
+}
+._themes_1bofx_232 .theme-container {
+  width: auto;
+  aspect-ratio: 3/4;
+}
+._themes_1bofx_232 .theme-emoticon {
+  width: 38.89%;
+  height: auto;
+  aspect-ratio: 1;
+  bottom: 8.33%;
+}
+._themes_1bofx_232 .theme-bubble {
+  width: 55.56%;
+  height: 20.83%;
+}
+._themes_1bofx_232 .theme-bubble.is-out {
+  top: 8.33%;
+  inset-inline-end: 8.33%;
+}
+._themes_1bofx_232 .theme-bubble.is-in {
+  top: 33.33%;
+  inset-inline-start: 8.33%;
+}
+
+._peers_1bofx_270 {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: start;
+}
+._peers_1bofx_270.search-group-people .chatlist-chat {
+  width: 100%;
+  max-width: none;
+  height: 5.625rem;
+}
+._peers_1bofx_270.search-group-people .dialog-avatar {
+  top: 0.5rem !important;
+}
+._peers_1bofx_270.search-group-people .dialog-title {
+  padding-bottom: 0.5rem;
+}
+
+._empty_1bofx_289 {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+}
+
+._stickerSets_1bofx_300 {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+
+._stickerSet_1bofx_300 {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.125rem;
+  border: none;
+  background: none;
+  color: inherit;
+  border-radius: 16px;
+  cursor: pointer;
+}
+html.no-touch ._stickerSet_1bofx_300:hover, html.no-touch ._stickerSet_1bofx_300:active {
+  background-color: var(--light-secondary-text-color);
+}
+
+._stickerSetCover_1bofx_325 {
+  position: relative;
+  width: 5.5rem;
+  height: 5.5rem;
+  flex: 0 0 auto;
+}
+
+._stickerSetName_1bofx_332 {
+  max-width: 100%;
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-12);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+._nav_1bofx_344 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+}
+
+._navButton_1bofx_352 {
+  background-color: var(--message-highlighting-color);
+  color: #fff;
+}
+html.no-touch ._navButton_1bofx_352:hover, html.no-touch ._navButton_1bofx_352:active {
+  background-color: rgba(var(--message-highlighting-color-rgb), calc(var(--message-highlighting-alpha) + 0.24)) !important;
+}
+._navButton_1bofx_352 {
+  flex: 0 1 auto;
+  width: auto;
+  height: 2rem;
+  padding: 0 0.875rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
+  text-transform: none;
+  white-space: nowrap;
+}
+._navButton_1bofx_352 .button-icon {
+  flex: 0 0 auto;
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+._slot_1bofx_381 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(calc(var(--tip-slide) * var(--reflect)));
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+body:not(.animation-level-2) ._slot_1bofx_381 {
+  transform: none;
+}
+body.animation-level-0 ._slot_1bofx_381 {
+  transition: none;
+}
+
+._slotActive_1bofx_396 {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  z-index: 1;
+}

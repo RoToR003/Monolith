@@ -1,0 +1,15 @@
+._withRightInteractive_kl5em_1 .dialog-title,
+._withRightInteractive_kl5em_1 .dialog-subtitle {
+  padding-inline-end: calc(var(--community-peer-dialog-action-width, 0px) + 0.5rem);
+}
+
+._rightInteractive_kl5em_6 {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  inset-inline-end: 0.75rem;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}

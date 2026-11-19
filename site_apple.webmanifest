@@ -1,0 +1,29 @@
+{
+  "name": "Monolith",
+  "short_name": "Monolith",
+  "id": "/Monolith/",
+  "start_url": "/Monolith/",
+  "scope": "/Monolith/",
+  "description": "Тестова версія неофіційного клієнта на основі Telegram Web K.",
+  "icons": [
+    {
+      "src": "assets/img/icon_square_192.png?v=jw3mK7G9Ry",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icon_square_384.png?v=jw3mK7G9Ry",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icon_square_512.png?v=jw3mK7G9Ry",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fffffe",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "gcm_sender_id": "122867383838"
+}

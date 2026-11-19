@@ -1,0 +1,80 @@
+/*
+ * https://github.com/morethanwords/tweb
+ * Copyright (C) 2019-2021 Eduard Kuzmenko
+ * https://github.com/morethanwords/tweb/blob/master/LICENSE
+ */
+._lifted_1tunx_6 {
+  z-index: 1;
+  border-radius: 22px !important;
+}
+
+._plate_1tunx_11 {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background-color: var(--surface-color);
+  pointer-events: none;
+  z-index: -1;
+}
+
+._overlay_1tunx_20,
+._gem_1tunx_21 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+._overlay_1tunx_20 {
+  z-index: 1;
+}
+
+._gem_1tunx_21 {
+  visibility: hidden;
+  z-index: 2;
+}
+
+._badge_1tunx_37 {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  z-index: 2;
+  pointer-events: none;
+}
+._badge_1tunx_37 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+._badgeBackground_1tunx_50 {
+  fill: var(--surface-color);
+}
+
+._badgeRing_1tunx_54 {
+  fill: none;
+  stroke: var(--primary-color);
+  stroke-width: 1.3;
+}
+
+._badgeHand_1tunx_60 {
+  fill: var(--primary-color);
+}
+
+._hand_1tunx_64 {
+  transform-origin: 8.5px 8.5px;
+}
+
+._hour_1tunx_68 {
+  animation: _hand-spin_1tunx_1 1.5s linear infinite;
+}
+
+._minute_1tunx_72 {
+  animation: _hand-spin_1tunx_1 18s linear infinite;
+}
+
+@keyframes _hand-spin_1tunx_1 {
+  to {
+    rotate: 360deg;
+  }
+}

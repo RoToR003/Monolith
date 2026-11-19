@@ -1,0 +1,389 @@
+@charset "UTF-8";._popup_zdhzm_1 {
+  --popup-min-width: 26.25rem;
+  --popup-max-width: 26.25rem;
+}
+
+._container_zdhzm_6 {
+  padding: 0;
+  max-height: min(800px, 100%);
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._bodyContent_146q0_16 {
+  padding: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+  --tone-height: 65px;
+  --tone-min-width: 70px;
+  --item-border-radius: 1.25rem;
+  --tone-icon-size: 1.875rem;
+}
+
+._padded_146q0_29 {
+  padding: 0 var(--section-padding-inline);
+}
+
+._scrollable_146q0_33 {
+  --scrollable-padding: 0.25rem;
+  flex: 1;
+  padding: 0rem var(--scrollable-padding);
+}
+._scrollableContent_146q0_38 {
+  padding: 0.5rem calc(var(--section-padding-inline) - var(--scrollable-padding));
+  position: relative;
+}
+
+._tabs_146q0_43 {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 24px;
+  background-color: var(--surface-color);
+}
+
+._tab_146q0_43, ._tone_146q0_51 {
+  color: inherit;
+}
+._tab_146q0_43:focus-visible, ._tone_146q0_51:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
+
+._tab_146q0_43 {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  flex: 1;
+  height: 65px;
+  padding: 0 0.25rem;
+  border-radius: var(--item-border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  --hover-color: var(--light-filled-secondary-text-color);
+}
+html.no-touch ._tab_146q0_43:hover, html.no-touch ._tab_146q0_43:active {
+  transition: 0.2s background-color;
+  background-color: var(--hover-color);
+}
+._tab_146q0_43._active_146q0_79 {
+  color: var(--primary-color);
+  background-color: hsla(from var(--primary-color) h s l/0.12);
+  --hover-color: hsla(from var(--primary-color) h s l / 0.2);
+  --ripple-color: hsla(from var(--primary-color) h s l / 0.1);
+}
+.night ._tab_146q0_43._active_146q0_79 {
+  background-color: hsla(from var(--primary-color) h s l/0.08);
+  --hover-color: hsla(from var(--primary-color) h s l / 0.16);
+  --ripple-color: hsla(from var(--primary-color) h s l / 0.2);
+}
+._tabIcon_146q0_90 {
+  font-size: 1.5rem;
+}
+._tabLabel_146q0_93 {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+}
+
+._tabContent_146q0_98 {
+  background-color: var(--surface-color);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+._tonesRest_146q0_104 {
+  position: relative;
+}
+
+._tonesBorder_146q0_108 {
+  border-top: 1px solid var(--border-color);
+}
+
+._tabContent_146q0_98 {
+  --content-padding-y: 0.5rem;
+  --content-padding-x: 1rem;
+  --original-extra-height: 1.25rem;
+  --original-padding-bottom: 0.75rem;
+  --original-collapsed-height: calc(1lh + var(--original-extra-height));
+  position: relative;
+}
+
+._createResult_146q0_121 {
+  --content-padding-y: 0rem;
+  --content-padding-x: 0.5em;
+}
+
+._promptField_146q0_126 {
+  padding: 0.75rem var(--content-padding-x) 1rem;
+}
+
+._promptInput_146q0_130 .input-field-input {
+  max-height: calc(5lh + 1.625rem);
+  overflow-y: auto;
+}
+
+._exit_146q0_135 {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+._autoHeight_146q0_142 {
+  position: relative;
+}
+
+._tonesList_146q0_146 {
+  display: flex;
+  gap: 0.25rem;
+  --padding: 0.25rem;
+  padding: var(--padding);
+  height: calc(var(--tone-height) + var(--padding) * 2);
+}
+
+._tone_146q0_51 {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 0 var(--tone-width, var(--tone-min-width));
+  height: var(--tone-height);
+  border-radius: var(--item-border-radius);
+  gap: 0.25rem;
+  cursor: pointer;
+  --hover-color: var(--light-filled-secondary-text-color);
+}
+html.no-touch ._tone_146q0_51:hover, html.no-touch ._tone_146q0_51:active {
+  transition: 0.2s background-color;
+  background-color: var(--hover-color);
+}
+._tone_146q0_51._active_146q0_79 {
+  color: var(--primary-color);
+  background-color: hsla(from var(--primary-color) h s l/0.12);
+  --hover-color: hsla(from var(--primary-color) h s l / 0.2);
+  --ripple-color: hsla(from var(--primary-color) h s l / 0.1);
+}
+.night ._tone_146q0_51._active_146q0_79 {
+  background-color: hsla(from var(--primary-color) h s l/0.08);
+  --hover-color: hsla(from var(--primary-color) h s l / 0.16);
+  --ripple-color: hsla(from var(--primary-color) h s l / 0.2);
+}
+._toneName_146q0_183 {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  width: calc(100% - 0.375rem);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+._toneIcon_146q0_192 {
+  --size: var(--tone-icon-size);
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  font-size: var(--size);
+  pointer-events: none;
+}
+._toneContextMenuIcon_146q0_200 {
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  top: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: var(--secondary-text-color);
+}
+._tone_146q0_51._active_146q0_79 ._toneContextMenuIcon_146q0_200 {
+  color: var(--primary-color);
+}
+html.no-touch ._tone_146q0_51:hover ._toneContextMenuIcon_146q0_200, html.no-touch ._tone_146q0_51:active ._toneContextMenuIcon_146q0_200 {
+  opacity: 1;
+}
+._toneSkeleton_146q0_215 {
+  flex: 1 0 var(--tone-width, var(--tone-min-width));
+  height: var(--tone-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+._toneSkeletonIcon_146q0_224 {
+  --size: var(--tone-icon-size);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 12px;
+}
+._toneSkeletonText_146q0_230 {
+  width: calc(var(--tone-min-width) - 2.5rem);
+}
+
+._footerButtons_146q0_234 {
+  padding: 0 var(--section-padding-inline);
+  display: flex;
+  gap: 0.5rem;
+}
+._footerButtons_146q0_234 .c-ripple {
+  border-radius: inherit;
+}
+
+._applyButton_146q0_243 {
+  flex: 1;
+  border-radius: 100px;
+}
+
+._sendButtonWrapper_146q0_248 {
+  position: relative;
+  display: flex;
+}
+._sendButtonWrapper_146q0_248 .btn-send-effect-container {
+  bottom: -0.25rem;
+}
+
+._roundButton_146q0_256 {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._roundButtonIcon_146q0_266 {
+  font-size: 1.5rem;
+}
+
+._alwaysUse_146q0_270 {
+  margin-top: 0.5rem;
+  padding-inline: 0;
+}
+
+._sectionWrapper_146q0_275 {
+  position: relative;
+}
+html.no-touch ._sectionWrapper_146q0_275:hover ._sectionArrow_146q0_278:not(._hidden_146q0_278) {
+  opacity: 1;
+}
+
+._sectionArrow_146q0_278 {
+  position: absolute;
+  top: 50%;
+  font-size: 0.75rem;
+  display: flex;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: opacity 0.2s;
+  border-radius: 4px;
+  opacity: 0;
+}
+._sectionArrowStart_146q0_293 {
+  inset-inline-start: 2px;
+  transform: translateY(-50%) rotate(calc(90deg * var(--reflect)));
+}
+._sectionArrowEnd_146q0_297 {
+  inset-inline-end: 2px;
+  transform: translateY(-50%) rotate(calc(-90deg * var(--reflect)));
+}
+._sectionArrow_146q0_278._hidden_146q0_278 {
+  opacity: 0;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._header_1e3zk_16 {
+  padding-block: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._emoji_1e3zk_23 {
+  --size: 4rem;
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--size);
+  position: relative;
+}
+
+._emojiButton_1e3zk_34 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--surface-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+html.no-touch ._emojiButton_1e3zk_34:hover, html.no-touch ._emojiButton_1e3zk_34:active {
+  transition: 0.2s background-color;
+  background-color: var(--light-secondary-text-color);
+}
+
+._inputFieldScrollable_1e3zk_48 {
+  max-height: 200px;
+  margin: 6px 0;
+}
+
+._checkboxContainer_1e3zk_53 {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  --padding: 6px;
+  padding-block: var(--padding);
+  padding-inline: var(--padding) 12px;
+  color: var(--secondary-text-color);
+  gap: var(--padding);
+  cursor: pointer;
+  border-radius: 24px;
+}
+html.no-touch ._checkboxContainer_1e3zk_53:hover, html.no-touch ._checkboxContainer_1e3zk_53:active {
+  transition: 0.2s background-color;
+  background-color: var(--light-secondary-text-color);
+}
+._checkboxContainer_1e3zk_53 * {
+  pointer-events: none;
+}
+
+._checkboxText_1e3zk_76 {
+  text-align: start;
+  max-width: 240px;
+}

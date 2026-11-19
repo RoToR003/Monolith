@@ -1,0 +1,16 @@
+{
+  "project": "Monolith",
+  "stage": "Telegram Web K baseline — public test",
+  "sourceCommit": "f39177904820e425187da9f092a3ac8fc5deb35e",
+  "sourceUrl": "https://github.com/RoToR003/Monolith/tree/f39177904820e425187da9f092a3ac8fc5deb35e",
+  "repository": "https://github.com/RoToR003/Monolith",
+  "sourceBranch": "monolith/baseline",
+  "deploymentBranch": "gh-pages",
+  "siteUrl": "https://rotor003.github.io/Monolith/",
+  "basePath": "/Monolith/",
+  "license": "GPL-3.0-only",
+  "upstreamCommit": "2e4bbb52b6aec5e95ee32e5c2882c1f05de32200",
+  "credentials": "Public upstream development API defaults; no personal session included.",
+  "authenticatedTestingCompleted": false,
+  "actualIosDeviceTested": false
+}

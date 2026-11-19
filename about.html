@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="uk"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Monolith — код, ліцензія та статус</title>
+<style>
+:root{color-scheme:light dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#101318;color:#ecf1f7}
+*{box-sizing:border-box}body{margin:0;padding:40px 20px 64px}main{max-width:720px;margin:auto}a{color:#93c8ff;text-underline-offset:3px}h1{font-size:40px;letter-spacing:-1.5px;margin:30px 0 10px}h2{font-size:19px;margin:30px 0 10px}p,li{line-height:1.7;color:#c1cbd9}small{color:#9cacc1}.tag{display:inline-block;border:1px solid #415471;border-radius:30px;padding:5px 12px;font-size:12px;letter-spacing:.08em;color:#b7d7ff}.panel{border:1px solid #2c3748;background:#181f29;border-radius:16px;padding:18px 22px;margin:24px 0}.button{display:inline-block;padding:12px 17px;border-radius:9px;background:#93c8ff;color:#101318;text-decoration:none;font-weight:650}code{overflow-wrap:anywhere;color:#e3edff}pre{overflow-x:auto;background:#0c1016;padding:16px;border-radius:10px;font-size:12px;line-height:1.8}hr{border:0;border-top:1px solid #2c3748;margin:32px 0}
+</style></head><body><main>
+<a href="/Monolith/">← Повернутися до клієнта</a><h1>Monolith</h1><span class="tag">ПУБЛІЧНА ТЕСТОВА ВЕРСІЯ · ЕТАП 0</span>
+<p>Неофіційний клієнт на основі Telegram Web K. Це початкова база для подальшої розробки, а не завершений реліз Monolith чи офіційний продукт Telegram.</p>
+<div class="panel"><strong>Код саме цієї збірки</strong><p><a href="https://github.com/RoToR003/Monolith/tree/f39177904820e425187da9f092a3ac8fc5deb35e" target="_blank" rel="noopener noreferrer">Переглянути вихідний код на GitHub</a><br><small>Commit: <code>f39177904820e425187da9f092a3ac8fc5deb35e</code></small></p><a href="/Monolith/LICENSE.txt">Повний текст GPLv3</a> · <a href="https://github.com/RoToR003/Monolith/tree/f39177904820e425187da9f092a3ac8fc5deb35e/MONOLITH.md" target="_blank" rel="noopener noreferrer">Зміни та документація збірки</a></div>
+<h2>Ліцензія й авторство</h2>
+<p>База — <a href="https://github.com/morethanwords/tweb/tree/2e4bbb52b6aec5e95ee32e5c2882c1f05de32200" target="_blank" rel="noopener noreferrer">Telegram Web K</a>, автор Eduard Kuzmenko та співавтори. Збережено GPL-3.0-only й авторські повідомлення upstream. Окремі компоненти мають власні ліцензії, наведені у відповідних каталогах вихідного коду.</p>
+<p>Локальні зміни Monolith та скрипти збірки доступні за посиланням вище. Вихідний код можна переглядати й клонувати без оплати; окремі архіви на цьому сайті не розміщуються. Програма поширюється БЕЗ БУДЬ-ЯКОЇ ГАРАНТІЇ, у межах, дозволених законом.</p>
+<pre>git clone --branch monolith/baseline https://github.com/RoToR003/Monolith.git
+cd Monolith
+git checkout f39177904820e425187da9f092a3ac8fc5deb35e
+bash scripts/monolith.sh setup
+bash scripts/monolith-pages.sh build</pre>
+<h2>Перед входом</h2><ul>
+<li>GitHub Pages роздає статичні файли. Клієнт з’єднується з Telegram із вашого браузера; окремого сервера Monolith для сесій немає.</li>
+<li>Ця тестова збірка використовує опубліковані upstream development API-реквізити. Перед власним повноцінним розгортанням зареєструйте застосунок на my.telegram.org/apps.</li>
+<li>Авторизація користувача, чати після входу, дзвінки, push, реальний iPhone/Safari та встановлення PWA ще не пройшли повну перевірку. Ghost Mode, Anti-Recall та інші розширення Monolith не реалізовані.</li>
+<li>Не передавайте нікому коди входу, 2FA-пароль чи файли сесії. Шляхи одного домену GitHub Pages не є ізольованими сховищами; не розміщуйте сторонній неперевірений код на цьому ж origin.</li>
+</ul><hr><a class="button" href="/Monolith/">Відкрити тестовий клієнт</a>
+</main></body></html>

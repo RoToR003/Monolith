@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/*
+ * https://github.com/morethanwords/tweb
+ * Copyright (C) 2019-2021 Eduard Kuzmenko
+ * https://github.com/morethanwords/tweb/blob/master/LICENSE
+ */
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._grid_1676x_21 {
+  padding-inline: 1.5rem;
+}
+
+._item_1676x_25 {
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  min-width: 0;
+}
+._item_1676x_25::before {
+  border-radius: inherit;
+}
+html.no-touch ._item_1676x_25:hover::before, html.no-touch ._item_1676x_25:active::before {
+  opacity: 0.5;
+}
+._item_1676x_25:active::before {
+  opacity: 0.5;
+}
+body.animation-level-1 ._item_1676x_25::before {
+  transition: opacity 0.2s ease-in-out;
+}
+
+._image_1676x_45 {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background-color: var(--background-color);
+}
+._image_1676x_45 img,
+._image_1676x_45 canvas {
+  width: 100% !important;
+  height: 100% !important;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+._text_1676x_59 {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+._placeholder_1676x_66 {
+  font-size: 2rem;
+  color: var(--secondary-text-color);
+}
+
+._name_1676x_71 {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+._kind_1676x_81 {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--secondary-text-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+._number_1676x_94 {
+  color: var(--secondary-text-color);
+}

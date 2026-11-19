@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Overlay_1l0ge_16 {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 5;
+}
+
+._Value_1l0ge_25 {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+._SelectClip_1l0ge_32 {
+  position: absolute;
+  left: calc(var(--x) * 1px);
+  top: calc(var(--y) * 1px);
+  transform: translateX(-50%);
+  padding: 2rem;
+}
+._Select_1l0ge_32 {
+  overflow: hidden;
+  min-width: 114px;
+  border-radius: 8px;
+  padding: 0.25rem 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-color);
+  box-shadow: var(--menu-box-shadow);
+}
+
+._Option_1l0ge_50 {
+  position: relative;
+  height: 40px;
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.75rem;
+  color: var(--primary-text-color);
+  cursor: pointer;
+}
+._Option_1l0ge_50._selected_1l0ge_63 {
+  color: var(--primary-color);
+}
+html.no-touch ._Option_1l0ge_50:hover, html.no-touch ._Option_1l0ge_50:active {
+  background-color: var(--light-filled-secondary-text-color);
+}

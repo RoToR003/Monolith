@@ -1,0 +1,728 @@
+@charset "UTF-8";.amount-cell {
+  display: inline-block;
+  position: relative;
+  overflow: visible;
+  text-align: center;
+}
+.amount-cell > span {
+  display: inline-block;
+  transform-origin: 50% 85%;
+}
+.amount-cell.fraction {
+  font-size: 32px;
+}
+.amount-cell .ghost {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  transform-origin: 50% 85%;
+}
+
+.roll-cell {
+  display: inline-block;
+  position: relative;
+  white-space: pre;
+  text-align: center;
+}
+
+.roll-strut {
+  visibility: hidden;
+}
+
+.roll-glyph {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  white-space: pre;
+  will-change: transform, opacity;
+}
+/*
+ * https://github.com/morethanwords/tweb
+ * Copyright (C) 2019-2021 Eduard Kuzmenko
+ * https://github.com/morethanwords/tweb/blob/master/LICENSE
+ */
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._root_xtiqf_21 {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+._body_xtiqf_29 {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding: 0 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+._clickable_xtiqf_41 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+._chip_xtiqf_52 {
+  position: relative;
+  flex: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-inline-start: 0.875rem;
+  background-color: var(--background-color);
+  border-radius: 6.25rem;
+  overflow: hidden;
+  transform-origin: 50% 50%;
+}
+._chip_xtiqf_52.assembling ._chipAvatar_xtiqf_64 > *,
+._chip_xtiqf_52.assembling ._chipLabel_xtiqf_65,
+._chip_xtiqf_52.assembling ._chipAddress_xtiqf_66 {
+  visibility: hidden;
+}
+
+._chipAvatar_xtiqf_64 {
+  width: 2.875rem;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+._chipAvatar_xtiqf_64 > * {
+  margin-inline-start: 2px;
+}
+
+._chipBadge_xtiqf_81 {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: #fff;
+  background: linear-gradient(#ffcd6a, #ffa85c);
+}
+
+._chipBody_xtiqf_92 {
+  flex: 1;
+  min-width: 0;
+  padding: 0.25rem 0 0.375rem;
+  container-type: inline-size;
+}
+
+._chipLabel_xtiqf_65 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.375rem;
+  height: 1.375rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+._chipName_xtiqf_108 {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.31px;
+  color: var(--primary-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+._chipNick_xtiqf_118 {
+  font-size: 0.875rem;
+  line-height: 1.1875rem;
+  letter-spacing: -0.15px;
+  color: var(--secondary-text-color);
+}
+
+._chipAddress_xtiqf_66 {
+  font-family: var(--font-monospace);
+  font-weight: 300;
+  font-size: min(12px, 4.75cqi);
+  line-height: 18px;
+  color: var(--secondary-text-color);
+  white-space: pre;
+}
+._chipAddress_xtiqf_66 b {
+  font-weight: 300;
+  color: var(--primary-text-color);
+}
+._chipAddress_xtiqf_66._clickable_xtiqf_41 {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: start;
+}
+
+._chipHelp_xtiqf_143 {
+  flex: none;
+  padding-block: 0.9375rem;
+  padding-inline: 0.75rem 1rem;
+  color: var(--primary-color);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+
+._chipMatrix_xtiqf_154 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+._amountBlock_xtiqf_161 {
+  flex: 1 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+._amountLine_xtiqf_171 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-inline-end: 6px;
+  height: 56px;
+  cursor: text;
+  transform-origin: 50% 50%;
+  white-space: nowrap;
+}
+
+._amountSymbol_xtiqf_182 {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: none;
+}
+
+._amountGemSlot_xtiqf_189 {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+._amountGemIcon_xtiqf_196 {
+  font-size: 2.25rem;
+  color: #37a1de;
+}
+
+._amountFiatSymbol_xtiqf_201 {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--wallet-usd);
+  opacity: 0;
+}
+._amountFiatSymbol_xtiqf_201._small_xtiqf_211 {
+  font-size: 24px;
+}
+
+._amountValue_xtiqf_215 {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  height: 56px;
+  min-width: 0;
+}
+
+._amountDigits_xtiqf_223 {
+  display: flex;
+  align-items: baseline;
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 600;
+  letter-spacing: 0.384px;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  color: var(--primary-text-color);
+}
+
+._amountCaret_xtiqf_234 {
+  position: relative;
+  flex: none;
+  height: 52px;
+  margin-block-start: 2px;
+  margin-inline-start: 4px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--wallet-code);
+  animation: _caret_xtiqf_1 1.05s steps(1) infinite;
+}
+body.animation-level-1 ._amountCaret_xtiqf_234 {
+  transition: background 0.46s;
+}
+._amountCaret_xtiqf_234 {
+  visibility: hidden;
+}
+._amountLine_xtiqf_171:focus-within ._amountCaret_xtiqf_234 {
+  visibility: visible;
+}
+._amountCaret_xtiqf_234._typing_xtiqf_254 {
+  animation: none;
+}
+._amountCaret_xtiqf_234._fiat_xtiqf_257 {
+  background: var(--wallet-usd);
+}
+._amountCaret_xtiqf_234._opening_xtiqf_260 {
+  animation: none;
+}
+
+@keyframes _caret_xtiqf_1 {
+  0%, 55% {
+    opacity: 1;
+  }
+  56%, 100% {
+    opacity: 0;
+  }
+}
+._amountCode_xtiqf_272 {
+  padding-inline-start: 4px;
+  margin-block-start: 8px;
+  margin-inline-start: 0.5px;
+  font-size: 32px;
+  line-height: 52px;
+  font-weight: 600;
+  letter-spacing: 0.39px;
+  color: var(--wallet-code);
+  display: inline-block;
+}
+.is-rtl ._amountCode_xtiqf_272 {
+  order: -1;
+  padding-inline: 0 4px;
+  margin-inline: 0 0.5px;
+}
+
+._amountInput_xtiqf_289 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  border: 0;
+  padding: 0;
+  font-size: 16px;
+  caret-color: transparent;
+  color: transparent;
+  background: transparent;
+  cursor: text;
+}
+
+._probeGram_xtiqf_303 {
+  color: var(--wallet-code);
+}
+
+._probeFiat_xtiqf_307 {
+  color: var(--wallet-usd);
+}
+
+._probeMuted_xtiqf_311 {
+  color: var(--secondary-text-color);
+}
+
+._probe_xtiqf_303 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+._pill_xtiqf_323 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 26px;
+  margin-top: 0.5rem;
+  padding-block: 4px;
+  padding-inline: 8px 6px;
+  border-radius: 6.25rem;
+  background-color: var(--light-secondary-text-color);
+  color: var(--secondary-text-color);
+  transform-origin: 50% 50%;
+  overflow: hidden;
+}
+body.animation-level-1 ._pill_xtiqf_323 {
+  transition: background-color 0.15s, opacity 0.2s ease-in-out;
+}
+body.animation-level-2 ._pill_xtiqf_323 {
+  transition: background-color 0.15s, opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+._pill_xtiqf_323._pillHidden_xtiqf_343 {
+  opacity: 0;
+  pointer-events: none;
+}
+body.animation-level-2 ._pill_xtiqf_323._pillHidden_xtiqf_343 {
+  transform: scale(0.01);
+}
+@media (hover: hover) {
+  ._pill_xtiqf_323:hover {
+    background-color: var(--light-filled-secondary-text-color);
+  }
+}
+
+._pillGem_xtiqf_356 {
+  flex: none;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  font-size: 15px;
+  color: var(--wallet-code);
+}
+._pillGem_xtiqf_356._shown_xtiqf_364 {
+  width: 16px;
+  opacity: 1;
+}
+body.animation-level-1 ._pillGem_xtiqf_356 {
+  transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+._pillText_xtiqf_372 {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.52px;
+  white-space: nowrap;
+}
+
+._swapArrows_xtiqf_380 {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  opacity: 0.72;
+}
+._swapArrows_xtiqf_380 svg {
+  position: absolute;
+  inset: 0;
+  width: 18px;
+  height: 18px;
+}
+._swapArrows_xtiqf_380 svg:first-child {
+  clip-path: inset(0 50% 0 0);
+}
+._swapArrows_xtiqf_380 svg:last-child {
+  clip-path: inset(0 0 0 50%);
+}
+
+._collapse_xtiqf_400 {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+._collapse_xtiqf_400._open_xtiqf_260 {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+body.animation-level-1 ._collapse_xtiqf_400 {
+  transition: grid-template-rows 0.15s ease-in-out, opacity 0.15s ease-in-out;
+}
+body.animation-level-2 ._collapse_xtiqf_400 {
+  transition-duration: 0.22s;
+}
+
+._collapseInner_xtiqf_417 {
+  min-height: 0;
+  overflow: hidden;
+}
+
+._status_xtiqf_422 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  -moz-column-gap: 0.25rem;
+       column-gap: 0.25rem;
+  padding-top: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  text-align: center;
+}
+
+._insufficient_xtiqf_433 {
+  color: var(--danger-color);
+}
+
+._deposit_xtiqf_437 {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+@media (hover: hover) {
+  ._deposit_xtiqf_437:hover {
+    text-decoration: underline;
+  }
+}
+
+._depositArrow_xtiqf_455 {
+  font-size: 1rem;
+}
+
+._summary_xtiqf_459 {
+  flex: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.75rem;
+}
+
+._balanceSlot_xtiqf_468 {
+  display: grid;
+  width: 100%;
+}
+._balanceSlot_xtiqf_468 > * {
+  grid-area: 1/1;
+}
+
+._summaryLine_xtiqf_476 {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+}
+body.animation-level-1 ._summaryLine_xtiqf_476 {
+  transition: opacity 0.15s ease-in-out;
+}
+body.animation-level-2 ._summaryLine_xtiqf_476 {
+  transition-duration: 0.22s;
+}
+
+._faded_xtiqf_489 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+._depositSlot_xtiqf_494 {
+  display: flex;
+  justify-content: center;
+}
+
+._feePlaceholder_xtiqf_499 {
+  --opacity: .3;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 99px;
+  height: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--background-color);
+}
+._collapse_xtiqf_400:not(._open_xtiqf_260) ._feePlaceholder_xtiqf_499::before {
+  animation: none;
+}
+
+._comment_xtiqf_514 {
+  flex: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+._recipientLink_xtiqf_522 {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+._addressCard_xtiqf_527 {
+  display: block;
+  width: 100%;
+  margin: 1rem 0 0;
+  padding: 1rem 1rem 0.8125rem;
+  border: 0;
+  border-radius: 0.875rem;
+  background-color: var(--light-secondary-text-color);
+  color: var(--primary-text-color);
+  font-family: var(--font-monospace);
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  text-align: center;
+  white-space: pre;
+  cursor: pointer;
+}
+
+._addressMuted_xtiqf_544 {
+  opacity: 0.32;
+}
+
+._commentPrivacy_xtiqf_548 {
+  margin: 0 -0.5rem;
+}
+
+._commentCaption_xtiqf_552 {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--secondary-text-color);
+}
+
+._continue_xtiqf_559 {
+  --disabled-opacity: .7;
+  position: relative;
+  overflow: hidden;
+}
+
+._continueLabel_xtiqf_565 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  vertical-align: middle;
+  line-height: 1.25rem;
+}
+body.animation-level-1 ._continueLabel_xtiqf_565 {
+  transition: opacity 0.3s, filter 0.3s;
+}
+body.animation-level-2 ._continueLabel_xtiqf_565 {
+  transition: opacity 0.3s, transform 0.3s, filter 0.3s;
+}
+
+._sendTitle_xtiqf_580 {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+._sendSubtitle_xtiqf_587 {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  text-transform: none;
+}
+._sendSubtitle_xtiqf_587 > span {
+  min-height: 0;
+  overflow: hidden;
+}
+._sendSubtitle_xtiqf_587._open_xtiqf_260 {
+  grid-template-rows: 1fr;
+  opacity: 0.7;
+}
+body.animation-level-1 ._sendSubtitle_xtiqf_587 {
+  transition: grid-template-rows 0.22s ease-in-out, opacity 0.22s ease-in-out;
+}
+
+._spinner_xtiqf_608 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: currentColor;
+  border-right-color: currentColor;
+  opacity: 0;
+}
+body.animation-level-1 ._spinner_xtiqf_608 {
+  transition: opacity 0.35s 0.12s;
+}
+body.animation-level-2 ._spinner_xtiqf_608 {
+  transition: opacity 0.35s 0.12s, transform 0.35s 0.12s;
+}
+body.animation-level-2 ._continue_xtiqf_559:not(._busy_xtiqf_627) ._spinner_xtiqf_608 {
+  transform: scale(0.7);
+}
+
+._busy_xtiqf_627 ._continueLabel_xtiqf_565 {
+  opacity: 0;
+  filter: blur(3px);
+}
+body.animation-level-2 ._busy_xtiqf_627 ._continueLabel_xtiqf_565 {
+  transform: scale(0.92);
+}
+._busy_xtiqf_627 ._spinner_xtiqf_608 {
+  opacity: 1;
+  animation: _spin_xtiqf_608 0.9s linear infinite;
+}
+
+@keyframes _spin_xtiqf_608 {
+  to {
+    rotate: 360deg;
+  }
+}
+._leaving_xtiqf_648 {
+  opacity: 0;
+}
+body.animation-level-1 ._leaving_xtiqf_648 {
+  transition: opacity 0.3s;
+}
+body.animation-level-2 ._leaving_xtiqf_648 {
+  transition: opacity 0.3s, transform 0.3s;
+}
+body.animation-level-2 ._leaving_xtiqf_648 {
+  transform: scale(0.92);
+}
+
+._gemLayer_xtiqf_661 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+._gem_xtiqf_661,
+._glow_xtiqf_670,
+._ring_xtiqf_671 {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+._glow_xtiqf_670 {
+  border-radius: 50%;
+  background: #6bb8ff;
+  filter: blur(12px);
+  opacity: 0;
+}
+
+._ring_xtiqf_671 {
+  border-radius: 50%;
+  border: 2px solid rgba(0, 136, 255, 0.32);
+  opacity: 0;
+}

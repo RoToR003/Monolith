@@ -1,0 +1,31 @@
+@charset "UTF-8";
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._inlineRippleLink_1nv8a_16 {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  padding: 0 4px;
+  border-radius: 8px;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+html.no-touch ._inlineRippleLink_1nv8a_16:hover, html.no-touch ._inlineRippleLink_1nv8a_16:active {
+  transition: 0.2s background-color;
+  background-color: var(--light-primary-color);
+}
+._inlineRippleLink_1nv8a_16 {
+  --ripple-color: hsla(from var(--primary-color) h s l / 0.1);
+}

@@ -1,0 +1,4496 @@
+@charset "UTF-8";._logo_1et7f_1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}.skeleton {
+  height: 1em;
+  min-height: 10px;
+  margin: 2px 0;
+  border-radius: 4px;
+}
+
+.skeleton-base {
+  background: var(--light-primary-color);
+  display: block;
+  position: relative;
+  overflow: hidden;
+  --gradient-color: rgba(255, 255, 255, 0.5);
+}
+.skeleton-base--secondary {
+  background: var(--light-secondary-text-color);
+  --gradient-color: rgba(0, 0, 0, 0.05);
+}
+.night .skeleton-base--secondary {
+  --gradient-color: rgba(255, 255, 255, 0.12);
+}
+.skeleton-base:before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--gradient-color) 50%, transparent 100%);
+  animation: skeleton-animation 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+body:not(.animation-level-2) .skeleton-base:before {
+  animation: none;
+  display: none;
+}
+
+@keyframes skeleton-animation {
+  0% {
+    transform: translateX(calc(-125% * var(--reflect))) skewX(calc(-45deg * var(--reflect)));
+  }
+  40%, 100% {
+    transform: translateX(calc(125% * var(--reflect))) skewX(calc(-45deg * var(--reflect)));
+  }
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._List_1v8cu_16 {
+  display: flex;
+  flex-direction: row;
+}
+._List_1v8cu_16._space-evenly_1v8cu_20 {
+  justify-content: space-evenly;
+}
+._List_1v8cu_16._space-evenly_1v8cu_20:before, ._List_1v8cu_16._space-evenly_1v8cu_20:after {
+  display: none;
+}
+._List_1v8cu_16:before, ._List_1v8cu_16:after {
+  content: " ";
+  width: 0.375rem;
+  flex: 0 0 auto;
+}
+._ListItem_1v8cu_31 {
+  --background-color: var(--surface-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 82px;
+  width: 74px;
+  padding: 0.3125rem 0.625rem;
+  cursor: pointer;
+  border-radius: 12px;
+  transform: translateX(0) scale(1);
+}
+body.animation-level-2 ._ListItem_1v8cu_31 {
+  transition: transform var(--transition-standard-in);
+}
+._ListItemName_1v8cu_46 {
+  font-size: var(--font-size-12);
+  line-height: 14px;
+  text-align: center;
+  opacity: calc(1 - var(--progress) * 1.25);
+}
+body.animation-level-1 ._ListItemName_1v8cu_46 {
+  transition: opacity var(--transition-standard-in);
+}
+._ListItemName_1v8cu_46 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+._ListItem_1v8cu_31._isRead_1v8cu_60 ._ListItemName_1v8cu_46 {
+  color: var(--secondary-text-color);
+}
+._ListItem_1v8cu_31._isMasked_1v8cu_63 .avatar-stories-simple {
+  -webkit-mask-image: linear-gradient(calc(90deg * var(--reflect)), #fff 73%, transparent 0);
+          mask-image: linear-gradient(calc(90deg * var(--reflect)), #fff 73%, transparent 0);
+  -webkit-mask-composite: xor;
+          mask-composite: xor;
+}
+._ListItem_1v8cu_31.menu-open {
+  --background-color: var(--light-filled-secondary-text-color);
+  background-color: var(--background-color);
+}
+._ListItem_1v8cu_31 .avatar-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--background-color);
+  border-radius: 50%;
+}
+._ListItem_1v8cu_31 .avatar-stories-svg {
+  opacity: calc(1 - var(--progress));
+}
+._ListItem_1v8cu_31 .avatar-stories-simple {
+  opacity: var(--progress);
+}
+body.animation-level-1 ._ListItem_1v8cu_31 .avatar-stories-svg, body.animation-level-1 ._ListItem_1v8cu_31 .avatar-stories-simple {
+  transition: opacity var(--transition-standard-in);
+}
+._ListItem_1v8cu_31 .avatar-stories-svg {
+  z-index: 1;
+}
+._ListContainer_1v8cu_92 {
+  --progress: 0;
+  position: relative;
+  pointer-events: all;
+  width: 100%;
+  height: 92px;
+  transform: translateY(0);
+}
+._ListContainer_1v8cu_92._skipAnimation_1v8cu_100 ._ListItem_1v8cu_31 {
+  transition: none !important;
+}
+body.animation-level-2 ._ListContainer_1v8cu_92 {
+  transition: transform var(--transition-standard-in);
+}
+html.no-touch ._ListContainer_1v8cu_92:not(.disable-hover) ._ListItem_1v8cu_31:hover, html.no-touch ._ListContainer_1v8cu_92:not(.disable-hover) ._ListItem_1v8cu_31:active {
+  --background-color: var(--light-filled-secondary-text-color);
+  background-color: var(--background-color);
+}
+._ListContainer_1v8cu_92 .scrollable-x {
+  position: relative;
+  padding: 5px 0;
+}
+
+.stories-list {
+  z-index: 1;
+  pointer-events: none;
+  position: relative;
+  height: 0;
+  opacity: 1;
+  visibility: visible;
+}
+.is-search-active .stories-list {
+  opacity: 0;
+  visibility: hidden;
+}
+body.animation-level-1 .is-search-active .stories-list {
+  transition-delay: 0s, 0.15s;
+}
+body.animation-level-1 .stories-list {
+  transition: opacity 0.15s ease, visibility 0s;
+}._Media_ddnlm_1._hasStories_ddnlm_1 {
+  pointer-events: all;
+}
+
+._MediaContent_ddnlm_5 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#5CAFFA, #408ACF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+._MediaIcon_ddnlm_16 {
+  font-size: 28px;
+}
+
+._Title_ddnlm_20 {
+  font-weight: var(--font-weight-bold);
+}
+
+._Subtitle_ddnlm_24 {
+  color: var(--secondary-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+._unreadPeerTitle_ddnlm_31 {
+  color: hsl(from var(--secondary-text-color) h s calc(l - 5));
+  font-weight: var(--font-weight-bold);
+}
+.night ._unreadPeerTitle_ddnlm_31 {
+  color: var(--primary-text-color);
+}
+
+._UnreadBadge_ddnlm_39 {
+  flex-shrink: 0;
+  margin-inline-start: 0.5rem;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._popup_1mav8_16 {
+  --popup-transition-time: .2s;
+  --popup-width: 23.5rem;
+  --popup-height: min(47rem, calc(100vh - 2rem));
+  --popup-max-height: 100%;
+  --popup-border-radius: 1.5rem;
+  --popup-background-color: #000;
+}
+._popup_1mav8_16._fullscreen_1mav8_24 {
+  --popup-width: 100%;
+  --popup-height: 100%;
+  --popup-max-width: 100%;
+  --popup-border-radius: 0;
+  padding: 0;
+}
+
+._popupContainer_1mav8_32 {
+  box-shadow: var(--menu-box-shadow);
+}
+._popup_1mav8_16 ._popupContainer_1mav8_32 {
+  transform: none;
+}
+
+._surface_1mav8_39 {
+  --qr-foreground: #fff;
+  --qr-control: rgba(255, 255, 255, .16);
+  --qr-control-active: rgba(255, 255, 255, .3);
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  color: var(--qr-foreground);
+  background-color: #000;
+  isolation: isolate;
+  touch-action: none;
+}
+
+._layer_1mav8_52 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+body.animation-level-1 ._layer_1mav8_52 {
+  transition-property: opacity;
+  transition-duration: 0.3s;
+}
+body.animation-level-1:not(.animation-level-2) ._layer_1mav8_52 {
+  transition-duration: 0.18s;
+}
+
+._layerShown_1mav8_65 {
+  opacity: 1;
+}
+
+._backdrop_1mav8_69 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+._waveRing_1mav8_76 {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, transparent calc(100% - 98px), color-mix(in srgb, var(--wave-color) 20%, transparent) calc(100% - 52px), color-mix(in srgb, var(--wave-color) 60%, transparent) calc(100% - 22px), var(--wave-color) calc(100% - 8px), color-mix(in srgb, var(--wave-color) 40%, transparent) calc(100% - 5px), transparent);
+  will-change: transform, opacity;
+}
+
+._field_1mav8_84 {
+  --field-fade: 48px;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--field-fade), #000 calc(100% - var(--field-fade)), transparent), linear-gradient(to bottom, transparent, #000 var(--field-fade), #000 calc(100% - var(--field-fade)), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 var(--field-fade), #000 calc(100% - var(--field-fade)), transparent), linear-gradient(to bottom, transparent, #000 var(--field-fade), #000 calc(100% - var(--field-fade)), transparent);
+  -webkit-mask-composite: source-in, xor;
+          mask-composite: intersect;
+}
+
+._fieldMover_1mav8_93 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+._cardPlace_1mav8_102 {
+  position: absolute;
+  top: 0;
+  direction: ltr;
+  transform-origin: 50% 0;
+}
+
+body.animation-level-2 ._cardPlaceMoving_1mav8_109 {
+  transition: transform var(--transition-standard-in);
+}
+
+._card_1mav8_102 {
+  position: relative;
+  background-color: #fff;
+  color: var(--ink);
+  contain: layout style;
+}
+
+._qr_1mav8_120 {
+  position: absolute;
+}
+
+._qrCanvas_1mav8_124 {
+  width: 100%;
+  height: 100%;
+}
+
+._caption_1mav8_129 {
+  position: absolute;
+  inset-inline: 0;
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  unicode-bidi: isolate;
+}
+
+._captionLine_1mav8_138 {
+  overflow: hidden;
+}
+
+._close_1mav8_142,
+._control_1mav8_143 {
+  background-color: var(--qr-control);
+  color: var(--qr-foreground);
+  font-size: 1.375rem;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%, transparent 62%, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -1px 1px rgba(255, 255, 255, 0.12), 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+._close_1mav8_142:hover,
+._control_1mav8_143:hover {
+  background-color: var(--qr-control);
+}
+
+._close_1mav8_142 {
+  position: absolute;
+  inset-block-start: 0.5625rem;
+  inset-inline-start: 0.5625rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  border-radius: 50%;
+}
+
+._copy_1mav8_166 {
+  position: absolute;
+  inset-block-start: 0.5625rem;
+  inset-inline-end: 0.5625rem;
+}
+
+._bar_1mav8_172 {
+  position: absolute;
+  inset-block-end: 1.25rem;
+  inset-inline: 1.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+._barGroup_1mav8_182 {
+  display: contents;
+}
+
+._control_1mav8_143 {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  pointer-events: auto;
+}
+body.animation-level-1 ._control_1mav8_143 {
+  transition: opacity 0.2s ease, scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+}
+
+._control_1mav8_143.is-settings-highlighted {
+  animation: _control-flash_1mav8_1 1.6s ease-in-out;
+}
+
+@keyframes _control-flash_1mav8_1 {
+  0%, 100% {
+    background-color: var(--qr-control);
+  }
+  15%, 70% {
+    background-color: var(--qr-control-active);
+  }
+}
+._controlAway_1mav8_208 {
+  opacity: 0;
+  scale: 0.6;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+._island_1mav8_215 {
+  position: absolute;
+  inset-block-end: 1.25rem;
+  inset-inline: 0;
+  margin-inline: auto;
+  width: 9rem;
+  display: flex;
+  align-items: center;
+  border-radius: 1.25rem;
+  background-color: var(--qr-control);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%, transparent 62%, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -1px 1px rgba(255, 255, 255, 0.12), 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+._island_1mav8_215 ._control_1mav8_143 {
+  width: 3rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  background: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+._island_1mav8_215 ._control_1mav8_143:hover {
+  background: none;
+}
+
+._islandAway_1mav8_241 {
+  visibility: hidden;
+}
+body.animation-level-2 ._islandAway_1mav8_241 {
+  transition: visibility 0s 0.09s;
+}
+
+._chosenStrip_1mav8_248 {
+  position: absolute;
+  inset-block-end: 1.1667rem;
+  inset-inline: 0;
+  z-index: 5;
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 3.125rem;
+  height: 2.75rem;
+  margin-inline: auto;
+  padding-inline: 0.5rem;
+  border-radius: 1.375rem;
+  background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), linear-gradient(var(--qr-control), var(--qr-control)), var(--qr-mid);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+._chosenEmoji_1mav8_264 {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+._chosenEmojiArt_1mav8_279 {
+  --custom-emoji-size: 1.625rem;
+  position: relative;
+  display: flex;
+}
+
+._chosenImage_1mav8_285 {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+
+._iconShare_1mav8_290 > .tgico {
+  width: 22px;
+  height: 22px;
+  font-size: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/Monolith/assets/img/qr/msg_share.webp") center/contain no-repeat;
+          mask: url("/Monolith/assets/img/qr/msg_share.webp") center/contain no-repeat;
+}
+._iconShare_1mav8_290 > .tgico::before {
+  content: none;
+}
+
+._iconSave_1mav8_301 > .tgico {
+  width: 24px;
+  height: 24px;
+  font-size: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/Monolith/assets/img/qr/msg_download.webp") center/contain no-repeat;
+          mask: url("/Monolith/assets/img/qr/msg_download.webp") center/contain no-repeat;
+}
+._iconSave_1mav8_301 > .tgico::before {
+  content: none;
+}
+
+._iconCopy_1mav8_312 > .tgico {
+  width: 22px;
+  height: 22px;
+  font-size: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/Monolith/assets/img/qr/msg_copy.webp") center/contain no-repeat;
+          mask: url("/Monolith/assets/img/qr/msg_copy.webp") center/contain no-repeat;
+}
+._iconCopy_1mav8_312 > .tgico::before {
+  content: none;
+}
+
+._iconColors_1mav8_323 > .tgico {
+  width: 22px;
+  height: 22px;
+  font-size: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/Monolith/assets/img/qr/msg_colors.webp") center/contain no-repeat;
+          mask: url("/Monolith/assets/img/qr/msg_colors.webp") center/contain no-repeat;
+}
+._iconColors_1mav8_323 > .tgico::before {
+  content: none;
+}
+
+._iconEmoji_1mav8_334 > .tgico {
+  width: 24.5px;
+  height: 24.5px;
+  font-size: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/Monolith/assets/img/qr/input_smile.webp") center/contain no-repeat;
+          mask: url("/Monolith/assets/img/qr/input_smile.webp") center/contain no-repeat;
+}
+._iconEmoji_1mav8_334 > .tgico::before {
+  content: none;
+}
+
+._iconGifts_1mav8_345 > .tgico {
+  width: 22px;
+  height: 22px;
+  font-size: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/Monolith/assets/img/qr/menu_gift.webp") center/contain no-repeat;
+          mask: url("/Monolith/assets/img/qr/menu_gift.webp") center/contain no-repeat;
+}
+._iconGifts_1mav8_345 > .tgico::before {
+  content: none;
+}
+
+._sheet_1mav8_356 {
+  --scrollbar-color: color-mix(in srgb, var(--qr-foreground) 20%, transparent);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.76rem;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(var(--qr-control), var(--qr-control)), var(--qr-mid);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+body.animation-level-1 ._sheet_1mav8_356 {
+  transition: opacity 0.2s ease, visibility 0s 0.2s, height 0.2s ease;
+}
+body.animation-level-2 ._sheet_1mav8_356 {
+  opacity: 1;
+  transition: height 0.2s ease;
+}
+
+._sheetClosing_1mav8_377 {
+  pointer-events: none;
+}
+body.animation-level-2 ._sheetClosing_1mav8_377 {
+  visibility: visible;
+}
+
+._sheetOpen_1mav8_384 {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+body.animation-level-1 ._sheetOpen_1mav8_384 {
+  transition-delay: 0s;
+}
+
+._sheetPanel_1mav8_393 {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+._sheetPanel_1mav8_393[hidden] {
+  display: none;
+}
+
+._swatches_1mav8_405 {
+  --swatch-gap: .75rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-content: start;
+  gap: var(--swatch-gap);
+  padding: 0.6875rem;
+}
+
+._swatch_1mav8_405 {
+  position: relative;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+._swatch_1mav8_405::after {
+  content: "";
+  position: absolute;
+  inset: -0.25rem;
+  border: 0.125rem solid var(--qr-foreground);
+  border-radius: 50%;
+  opacity: 0;
+  scale: 0.85;
+}
+body.animation-level-1 ._swatch_1mav8_405::after {
+  transition: opacity 0.2s ease;
+}
+body.animation-level-2 ._swatch_1mav8_405::after {
+  transition: opacity 0.2s ease, scale var(--transition-standard-in);
+}
+._swatch_1mav8_405[aria-pressed=true]::after {
+  opacity: 1;
+  scale: 1;
+}
+
+._emojiHost_1mav8_443 {
+  --primary-text-color: var(--qr-foreground);
+  --secondary-text-color: var(--qr-foreground);
+  --light-secondary-text-color: color-mix(in srgb, var(--qr-foreground) 10%, transparent);
+  --border-color: color-mix(in srgb, var(--qr-foreground) 10%, transparent);
+  --primary-text-color-rgb: 255, 255, 255;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+._emojiHost_1mav8_443 > .emoticons-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+._emojiHost_1mav8_443 .emoticons-menu-wrapper {
+  flex: none;
+}
+._emojiHost_1mav8_443 .emoticons-content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+._emojiHost_1mav8_443 .emoticons-content .scrollable-y {
+  height: 100%;
+}
+._emojiHost_1mav8_443 .emoticons-content .emoticons-categories-container {
+  padding-block-end: 4.25rem;
+}
+._emojiHost_1mav8_443 .super-emojis {
+  justify-content: center;
+  gap: 0.375rem;
+}
+._emojiHost_1mav8_443 .super-emoji.active {
+  position: relative;
+  border-radius: 0.625rem;
+  background-color: color-mix(in srgb, var(--qr-foreground) 18%, transparent);
+}
+html.no-touch ._emojiHost_1mav8_443 .super-emoji.active:hover, html.no-touch ._emojiHost_1mav8_443 .super-emoji.active:active {
+  background-color: color-mix(in srgb, var(--qr-foreground) 26%, transparent);
+}
+._emojiHost_1mav8_443 .super-emoji.active > * {
+  scale: 0.9;
+}
+body.animation-level-2 ._emojiHost_1mav8_443 .super-emoji.active > * {
+  transition: scale 0.18s ease;
+}
+._emojiHost_1mav8_443 .super-emoji[data-pick]::after {
+  content: attr(data-pick);
+  position: absolute;
+  z-index: 2;
+  top: 0.09375rem;
+  inset-inline-end: 0.09375rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--qr-foreground) 18%, transparent);
+  box-shadow: inset 0 0 0 0.6px color-mix(in srgb, var(--qr-foreground) 28%, transparent);
+  color: var(--qr-foreground);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1rem;
+  text-align: center;
+  text-shadow: 0 0.5px 1.5px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+body.animation-level-1 ._emojiHost_1mav8_443 .super-emoji[data-pick]::after {
+  animation: _pick-badge-in_1mav8_1 0.2s ease-out;
+}
+body.animation-level-2 ._emojiHost_1mav8_443 .super-emoji[data-pick]::after {
+  animation: _pick-badge-pop_1mav8_1 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+._emojiHost_1mav8_443 .emoticons-menu .menu-horizontal-div-item {
+  color: #fff;
+}
+._emojiHost_1mav8_443 .preloader .preloader-path {
+  stroke: #fff;
+}
+._emojiHost_1mav8_443 .category-title {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-block: 0;
+  padding-inline: 0.875rem;
+  color: var(--qr-foreground);
+  font-size: 0.9375rem;
+  opacity: 0.7;
+}
+
+._giftsScroll_1mav8_533 {
+  padding: 0.5rem;
+}
+
+._gifts_1mav8_533 {
+  display: grid;
+  gap: 0.5rem;
+}
+
+._giftTile_1mav8_542 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 1.25rem;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: var(--surface-color);
+  color: inherit;
+}
+._giftTile_1mav8_542::after, ._giftTile_1mav8_542::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+._giftTile_1mav8_542::after {
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background-color: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+._giftTile_1mav8_542::before {
+  inset: 0.25rem;
+  z-index: 3;
+  border: 0.125rem solid #fff;
+  border-radius: 1rem;
+  opacity: 0;
+}
+body.animation-level-1 ._giftTile_1mav8_542::before {
+  transition: opacity 0.2s ease;
+}
+._giftTile_1mav8_542[aria-pressed=true]::before {
+  opacity: 1;
+}
+body.animation-level-2 ._giftTile_1mav8_542 {
+  transition: scale 0.15s ease;
+}
+body.animation-level-2 ._giftTile_1mav8_542:active {
+  scale: 0.94;
+}
+
+._giftBackdrop_1mav8_587 {
+  position: absolute;
+  inset: 0;
+  --stargift-backdrop-offset-y: -30px;
+}
+
+._giftSticker_1mav8_593 {
+  position: relative;
+  height: 82%;
+  aspect-ratio: 1;
+  z-index: 1;
+}
+body.animation-level-2 ._giftSticker_1mav8_593 {
+  transition: scale 0.2s ease;
+}
+._giftTile_1mav8_542[aria-pressed=true] ._giftSticker_1mav8_593 {
+  scale: 0.86;
+}
+
+._giftsLoading_1mav8_606 {
+  margin-block-start: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--qr-foreground);
+  opacity: 0.7;
+}
+
+._giftsEmpty_1mav8_614 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
+  text-align: center;
+  color: var(--qr-foreground);
+}
+
+._giftsEmptyArt_1mav8_624 {
+  position: relative;
+  width: 99px;
+  height: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._giftsEmptyDog_1mav8_633 {
+  position: absolute;
+  inset: 0;
+}
+
+._giftsEmptyIcon_1mav8_638 {
+  font-size: 4rem;
+  opacity: 0.8;
+}
+
+._giftsEmptyTitle_1mav8_643 {
+  margin-block-start: 1.375rem;
+  font-weight: var(--font-weight-bold);
+  font-size: 1rem;
+}
+
+._giftsEmptyInfo_1mav8_649 {
+  margin-block-start: 0.4375rem;
+  max-width: 100%;
+  white-space: pre-line;
+  font-size: 0.875rem;
+  line-height: 1.15625rem;
+  opacity: 0.75;
+}
+
+._giftsBrowse_1mav8_658 {
+  margin-block-start: 1.25rem;
+  height: 2.25rem;
+  padding-inline: 1.1875rem;
+  border: 0;
+  border-radius: 1.125rem;
+  background-color: var(--qr-foreground);
+  color: var(--qr-on-foreground);
+  font-weight: var(--font-weight-bold);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+@keyframes _pick-badge-in_1mav8_1 {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes _pick-badge-pop_1mav8_1 {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._place_k365t_16 {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+._pill_k365t_25 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 2.25rem;
+  padding-block: 0;
+  padding-inline: 1rem;
+  border: 0;
+  border-radius: 1.125rem;
+  background-color: var(--qr-control);
+  color: var(--qr-foreground);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%, transparent 62%, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -1px 1px rgba(255, 255, 255, 0.12), 0 2px 8px rgba(0, 0, 0, 0.12);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.is-rtl ._pill_k365t_25 {
+  direction: rtl;
+}
+body.animation-level-1 ._pill_k365t_25 {
+  transition: background-color 0.2s;
+}
+
+._label_k365t_53 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+._priceStar_k365t_59 {
+  font-size: 0.75rem;
+  margin-inline-end: 0.125rem;
+  vertical-align: -0.1em;
+}
+
+._freePill_k365t_65 {
+  position: relative;
+  overflow: hidden;
+}
+
+._fill_k365t_70 {
+  --fill: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: 1rem;
+  border-radius: inherit;
+  background-color: rgba(255, 255, 255, 0.97);
+  color: var(--qr-ink);
+  clip-path: inset(0 calc((1 - var(--fill)) * 100%) 0 0);
+  pointer-events: none;
+}
+.is-rtl ._fill_k365t_70 {
+  clip-path: inset(0 0 0 calc((1 - var(--fill)) * 100%));
+}
+body.animation-level-1 ._fill_k365t_70 {
+  transition: clip-path 0.34s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+body.animation-level-1 ._fillBurning_k365t_90 {
+  transition-duration: 1s;
+  transition-timing-function: linear;
+}
+
+._sparks_k365t_95 {
+  position: absolute;
+  inset: -4.75rem -5.625rem;
+  width: calc(100% + 11.25rem);
+  height: calc(100% + 9.5rem);
+  pointer-events: none;
+}
+
+._away_k365t_103 {
+  visibility: hidden;
+  opacity: 0;
+}
+body.animation-level-1 ._away_k365t_103 {
+  transition: opacity 0.2s, visibility 0s 0.2s;
+}
+
+._time_k365t_111 {
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
+
+._subtitle_k365t_116 {
+  display: block;
+  opacity: 0.72;
+  font-size: var(--font-size-14);
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Container_1w38w_16 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 24px;
+}
+
+._LottieAnimation_1w38w_24 {
+  position: relative;
+  aspect-ratio: 1/1;
+  width: var(--size);
+  max-width: var(--size, 100%);
+  opacity: 0;
+  cursor: pointer;
+}
+body.animation-level-1 ._LottieAnimation_1w38w_24 {
+  transition: opacity var(--transition-standard-in);
+}
+._LottieAnimation_1w38w_24._isDrawn_1w38w_35 {
+  opacity: 1;
+}
+
+._NoResults_1w38w_39 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2px;
+}
+._NoResultsTitle_1w38w_45 {
+  font-weight: 500;
+  font-size: 18px;
+}
+._NoResultsSubtitle_1w38w_49 {
+  font-size: 14px;
+}
+
+._ActionButton_1w38w_53 {
+  position: relative;
+  overflow: hidden;
+  font-size: 14px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+}.rtmp-output-popup {
+  --popup-width: 360px;
+}.call-settings-popup {
+  --popup-width: 420px;
+}
+
+.call-settings-popup-meter-wrap,
+.speakers-and-camera-meter-wrap {
+  padding: 1rem;
+}
+
+.microphone-level-meter {
+  width: 100%;
+  background-color: var(--light-secondary-text-color);
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+}
+.microphone-level-meter__fill {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  transition: width 80ms linear;
+}
+
+.microphone-level-meter__error,
+.speakers-and-camera-preview-error {
+  margin-top: 0.5rem;
+  color: var(--danger-color);
+  font-size: var(--font-size-14);
+  line-height: 1.25rem;
+}
+
+.speakers-and-camera-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  background-color: var(--surface-color);
+}
+.speakers-and-camera-preview-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4/3;
+  background: black;
+  border-radius: 16px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Container_wzcvr_16 {
+  display: flex;
+  align-items: center;
+  padding-block: 16px;
+  padding-inline: 9px 16px;
+}
+._Container_wzcvr_16._size72_wzcvr_22 {
+  height: 72px;
+}
+._Container_wzcvr_16._size72_wzcvr_22 ._Avatar_wzcvr_25 {
+  width: 54px;
+  height: 54px;
+}
+._Container_wzcvr_16._size64_wzcvr_29 {
+  height: 64px;
+}
+._Container_wzcvr_16._size64_wzcvr_29 ._Avatar_wzcvr_25 {
+  width: 48px;
+  height: 48px;
+}
+._Container_wzcvr_16._noAvatar_wzcvr_36 ._Avatar_wzcvr_25 {
+  display: none;
+}
+body.animation-level-2 ._Container_wzcvr_16._shimmer_wzcvr_39 {
+  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 25%, rgb(0, 0, 0) 75%, rgba(0, 0, 0, 0) 100%);
+          mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 25%, rgb(0, 0, 0) 75%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-size: 200% 100%;
+          mask-size: 200% 100%;
+  animation: _shimmer_wzcvr_39 2.25s infinite linear;
+  -webkit-mask-position: 50% 0;
+          mask-position: 50% 0;
+}
+
+._Avatar_wzcvr_25 {
+  background-color: var(--background-color);
+  border-radius: 1000px;
+  margin-inline-end: 14px;
+  flex-shrink: 0;
+}
+
+._Content_wzcvr_53 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+._Title_wzcvr_60 {
+  display: flex;
+  justify-content: space-between;
+}
+._TitleLeft_wzcvr_64 {
+  background-color: var(--background-color);
+  border-radius: 1000px;
+  height: 10px;
+  width: var(--width);
+}
+._TitleRight_wzcvr_70 {
+  background-color: var(--background-color);
+  border-radius: 1000px;
+  height: 10px;
+  width: var(--width);
+}
+
+._Subtitle_wzcvr_77 {
+  background-color: var(--background-color);
+  border-radius: 1000px;
+  height: 10px;
+  width: var(--width);
+}
+
+@keyframes _shimmer_wzcvr_39 {
+  0% {
+    -webkit-mask-position: 50% 0;
+            mask-position: 50% 0;
+  }
+  100% {
+    -webkit-mask-position: calc(50% - 200% * var(--reflect)) 0;
+            mask-position: calc(50% - 200% * var(--reflect)) 0;
+  }
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._ChildBadge_eh3fy_16 {
+  position: absolute;
+  z-index: 1;
+  top: 2.75rem;
+  inset-inline-start: 2.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  padding: 0;
+  border: 2px solid var(--background, var(--surface-color));
+  border-radius: 50%;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: var(--surface-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  color: var(--primary-text-color);
+  cursor: pointer;
+  font-size: 0.625rem;
+  line-height: 1;
+  pointer-events: auto;
+}
+body.animation-level-2 ._ChildBadge_eh3fy_16 {
+  transition: transform var(--chatlist-badge-transition-in);
+}
+._ChildBadge_eh3fy_16:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+._ChildBadgeHost_eh3fy_46 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+._ChildBadgeHitArea_eh3fy_52 {
+  position: absolute;
+  top: -2.3125rem;
+  inset-inline-start: -2.4375rem;
+  width: 3.375rem;
+  height: 3.375rem;
+}._tab_19ck7_1 {
+  background-color: var(--background-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+._contentWrapper_19ck7_8 {
+  position: relative;
+  overflow: clip;
+  flex: 1;
+  display: grid;
+}
+
+._collectionContent_19ck7_15 {
+  min-height: 0;
+  grid-area: 1/1;
+}
+
+._hasCollections_19ck7_20 ._grid_19ck7_20,
+.search-super-tabs-scrollable.is-single + .search-super-tabs-container ._grid_19ck7_20 {
+  padding-top: 0.25rem;
+}
+
+.profile-container ._collections_19ck7_25 {
+  margin-top: -0.375rem;
+  margin-bottom: 0.625rem;
+}
+
+._addCollection_19ck7_30 {
+  margin-inline-start: 0.25rem;
+}
+
+._empty_19ck7_34 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding-inline: 1rem;
+}
+
+._emptyTitle_19ck7_45 {
+  font-size: var(--font-size-18);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+._emptySubtitle_19ck7_52 {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  margin-bottom: 0.75rem;
+}
+
+._notify_19ck7_58 {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  background-color: var(--surface-color);
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._popup_vv1c9_16 {
+  --popup-width: 26.25rem;
+  --popup-max-height: calc(var(--100vh) - 6.5rem);
+}
+
+._grid_vv1c9_21 {
+  padding-bottom: 0 !important;
+}._placeholder_1q924_1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rem;
+  padding-inline: 1rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+._title_1q924_12 {
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-18);
+  font-weight: var(--font-weight-bold);
+}
+
+._description_1q924_18 {
+  color: var(--secondary-text-color);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+._button_1q924_24 {
+  height: 42px;
+  width: auto;
+  padding-inline: 1rem;
+  width: 240px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+._buttonPaidSearch_1q924_38 {
+  height: 46px;
+  flex-direction: column;
+  gap: 0;
+}
+
+._remainingUntilReset_1q924_44 {
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-13);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.8;
+}
+
+._searchQuery_1q924_51 {
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+._footer_1q924_57 {
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  margin-top: 0.5rem;
+}._popup_11snd_1.popup-peer {
+  --popup-min-width: 25rem;
+}
+
+._separateLine_11snd_5,
+._previewSection_11snd_6 {
+  margin-block-start: 1rem;
+}
+
+._previewLabel_11snd_10 {
+  color: var(--secondary-text-color);
+  font-size: 0.875rem;
+  margin-block-end: 0.5rem;
+}
+
+._preview_11snd_6 {
+  background-color: var(--light-filled-secondary-text-color);
+  border-radius: 0.75rem;
+  min-height: 6rem;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+._previewContent_11snd_24 {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 4rem;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+
+._previewContentEmpty_11snd_32 {
+  color: var(--secondary-text-color);
+  min-width: 100%;
+}._popup_1qjyf_1 {
+  --popup-width: 25rem;
+}
+
+._picker_1qjyf_5 {
+  padding: 0.5rem 1rem 0;
+}
+
+._preview_1qjyf_9 {
+  aspect-ratio: 2;
+  background-color: var(--light-filled-secondary-text-color);
+  border-radius: 0.75rem;
+  cursor: grab;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+._preview_1qjyf_9:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+._previewDragging_1qjyf_24 {
+  cursor: grabbing;
+}
+
+._image_1qjyf_28,
+._photo_1qjyf_29 {
+  height: 100%;
+  width: 100%;
+}
+
+._image_1qjyf_28 {
+  pointer-events: none;
+  will-change: transform;
+}
+
+._photo_1qjyf_29 .media-photo,
+._photo_1qjyf_29 img {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+}
+
+._pin_1qjyf_46 {
+  inset: 50% auto auto 50%;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -100%);
+}
+
+._coordinates_1qjyf_53 {
+  background: var(--surface-color);
+  border-radius: 0.375rem;
+  bottom: 0.5rem;
+  color: var(--secondary-text-color);
+  font-size: 0.75rem;
+  inset-inline-start: 0.5rem;
+  padding: 0.25rem 0.375rem;
+  pointer-events: none;
+  position: absolute;
+}
+
+._zoomControls_1qjyf_65 {
+  display: flex;
+  gap: 0.25rem;
+  margin-block-start: 0.5rem;
+}
+._zoomControls_1qjyf_65 .btn-icon {
+  background: var(--light-filled-secondary-text-color);
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+._currentLocation_1qjyf_77 {
+  margin-block-start: 0.75rem;
+  min-height: 2.5rem;
+  width: 100%;
+}
+
+._fields_1qjyf_83 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-block-start: 1rem;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+.rich-message-input-standalone {
+  --chat-input-height: 3rem;
+  --padding-vertical: .5rem;
+  --padding-horizontal: .5rem;
+  --padding: var(--padding-vertical) var(--padding-horizontal);
+  --button-horizontal-margin: .25rem;
+  --message-input-editor-side-controls-width: 0px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  background: var(--surface-color);
+  border-radius: 1rem;
+}
+.rich-message-input-standalone .new-message-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  border-radius: inherit;
+  padding: var(--padding);
+}
+.rich-message-input-standalone .input-message-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.rich-message-input .chat-input-wrapper {
+  max-height: none;
+}
+.rich-message-input:not(.is-message-input-expanded) .input-message-input {
+  --padding-horizontal: 0em;
+}
+.rich-message-input:not(.is-message-input-expanded) .chat-input-trailing-placeholder {
+  display: none;
+}
+.rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size {
+  inset-inline-end: var(--padding-horizontal);
+  position: absolute;
+  top: var(--padding-vertical);
+  z-index: 4;
+}
+.rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size:not(.is-shown) {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+body.animation-level-1 .rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size:not(.is-shown) {
+  transition: opacity 0.15s, visibility 0s 0.15s;
+}
+body.animation-level-2 .rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size:not(.is-shown) {
+  scale: 0.5;
+  transition: opacity 0.15s, scale 0.15s, visibility 0s 0.15s;
+}
+body.animation-level-1 .rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size.is-shown {
+  transition: opacity 0.2s;
+}
+body.animation-level-2 .rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size.is-shown {
+  transition: opacity 0.2s, scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.rich-message-input:not(.is-message-input-expanded) .new-message-wrapper .toggle-message-input-size:not(.is-shown) {
+  z-index: auto;
+}
+.rich-message-input:not(.is-message-input-expanded) .new-message-wrapper > .chat-input-ai-editor-button {
+  inset-inline-end: auto;
+  inset-inline-start: var(--padding-horizontal);
+}
+.rich-message-input.is-message-input-resizing {
+  height: var(--message-input-collapsed-height, var(--chat-input-height));
+}
+.rich-message-input.is-message-input-resizing .toggle-message-input-size {
+  pointer-events: none;
+}
+body.animation-level-2 .rich-message-input.is-message-input-resizing {
+  transition: height var(--transition-standard-out), transform var(--transition-standard-out);
+}
+.rich-message-input.is-message-input-expanded {
+  height: var(--rich-message-input-expanded-height, min(32rem, 80dvh));
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  max-height: none;
+  min-height: 0;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded > .attach-file,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded > .toggle-emoticons,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing > .attach-file,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing > .toggle-emoticons, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded > .attach-file,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded > .toggle-emoticons,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing > .attach-file,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing > .toggle-emoticons {
+  pointer-events: auto;
+  position: relative;
+  z-index: 4;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded > .attach-file,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing > .attach-file, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded > .attach-file,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing > .attach-file {
+  margin-inline-end: auto;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded.has-offset.forwards .input-message-container,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing.has-offset.forwards .input-message-container, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded.has-offset.forwards .input-message-container,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing.has-offset.forwards .input-message-container {
+  margin-inline-end: 0;
+  transform: none;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-message-container,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing .input-message-container, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded .input-message-container,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing .input-message-container {
+  --imc-padding-inline-start: 0px;
+  --imc-padding-inline-end: 0px;
+  align-items: stretch;
+  align-self: stretch;
+  margin-inline-end: 0;
+  max-height: none;
+  min-height: 0;
+  position: absolute;
+  top: var(--message-input-collapsed-top, var(--padding-vertical));
+  right: var(--message-input-collapsed-right, var(--padding-horizontal));
+  bottom: var(--message-input-collapsed-bottom, var(--padding-vertical));
+  left: var(--message-input-collapsed-left, var(--padding-horizontal));
+  transform: none;
+  width: auto;
+}
+body.animation-level-2 .rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-message-container,
+body.animation-level-2 .rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing .input-message-container, body.animation-level-2 .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded .input-message-container,
+body.animation-level-2 .rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing .input-message-container {
+  transition: top var(--transition-standard-out), right var(--transition-standard-out), bottom var(--transition-standard-out), left var(--transition-standard-out);
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-field-placeholder,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing .input-field-placeholder, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded .input-field-placeholder,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing .input-field-placeholder {
+  top: 0.5rem;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-field-height-wrapper,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing .input-field-height-wrapper, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded .input-field-height-wrapper,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing .input-field-height-wrapper {
+  height: 100% !important;
+  max-height: 100%;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-message-input,
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-message-input-resizing .input-message-input, .rich-message-input.is-message-input-resizing .new-message-wrapper.is-expanded .input-message-input,
+.rich-message-input.is-message-input-resizing .new-message-wrapper.is-message-input-resizing .input-message-input {
+  height: 100% !important;
+  max-height: 100% !important;
+  transition: none !important;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-field-height-wrapper {
+  height: 100% !important;
+  max-height: 100%;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-message-container {
+  top: 0;
+  bottom: 0;
+  inset-inline: 0;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-field-placeholder {
+  display: none;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .input-message-input {
+  --message-input-scrollable-fade-size: calc((var(--chat-input-height) + .5rem) * 1.5);
+  --message-input-scrollable-fade-color: rgba(255, 255, 255, 0);
+  padding-block: calc(var(--chat-input-height) + 0.5rem);
+  scroll-padding-block: calc(var(--chat-input-height) + 0.5rem);
+  -webkit-mask-image: linear-gradient(to bottom, var(--message-input-scrollable-fade-color) 0, color-mix(in srgb, #000 8.6%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.2), color-mix(in srgb, #000 33.4%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.4), color-mix(in srgb, #000 66.6%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.6), color-mix(in srgb, #000 91.4%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.8), #000 var(--message-input-scrollable-fade-size), #000 calc(100% - var(--message-input-scrollable-fade-size)), color-mix(in srgb, #000 91.4%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.8), color-mix(in srgb, #000 66.6%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.6), color-mix(in srgb, #000 33.4%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.4), color-mix(in srgb, #000 8.6%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.2), var(--message-input-scrollable-fade-color) 100%);
+          mask-image: linear-gradient(to bottom, var(--message-input-scrollable-fade-color) 0, color-mix(in srgb, #000 8.6%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.2), color-mix(in srgb, #000 33.4%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.4), color-mix(in srgb, #000 66.6%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.6), color-mix(in srgb, #000 91.4%, var(--message-input-scrollable-fade-color)) calc(var(--message-input-scrollable-fade-size) * 0.8), #000 var(--message-input-scrollable-fade-size), #000 calc(100% - var(--message-input-scrollable-fade-size)), color-mix(in srgb, #000 91.4%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.8), color-mix(in srgb, #000 66.6%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.6), color-mix(in srgb, #000 33.4%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.4), color-mix(in srgb, #000 8.6%, var(--message-input-scrollable-fade-color)) calc(100% - var(--message-input-scrollable-fade-size) * 0.2), var(--message-input-scrollable-fade-color) 100%);
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar {
+  align-items: center;
+  display: flex;
+  height: var(--chat-input-height);
+  inset-inline: 0;
+  padding: var(--padding);
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar-top {
+  justify-content: space-between;
+  top: 0;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar-bottom {
+  bottom: 0;
+  inset-inline: 0;
+  justify-content: center;
+  max-width: none;
+  transform: none;
+  width: auto;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar-actions {
+  display: flex;
+  gap: var(--button-horizontal-margin);
+  position: relative;
+  z-index: 1;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar-actions-bottom {
+  gap: 0.5rem;
+  max-width: calc(100% - var(--message-input-editor-side-controls-width) - var(--message-input-editor-side-controls-width));
+  overflow-x: auto;
+  pointer-events: auto;
+  scrollbar-width: none;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar-actions-bottom::-webkit-scrollbar {
+  display: none;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded .message-input-editor-toolbar .btn-icon {
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+.rich-message-input.is-message-input-expanded .new-message-wrapper.is-expanded > .chat-input-ai-editor-button {
+  display: none;
+}
+
+.message-input-editor-toolbar-top {
+  display: contents;
+}
+.message-input-editor-toolbar-bottom, .message-input-editor-toolbar-actions {
+  display: none;
+}._sparkles_1yb14_1 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+._sparkles_1yb14_1[hidden] {
+  display: none;
+}
+
+._holder_1yb14_10 {
+  position: absolute;
+  left: calc((var(--x) - var(--radius)) * 1em);
+  top: calc((100% - 1em) / 2 + (var(--y) - var(--radius)) * 1em);
+  width: calc(var(--radius) * 2em);
+  height: calc(var(--radius) * 2em);
+}
+
+._body_1yb14_18,
+._shape_1yb14_19,
+._glow_1yb14_20 {
+  position: absolute;
+  inset: 0;
+}
+
+._shape_1yb14_19,
+._glow_1yb14_20 {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-linejoin: round;
+}
+
+._glow_1yb14_20 {
+  opacity: 0;
+  filter: blur(1.5px);
+}._halo_1dt4w_1 {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px hsl(from var(--primary-color) h s l/0.45), 0 0 1.25rem 0.25rem hsl(from var(--primary-color) h s l/0.35);
+}
+
+._glass_1dt4w_10 {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+._glass_1dt4w_10 ._band_1dt4w_17 {
+  background-color: hsl(from var(--primary-color) h s l/0.3);
+}
+.night ._glass_1dt4w_10 ._band_1dt4w_17 {
+  background-color: hsl(from var(--primary-color) h s l/0.35);
+}
+
+._lit_1dt4w_24 > .rows-wrapper-row {
+  background-color: transparent;
+}
+
+._band_1dt4w_17 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+._text_1dt4w_35,
+._layer_1dt4w_36,
+._letters_1dt4w_37 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+._letters_1dt4w_37 ._piece_1dt4w_43,
+._wordGlow_1dt4w_44 {
+  color: var(--primary-color);
+}
+.night ._letters_1dt4w_37 ._piece_1dt4w_43,
+.night ._wordGlow_1dt4w_44 {
+  color: color-mix(in srgb, var(--primary-color) 55%, white);
+}
+
+._piece_1dt4w_43,
+._word_1dt4w_44,
+._wordGlow_1dt4w_44,
+._wordSettled_1dt4w_55 {
+  position: absolute;
+  margin: 0;
+  white-space: pre;
+}._flight_c8b39_1,
+._aura_c8b39_2 {
+  --ai-flight-tint: color-mix(in srgb, var(--primary-color), white 55%);
+}
+
+._flight_c8b39_1 {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+._layer_c8b39_13 {
+  position: absolute;
+  inset: 0;
+}
+
+._streak_c8b39_18 {
+  position: absolute;
+  background-color: currentColor;
+  opacity: 0;
+}
+
+._shake_c8b39_24 {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+._plane_c8b39_30 {
+  position: absolute;
+  margin: 0;
+}
+
+._orbit_c8b39_35 {
+  position: absolute;
+  inset: 1.25px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 2px var(--ai-flight-tint));
+}
+._orbit_c8b39_35._reflected_c8b39_41 {
+  scale: -1 1;
+}
+
+._tail_c8b39_45 {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(transparent 0deg 238deg, hsl(from var(--ai-flight-tint) h s l/0.2) 280deg, hsl(from var(--ai-flight-tint) h s l/0.5) 320deg, hsl(from currentColor h s l/0.85) 350deg, currentColor 360deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+}
+
+._head_c8b39_53 {
+  position: absolute;
+  top: -0.75px;
+  left: calc(50% - 1.75px);
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 3.5px color-mix(in srgb, currentColor, var(--ai-flight-tint) 30%);
+}
+
+._aura_c8b39_2 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 5px 1px var(--ai-flight-tint);
+}._Container_bns2b_1 {
+  position: relative;
+  overflow: hidden;
+}
+._Container_bns2b_1._disabled_bns2b_5 {
+  pointer-events: none !important;
+}
+
+._Icon_bns2b_9 {
+  transition: opacity 0.2s;
+}
+._Icon_bns2b_9._close_bns2b_12 {
+  transform: scale(0.8);
+}
+._Icon_bns2b_9._hidden_bns2b_15 {
+  opacity: 0;
+}
+
+._LoadingContainer_bns2b_19 {
+  display: inline-flex;
+  pointer-events: initial;
+}
+
+._Loader_bns2b_24 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: _rotate_bns2b_1 2s linear infinite;
+}
+
+@keyframes _rotate_bns2b_1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}.rtmp-popup .popup-container {
+  max-width: 420px;
+  border-radius: 16px;
+}
+
+.rtmp-popup .popup-close {
+  margin-inline-end: 16px;
+}
+
+.rtmp-popup .popup-header {
+  margin-bottom: 8px;
+}
+
+.rtmp-popup-text {
+  margin: 12px 16px;
+  color: var(--secondary-text-color);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.rtmp-popup-button {
+  --ripple-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--primary-button-color, var(--primary-color));
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+.rtmp-popup-button_danger {
+  background: var(--danger-button-color, var(--danger-color));
+}
+:where(.a11y) .rtmp-data-row {
+  width: 100%;
+  color: inherit;
+  text-align: inherit;
+}
+
+.rtmp-data-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: background 0.2s ease-in-out;
+}
+
+.rtmp-data-row-copy {
+  display: flex;
+  align-items: center;
+}
+
+.rtmp-data-row:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.rtmp-data-row_danger:hover {
+  background: rgba(255, 0, 0, 0.05);
+}
+
+.rtmp-data_contrast .rtmp-data-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.rtmp-data-row-icon {
+  font-size: 24px;
+  color: var(--secondary-text-color);
+  margin: 16px;
+}
+
+.rtmp-data-row_danger .rtmp-data-row-icon {
+  color: var(--danger-color);
+}
+
+.rtmp-data_contrast .rtmp-data-row-icon {
+  color: #fff;
+}
+
+.rtmp-data-row-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.rtmp-data-row-item-text,
+.rtmp-data-row-item-text .skeleton-child {
+  font-size: 16px;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-user-select: all;
+     -moz-user-select: all;
+          user-select: all;
+}
+
+.rtmp-data_contrast .rtmp-data-row-item-text {
+  color: #fff;
+}
+
+/* the URL and the key read left to right (dir="ltr"), and still line up with their labels */
+.is-rtl .rtmp-data-row-item-text {
+  text-align: right;
+}
+
+.rtmp-data-row-item-text_hidden,
+.rtmp-data-row-item-text_hidden .skeleton-child {
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+
+.rtmp-data-row-item-text .skeleton {
+  height: 18px;
+}
+
+.rtmp-data-row-item-label {
+  color: var(--secondary-text-color);
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  gap: 2px;
+}
+
+.rtmp-data-row_danger .rtmp-data-row-item-label {
+  color: var(--danger-color);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.rtmp-data_contrast .rtmp-data-row-item-label {
+  color: #fff;
+}
+
+.rtmp-data-row-item-show {
+  font-size: 16px;
+  padding: 0;
+  width: 20px;
+}
+
+.rtmp-data_contrast .rtmp-data-row-item-show {
+  color: #fff;
+}
+
+.rtmp-data-row-item-copy {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.pinned-live {
+  height: var(--pinned-live-height) !important;
+  gap: 0.25rem;
+}
+.pinned-live-content {
+  flex: 1 1 auto;
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  padding-inline: 0.25rem;
+}
+.pinned-live .skeleton {
+  min-width: 6rem;
+}.pinned-group-call {
+  height: var(--pinned-group-call-height) !important;
+  gap: 0.25rem;
+}
+.pinned-group-call-side {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.pinned-group-call-side.is-end {
+  min-width: auto;
+  justify-content: flex-end;
+}
+.pinned-group-call-content {
+  min-width: 0;
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  padding-inline: 0.5rem;
+}
+.pinned-group-call .stacked-avatars {
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+@media only screen and (max-width: 600px) {
+  .pinned-group-call .stacked-avatars {
+    --avatar-size: 1.5rem !important;
+  }
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+.pinned-sponsored {
+  --container-height: auto;
+  z-index: 0;
+  gap: 0.25rem;
+}
+
+._container_a8jqc_22 {
+  border-radius: 1.25rem;
+  display: flex;
+  padding-inline-start: 0.75rem;
+  width: 100%;
+  background-color: var(--light-filled-primary-color);
+}
+
+._content_a8jqc_30 {
+  display: flex;
+  flex-direction: column;
+  padding: 0.125rem 0;
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  position: relative;
+  z-index: 1;
+}
+
+._photoWrap_a8jqc_40 {
+  margin-top: 0.25rem;
+  margin-inline-end: 0.375rem;
+  position: relative;
+}
+
+._photo_a8jqc_40,
+._photo_a8jqc_40 .media-photo {
+  width: 2rem !important;
+  height: 2rem !important;
+  border-radius: 0.25rem;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Tooltip_kemes_16 {
+  gap: 1.5rem;
+}
+._Tooltip_kemes_16.tooltip-with-icon .tooltip-text {
+  padding-inline-start: 2rem;
+}
+._Tooltip_kemes_16 .tooltip-icon {
+  color: var(--danger-color);
+}
+
+._Button_kemes_26 {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  color: rgb(142, 222, 255);
+}
+html.no-touch ._Button_kemes_26:hover, html.no-touch ._Button_kemes_26:active {
+  background-color: rgba(142, 222, 255, 0.075);
+}.rtmp-record-popup .popup-container {
+  max-width: 420px;
+  border-radius: 16px;
+}
+
+.rtmp-record-popup .popup-close {
+  margin-inline-end: 16px;
+}
+
+.rtmp-record-popup .popup-header {
+  margin-bottom: 16px;
+}
+
+.rtmp-record-popup .popup-body {
+  overflow: visible;
+}
+
+.rtmp-record-popup-config-text {
+  margin: 20px 8px 12px;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--secondary-text-color);
+}
+
+.rtmp-record-popup-preview {
+  background: var(--background-color);
+  margin: 8px -16px 0;
+  width: calc(100% + 32px);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.rtmp-record-popup-preview-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0));
+}
+
+.rtmp-record-popup-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rtmp-record-popup-preview-title {
+  margin-top: 16px;
+  color: var(--secondary-text-color);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.rtmp-record-popup-preview-img {
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.rtmp-record-popup-preview-img_audio {
+  margin-top: 38px;
+  margin-bottom: 18px;
+  width: 168px;
+  height: 64px;
+  border-radius: 10px;
+}
+
+.rtmp-record-popup-button {
+  --ripple-color: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background var(--transition-standard-in);
+}
+
+.rtmp-record-popup-button[disabled] {
+  background: var(--secondary-color);
+}
+
+.rtmp-record-popup-preview-images {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  margin-top: 10px;
+}
+
+.rtmp-record-popup-preview-img_videoH {
+  width: 110px;
+  height: 72px;
+  cursor: pointer;
+}
+
+.rtmp-record-popup-preview-img_videoV {
+  width: 72px;
+  height: 110px;
+  cursor: pointer;
+}
+
+.rtmp-record-popup-preview-img_videoH,
+.rtmp-record-popup-preview-img_videoV {
+  border-radius: 12px;
+  padding: 0;
+  transition: all 0.05s ease-in-out;
+}
+
+.rtmp-record-popup-preview-img_active {
+  border: 2px solid var(--primary-color);
+  transition: all 0.05s ease-in-out;
+}
+.rtmp-player-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 430px;
+}
+
+.rtmp-player-empty-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.rtmp-player-empty-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.rtmp-player-empty-loader {
+  animation: loader-spin 1s linear infinite;
+}
+
+.rtmp-player-empty-title {
+  color: #FFF;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.rtmp-player-empty-text-inner {
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-bottom: 2px;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Browser_1x3ce_16 {
+  position: fixed;
+  width: 480px;
+  height: 688px;
+  border-radius: 24px;
+  z-index: 4;
+  backdrop-filter: var(--blur-off, blur(20px));
+  background-color: rgba(var(--body-background-color-rgb), 0.65);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+body.animation-level-2 ._Browser_1x3ce_16 {
+  transition: width 0.2s var(--transition-standard-easing), height 0.2s var(--transition-standard-easing);
+}
+._BrowserHeader_1x3ce_30 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  width: 100%;
+  padding-inline: 0.5625rem 0.8125rem;
+  position: relative;
+  z-index: 1;
+}
+._BrowserHeaderButton_1x3ce_40 {
+  font-size: 1.5rem;
+  width: 1.875rem !important;
+  height: 1.875rem !important;
+  margin: 0 0.25rem;
+  flex: 0 0 auto;
+}
+._BrowserHeaderTabs_1x3ce_47 {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.125rem;
+  margin-inline: 0.4375rem 1.125rem;
+  position: relative;
+  height: 100%;
+}
+._BrowserHeaderTabsScrollable_1x3ce_56 {
+  display: flex;
+  position: relative;
+  flex: 1 1 auto;
+  margin-inline: -5px 1rem;
+  -webkit-mask-image: linear-gradient(calc(90deg * var(--reflect)), transparent, #000 0.5rem, #000 calc(100% - 30px), transparent);
+}
+._BrowserHeaderTab_1x3ce_47 {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transform: translateX(0);
+  -webkit-mask-image: linear-gradient(calc(90deg * var(--reflect)), #000 1.875rem, #000 calc(100% - 30px), transparent);
+}
+._BrowserHeaderTab_1x3ce_47._first_1x3ce_71 {
+  -webkit-mask-image: linear-gradient(calc(90deg * var(--reflect)), #000 2.875rem, #000 calc(100% - 30px), transparent);
+}
+body.animation-level-2 ._BrowserHeaderTab_1x3ce_47 {
+  transition: transform 0.2s var(--transition-standard-easing);
+}
+._BrowserHeaderTabTitle_1x3ce_77 {
+  width: 0px;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: -webkit-match-parent;
+  text-align: match-parent;
+}
+body.animation-level-2 ._BrowserHeaderTabTitle_1x3ce_77 {
+  transition: width 0.2s var(--transition-standard-easing);
+}
+._BrowserHeaderTabIcon_1x3ce_88 {
+  margin-inline-start: 0.25rem;
+}
+body.animation-level-2 ._BrowserHeaderTabIcon_1x3ce_88 {
+  transition: margin 0.2s var(--transition-standard-easing);
+}
+._BrowserHeaderTabIconInner_1x3ce_94 {
+  border: 1.5px solid transparent;
+  width: 1.6875rem;
+  height: 1.6875rem;
+  border-radius: 50%;
+}
+body.animation-level-1 ._BrowserHeaderTabIconInner_1x3ce_94 {
+  transition: border-color 0.2s var(--transition-standard-easing);
+}
+._BrowserHeaderTabMore_1x3ce_103 {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._BrowserHeaderTabClose_1x3ce_118 {
+  font-size: 1rem;
+  position: absolute;
+  transform: translateX(calc((var(--text-width) - 3px + 1rem) * var(--reflect)));
+  z-index: 1;
+  padding: 0.25rem;
+  color: var(--secondary-text-color);
+}
+._BrowserHeaderTabMask_1x3ce_126 {
+  position: absolute;
+  height: 100%;
+  transform: translate(calc(1.875rem * var(--reflect)));
+  width: var(--text-width);
+  background: linear-gradient(calc(90deg * var(--reflect)), transparent 50%, rgba(var(--surface-color-rgb), 1) 80%, rgba(var(--surface-color-rgb), 1) 100%);
+  pointer-events: none !important;
+}
+._BrowserHeaderTab_1x3ce_47._active_1x3ce_134 ._BrowserHeaderTabIcon_1x3ce_88, ._BrowserHeaderTab_1x3ce_47._first_1x3ce_71 ._BrowserHeaderTabIcon_1x3ce_88 {
+  margin-inline-start: 1.25rem;
+}
+._BrowserHeaderTab_1x3ce_47._active_1x3ce_134 ._BrowserHeaderTabTitle_1x3ce_77 {
+  width: var(--text-width);
+}
+._BrowserHeaderTabHover_1x3ce_140 {
+  opacity: 0;
+  pointer-events: none;
+}
+body.animation-level-1 ._BrowserHeaderTabHover_1x3ce_140 {
+  transition: opacity 0.2s var(--transition-standard-easing), background-color 0.2s var(--transition-standard-easing);
+}
+html.no-touch ._BrowserHeaderTab_1x3ce_47._active_1x3ce_134:hover ._BrowserHeaderTabHover_1x3ce_140, html.no-touch ._BrowserHeaderTab_1x3ce_47._active_1x3ce_134:active ._BrowserHeaderTabHover_1x3ce_140 {
+  opacity: 1;
+  pointer-events: all;
+}
+._BrowserHeaderTab_1x3ce_47:focus-within ._BrowserHeaderTabHover_1x3ce_140 {
+  opacity: 1;
+  pointer-events: all;
+}
+._BrowserHeaderSelector_1x3ce_155 {
+  position: absolute;
+  background-color: var(--surface-color);
+  height: 100%;
+  z-index: -1;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  pointer-events: none;
+  opacity: 1;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.08);
+}
+body.animation-level-1 ._BrowserHeaderSelector_1x3ce_155 {
+  transition: width 0.2s var(--transition-standard-easing), opacity 0.2s var(--transition-standard-easing);
+}
+body.animation-level-2 ._BrowserHeaderSelector_1x3ce_155 {
+  transition: transform 0.2s var(--transition-standard-easing), width 0.2s var(--transition-standard-easing), opacity 0.2s var(--transition-standard-easing);
+}
+._BrowserHeaderSelectorTail_1x3ce_172 {
+  position: absolute;
+  bottom: 0;
+}
+._BrowserHeaderSelectorTail_1x3ce_172._left_1x3ce_176 {
+  left: -1rem;
+}
+._BrowserHeaderSelectorTail_1x3ce_172._right_1x3ce_179 {
+  right: -1rem;
+  transform: scaleX(-1);
+}
+._BrowserHeaderCollapsedTitle_1x3ce_183 {
+  position: absolute;
+  opacity: 0;
+  font-weight: var(--font-weight-bold);
+  inset-inline-start: 7rem;
+  transform: translateX(calc(3.5rem * var(--reflect)));
+  max-width: 10.25rem;
+  pointer-events: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+body.animation-level-1 ._BrowserHeaderCollapsedTitle_1x3ce_183 {
+  transition: opacity 0.2s var(--transition-standard-easing);
+}
+body.animation-level-2 ._BrowserHeaderCollapsedTitle_1x3ce_183 {
+  transition: opacity 0.2s var(--transition-standard-easing), transform 0.2s var(--transition-standard-easing);
+}
+._BrowserHeaderNewButton_1x3ce_201 {
+  opacity: 1;
+}
+body.animation-level-1 ._BrowserHeaderNewButton_1x3ce_201 {
+  transition: opacity 0.2s var(--transition-standard-easing);
+}
+._BrowserBody_1x3ce_207 {
+  background-color: var(--surface-color);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.08);
+}
+._BrowserPage_1x3ce_215 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+._BrowserPage_1x3ce_215 .payment-verification {
+  height: 100%;
+}
+._BrowserGameBody_1x3ce_225 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--surface-color);
+}
+._BrowserGameIframe_1x3ce_233 {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  transition: opacity 0.2s var(--transition-standard-easing);
+}
+._Browser_1x3ce_16._noMovable_1x3ce_241 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+._Browser_1x3ce_16._collapsed_1x3ce_246 {
+  width: 328px !important;
+  height: 3rem !important;
+}
+._Browser_1x3ce_16._collapsed_1x3ce_246 ._BrowserHeaderSelector_1x3ce_155, ._Browser_1x3ce_16._collapsed_1x3ce_246 ._BrowserHeaderNewButton_1x3ce_201 {
+  opacity: 0;
+}
+._Browser_1x3ce_16._collapsed_1x3ce_246 ._BrowserHeaderTabIconInner_1x3ce_94 {
+  border-color: var(--secondary-color);
+}
+._Browser_1x3ce_16._collapsed_1x3ce_246 ._BrowserHeaderCollapsedTitle_1x3ce_183 {
+  opacity: 1;
+  transform: translateX(calc(var(--translateX) * var(--reflect)));
+}
+._BrowserCatalogue_1x3ce_260 {
+  padding: 1.5rem 1.5rem 0;
+}
+._BrowserCatalogueSearch_1x3ce_263 {
+  --height: 44px;
+  --icon-left-add-offset: .1875rem;
+  margin: 0 0 0.375rem;
+}
+._BrowserCatalogueList_1x3ce_268 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 5rem);
+  margin: 0.125rem -0.5rem 0;
+  justify-content: space-between;
+  row-gap: 0.3125rem;
+  -moz-column-gap: 0.75rem;
+       column-gap: 0.75rem;
+}
+._BrowserCatalogueList_1x3ce_268._folded_1x3ce_276 {
+  height: 7rem;
+  overflow: hidden;
+  margin-bottom: -1.125rem;
+}
+._BrowserCatalogue_1x3ce_260 .sidebar-left-section-name {
+  padding-inline: 0.5rem !important;
+  color: var(--primary-text-color);
+}
+._BrowserCatalogue_1x3ce_260 .sidebar-left-section-name-right {
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  cursor: pointer;
+}
+._BrowserCatalogue_1x3ce_260 .sidebar-left-section-content {
+  margin: 0 !important;
+}
+._BrowserCatalogue_1x3ce_260 .similar-channels-channel {
+  width: 5rem;
+  height: 7rem;
+}
+._BrowserCatalogue_1x3ce_260 .similar-channels-channel-badge {
+  top: 55px;
+  height: 19px;
+}
+._BrowserCatalogue_1x3ce_260 .similar-channels-channel-name {
+  margin-top: 0.5rem;
+  font-weight: var(--font-weight-bold);
+}
+._BrowserCatalogue_1x3ce_260 .similar-channels-channel.no-badge {
+  height: 6.5rem;
+}
+._BrowserCatalogue_1x3ce_260 .animated-item {
+  width: calc(100% - 3rem);
+}
+
+._ScaleMenu_1x3ce_312 {
+  display: flex;
+  text-align: center;
+  padding: 0;
+  background: none !important;
+  cursor: default;
+}
+._ScaleMenuSmaller_1x3ce_319, ._ScaleMenuBigger_1x3ce_319 {
+  flex: 0 0 auto;
+  width: 35%;
+  height: 100%;
+  cursor: pointer;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._ScaleMenuSmaller_1x3ce_319 {
+  font-size: 87.5%;
+}
+._ScaleMenuBigger_1x3ce_319 {
+  font-size: 112.5%;
+}
+._ScaleMenuScale_1x3ce_335 {
+  width: 30%;
+  flex: 0 0 auto;
+  color: var(--secondary-text-color);
+}._popup_1goef_1 {
+  --popup-width: 22.5rem;
+}
+._popup_1goef_1 .popup-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+._forOffline_1goef_11 ._text_1goef_11 {
+  margin-top: 1.25rem;
+}
+
+._chip_1goef_15 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  background: var(--background-color);
+  border-radius: 9999px;
+  padding-inline-end: 0.5rem;
+  font-size: var(--font-size-14);
+}
+._forOffline_1goef_11 ._chip_1goef_15 {
+  margin-top: 1.5rem;
+}
+
+._chipSticker_1goef_29 {
+  transition: var(--transition-standard-out);
+  transition-property: opacity, transform;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: bottom center;
+}
+._chipSticker_1goef_29._switch_1goef_36 {
+  opacity: 0;
+  transform: scale(0.5);
+}._popup_967hf_1 .popup-container {
+  width: 26.25rem;
+  border-radius: 14px;
+  padding: 0;
+}
+._popup_967hf_1 .popup-buttons {
+  padding: 0 0.25rem;
+  margin: 0.5rem;
+}
+._popup_967hf_1 .popup-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+._graph_967hf_17 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-block: 2rem;
+}
+
+._avatarWrap_967hf_25 {
+  position: relative;
+}
+
+._locationIcon_967hf_29 {
+  position: absolute;
+  inset-inline-end: -0.25rem;
+  bottom: -0.25rem;
+  background: var(--primary-color);
+  color: var(--white);
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.75rem;
+  border: 2px solid var(--surface-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}._popup_1otk5_1 {
+  --popup-width: 26.25rem;
+}
+._popup_1otk5_1 .popup-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+._bubbles_1otk5_10 {
+  width: 100%;
+}
+
+._bubblesContent_1otk5_14 {
+  padding-block: 1rem;
+}
+
+._bubble_1otk5_10 {
+  width: calc(100% - 2rem);
+  pointer-events: none;
+}
+
+._text_1otk5_23 {
+  margin-top: 0.5rem;
+  padding-inline: 1rem;
+  font-size: var(--font-size-15);
+}._popup_1d50p_1 {
+  --popup-width: 25rem !important;
+  --popup-height: calc(var(--vh) * 100 - 2rem) !important;
+  --popup-max-height: var(--popup-height) !important;
+}
+._popup_1d50p_1.popup {
+  padding-block: 1rem;
+}
+._popup_1d50p_1 .popup-header {
+  display: none;
+}
+
+._slider_1d50p_13,
+._slider_1d50p_13 > .sidebar-slider {
+  height: 100%;
+}._ButtonMenu_1b3ot_1 {
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+._ButtonMenu_1b3ot_1 .btn-menu {
+  min-width: auto;
+}
+._ButtonMenu_1b3ot_1 .btn-menu-item {
+  padding-inline-end: 24px;
+}
+
+._hidden_1b3ot_12 {
+  display: none;
+}._subtitle_1wg6g_1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._bars_1wg6g_7 {
+  display: inline-flex;
+  align-items: flex-end;
+  flex: 0 0 auto;
+  gap: 0.125em;
+  height: 0.75em;
+  margin-right: 0.375em;
+}
+.is-rtl ._bars_1wg6g_7 {
+  margin-right: 0;
+  margin-left: 0.375em;
+}
+._bars_1wg6g_7[hidden] {
+  display: none;
+}
+
+._bar_1wg6g_7 {
+  width: 0.1875em;
+  border-radius: 0.0625em;
+  background-color: currentColor;
+  opacity: 0.4;
+}
+._bar_1wg6g_7:nth-child(1) {
+  height: 25%;
+}
+._bar_1wg6g_7:nth-child(2) {
+  height: 50%;
+}
+._bar_1wg6g_7:nth-child(3) {
+  height: 75%;
+}
+._bar_1wg6g_7:nth-child(4) {
+  height: 100%;
+}
+._bar_1wg6g_7._isActive_1wg6g_41 {
+  opacity: 1;
+}
+
+._notice_1wg6g_45:not(.is-visible) {
+  height: 0;
+  margin-top: 0;
+}
+
+._batteryIcon_1wg6g_50 {
+  flex: 0 0 auto;
+  width: 1.8125rem;
+  height: 0.8125rem;
+  margin-inline-end: 0.5rem;
+}._popup_c16iw_1 {
+  --popup-width: 22.5rem;
+}
+
+._header_c16iw_5 {
+  position: absolute;
+}
+
+._separator_c16iw_9 {
+  width: 40%;
+  border-top: 1px solid var(--border-color);
+  margin: 1rem auto;
+}
+
+._participants_c16iw_15 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+._participants_c16iw_15 .stacked-avatars {
+  --margin-right: -1rem;
+  --border-size: .125rem;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Viewer_yd1fh_16 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+}
+:root:where(.a11y) ._Viewer_yd1fh_16:focus-visible {
+  outline: none;
+}
+._Viewer_yd1fh_16._isInvisible_yd1fh_31 {
+  visibility: hidden;
+}
+._Viewer_yd1fh_16._isInvisible_yd1fh_31 .btn-send-container,
+._Viewer_yd1fh_16._isInvisible_yd1fh_31 .btn-send .animated-button-icon-icon {
+  visibility: hidden !important;
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38 ._ViewerBackground_yd1fh_38 {
+  background-color: #000;
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46 {
+  --transition-time: .3s;
+  --transition: var(--transition-standard-easing) var(--transition-time);
+  visibility: hidden;
+  opacity: 0;
+  margin: 0;
+  transition-delay: 0s, 0s, var(--transition-time);
+}
+body.animation-level-2 ._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46 {
+  transition: opacity var(--transition-time), transform var(--transition-time), visibility var(--transition-time);
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46._fromLeft_yd1fh_57 {
+  transform: rotateY(90deg) translateX(50%) rotateY(-90deg) translateX(-50%) rotateY(-90deg);
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46._fromLeft_yd1fh_57._current_yd1fh_60 {
+  transform: rotateY(90deg) translateX(50%) rotateY(0deg) translateX(-50%) rotateY(-90deg);
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46._current_yd1fh_60 {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s, 0s;
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46._fromRight_yd1fh_68 {
+  transform: rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg);
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38._isReady_yd1fh_41 ._ViewerStoryContainer_yd1fh_46._fromRight_yd1fh_68._current_yd1fh_60 {
+  transform: rotateY(-90deg) translateX(-50%) rotateY(0deg) translateX(50%) rotateY(90deg);
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38 .stories-input {
+  --chat-input-background: #212121;
+  --chat-input-focus-offset: 0px;
+  --backdrop-filter: unset;
+}
+._Viewer_yd1fh_16._isFull_yd1fh_38 .stories-input .rows-wrapper-wrapper {
+  justify-content: center;
+}
+._ViewerBackground_yd1fh_38 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  content: " ";
+  pointer-events: none;
+}
+html.night ._ViewerBackground_yd1fh_38 {
+  background-color: rgba(var(--body-background-color-rgb), 0.9);
+}
+._ViewerStory_yd1fh_46 {
+  display: flex;
+  flex-direction: column;
+  width: var(--stories-width);
+  aspect-ratio: 9/16;
+  border-radius: calc(16px * 1 / var(--scale));
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+._ViewerStoryShimmer_yd1fh_105 {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+body.animation-level-2 ._ViewerStory_yd1fh_46 {
+  transition: border-radius var(--transition-standard-out);
+}
+._ViewerStoryContainer_yd1fh_46 {
+  --translateX: 0;
+  --scale: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3.5rem;
+  margin: 0.75rem 0;
+  max-height: 100%;
+  transform: translate3d(var(--translateX), 0, 0) scale3d(var(--scale), var(--scale), 1);
+  will-change: transform, opacity;
+  position: absolute;
+  opacity: 1;
+}
+body.animation-level-2 ._ViewerStoryContainer_yd1fh_46 {
+  transition: transform var(--transition-standard-out), opacity var(--transition-standard-out);
+}
+._ViewerStoryContainer_yd1fh_46._fadeIn_yd1fh_131 {
+  opacity: 0;
+}
+._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 {
+  --scale: 0.33;
+  cursor: pointer;
+}
+._ViewerStoryContainer_yd1fh_46 ._hideOnSmall_yd1fh_138 {
+  opacity: 1;
+}
+._ViewerStoryContainer_yd1fh_46._hold_yd1fh_141 ._hideOnSmall_yd1fh_138, ._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 ._hideOnSmall_yd1fh_138, ._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 .stories-input {
+  opacity: 0;
+  pointer-events: none;
+}
+:where(.a11y) ._ViewerStoryContainer_yd1fh_46._hold_yd1fh_141 ._hideOnSmall_yd1fh_138, :where(.a11y) ._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 ._hideOnSmall_yd1fh_138, :where(.a11y) ._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 .stories-input {
+  visibility: hidden;
+}
+body.animation-level-1 ._ViewerStoryContainer_yd1fh_46 ._hideOnSmall_yd1fh_138, body.animation-level-1 ._ViewerStoryContainer_yd1fh_46 ._ViewerStoryContentMediaContainer_yd1fh_148 {
+  transition: opacity var(--transition-standard-out) !important;
+}
+._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 ._ViewerStoryContentMediaContainer_yd1fh_148 {
+  opacity: 0.5;
+}
+._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 ._ViewerStoryMediaAreas_yd1fh_154 {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 ._ViewerStoryInfo_yd1fh_158 {
+  opacity: 1;
+}
+body.animation-level-1 ._ViewerStoryContainer_yd1fh_46._small_yd1fh_134 ._ViewerStoryInfo_yd1fh_158 {
+  transition: opacity var(--transition-standard-out);
+}
+._ViewerStoryContainer_yd1fh_46._focused_yd1fh_164 ._ViewerStoryContentMediaContainer_yd1fh_148 {
+  opacity: 0.8;
+}
+._ViewerStorySlides_yd1fh_167 {
+  position: absolute;
+  top: 0.625rem;
+  left: 0;
+  right: 0;
+  padding-block: 0;
+  padding-inline: 0.4375rem 0.625rem;
+  height: 0.125rem;
+  display: flex;
+}
+._ViewerStorySlidesSlide_yd1fh_177 {
+  border-radius: 1px;
+  height: inherit;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-inline-start: 0.1875rem;
+  flex: 1 1 auto;
+  position: relative;
+  min-width: 0.375rem;
+  box-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+}
+._ViewerStorySlidesSlideFill_yd1fh_187 {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: #fff;
+  transform-origin: var(--transform-origin-inline-start);
+  transform: scaleX(0);
+}
+._ViewerStorySeek_yd1fh_195 {
+  position: absolute;
+  top: 0.625rem;
+  inset-inline: 0.625rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+._ViewerStorySeekBar_yd1fh_205 {
+  position: relative;
+  align-self: stretch;
+  height: 0.3125rem;
+  border-radius: 0.3125rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+}
+._ViewerStorySeekBarFill_yd1fh_214 {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+._ViewerStorySeekHint_yd1fh_221 {
+  margin-top: 0.75rem;
+  color: #fff;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
+  text-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+._ViewerStoryHeader_yd1fh_229 {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  text-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+}
+._ViewerStoryHeaderAvatar_yd1fh_241 {
+  width: 2rem;
+  height: 2rem;
+  margin-inline-end: 0.75rem;
+  flex: 0 0 auto;
+  box-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+}
+._ViewerStoryHeaderName_yd1fh_248, ._ViewerStoryHeaderTime_yd1fh_248 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+._ViewerStoryHeaderName_yd1fh_248 {
+  font-weight: var(--font-weight-bold);
+}
+._ViewerStoryHeaderSecondary_yd1fh_256 {
+  font-size: var(--font-size-14);
+  opacity: 0.5;
+  flex: 0 0 auto;
+}
+._ViewerStoryHeaderTime_yd1fh_248 {
+  flex: 1 1 auto;
+  margin-top: -4px;
+  height: 21px;
+}
+._ViewerStoryHeaderTime_yd1fh_248._hasRepost_yd1fh_266 {
+  display: flex;
+  align-items: center;
+  white-space: pre;
+}
+._ViewerStoryHeaderLeft_yd1fh_271, ._ViewerStoryHeaderRight_yd1fh_271 {
+  display: flex;
+  align-items: center;
+}
+._ViewerStoryHeaderLeft_yd1fh_271 {
+  padding: 0 0.5rem;
+  overflow: hidden;
+  flex: 1 1 auto;
+  height: 2.25rem;
+  cursor: pointer;
+}
+._ViewerStoryHeaderRight_yd1fh_271 {
+  flex: 0 0 auto;
+}
+._ViewerStoryHeaderInfo_yd1fh_285 {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+._ViewerStoryHeaderRow_yd1fh_289 {
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  white-space: pre-wrap;
+}
+._ViewerStoryHeaderRepost_yd1fh_296, ._ViewerStoryHeaderAuthor_yd1fh_296 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
+  max-width: 100%;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+._ViewerStoryHeaderRepostTitle_yd1fh_306, ._ViewerStoryHeaderAuthorTitle_yd1fh_306 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+._ViewerStoryPrivacy_yd1fh_311 {
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-inline-end: 0.5rem;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: none;
+}
+._ViewerStoryContent_yd1fh_148 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #000;
+}
+._ViewerStoryContentItem_yd1fh_334 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+._ViewerStoryContentMedia_yd1fh_148 {
+  position: absolute;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+._ViewerStoryFooter_yd1fh_347 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 0.5rem;
+  font-weight: var(--font-weight-bold);
+}
+body.animation-level-1 ._ViewerStoryFooter_yd1fh_347 {
+  transition: color var(--transition-standard-in);
+}
+html.no-touch ._ViewerStoryFooter_yd1fh_347:hover, html.no-touch ._ViewerStoryFooter_yd1fh_347:active {
+  color: rgb(255, 255, 255);
+}
+._ViewerStoryFooterLeft_yd1fh_366, ._ViewerStoryFooterRight_yd1fh_366 {
+  display: flex;
+  align-items: center;
+}
+._ViewerStoryFooterLeft_yd1fh_366 {
+  min-width: 0;
+}
+._ViewerStoryFooterText_yd1fh_373 {
+  padding-inline: 0.5rem;
+  font-weight: var(--font-weight-normal);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+._ViewerStoryFooterIcon_yd1fh_380 {
+  display: flex;
+  align-items: center;
+}
+._ViewerStoryFooterIconIcon_yd1fh_384 {
+  font-size: 1.5rem;
+}
+._ViewerStoryFooterCount_yd1fh_387 {
+  margin-inline-start: 0.375rem;
+}
+._ViewerStoryFooterStat_yd1fh_390 {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-inline-start: 0.625rem;
+}
+._ViewerStoryFooterStatIcon_yd1fh_396 {
+  font-size: 1.25rem;
+  margin-inline-end: 0.125rem;
+}
+._ViewerStoryFooterStat_yd1fh_390._reactions_yd1fh_400 ._ViewerStoryFooterStatIcon_yd1fh_396 {
+  color: #FF3B30;
+}
+._ViewerStoryFooterStat_yd1fh_390._reposts_yd1fh_403 ._ViewerStoryFooterStatIcon_yd1fh_396 {
+  color: #34C759;
+}
+._ViewerStoryFooterReaction_yd1fh_406 {
+  height: 2.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 12px;
+}
+html.no-touch ._ViewerStoryFooterReaction_yd1fh_406:hover, html.no-touch ._ViewerStoryFooterReaction_yd1fh_406:active {
+  background-color: var(--light-secondary-text-color);
+}
+._ViewerStoryFooterReactionIcon_yd1fh_415 {
+  --reaction-offset: 0px;
+  position: relative;
+  display: flex;
+}
+._ViewerStoryFooterReactionIcon_yd1fh_415 .btn-reaction-icon {
+  font-size: 1.5rem;
+}
+._ViewerStoryFooterReactionIcon_yd1fh_415 .btn-reaction-default {
+  color: #FF3B30;
+}
+._ViewerStoryFooterReactionIcon_yd1fh_415 .btn-reaction-sticker {
+  width: 26px;
+  height: 26px;
+  position: relative;
+}
+._ViewerStoryFooterLocked_yd1fh_431 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  height: 2.5rem;
+  padding-inline: 0.5rem 0.375rem;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: var(--font-weight-normal);
+}
+html.no-touch ._ViewerStoryFooterLocked_yd1fh_431:hover, html.no-touch ._ViewerStoryFooterLocked_yd1fh_431:active {
+  background-color: var(--light-secondary-text-color);
+}
+._ViewerStoryFooterLockedIcon_yd1fh_445 {
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+}
+._ViewerStoryFooterLockedText_yd1fh_449 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+._ViewerStoryFooterLockedButton_yd1fh_454 {
+  flex: 0 0 auto;
+  padding: 0.125rem 0.5rem;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
+}
+._ViewerStoryFooter_yd1fh_347 .btn-icon {
+  color: currentColor;
+  transition: none;
+}
+._ViewerStoryFooter_yd1fh_347 .stacked-avatars {
+  --border-color: #000;
+  --margin-right: -1rem;
+  --border-size: 2px;
+  margin-inline-end: 0.5rem;
+}
+._ViewerStoryFooter_yd1fh_347._isMe_yd1fh_473 ._ViewerStoryFooterLeft_yd1fh_366 {
+  cursor: pointer;
+}
+._ViewerStoryFooter_yd1fh_347._isChangelog_yd1fh_476 {
+  justify-content: center;
+  font-weight: var(--font-weight-normal);
+}
+._ViewerStoryShadow_yd1fh_480 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 10.86%);
+  pointer-events: none;
+}
+._ViewerStoryShadow_yd1fh_480._hasCaption_yd1fh_486 {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0.5) 100%);
+}
+._ViewerStoryInfo_yd1fh_158 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  max-width: 100%;
+}
+body.animation-level-1 ._ViewerStoryInfo_yd1fh_158 {
+  transition: opacity 0.1s var(--transition-standard-easing);
+}
+._ViewerStoryInfoAvatar_yd1fh_504 {
+  margin-bottom: 1.25rem;
+  pointer-events: none !important;
+}
+._ViewerStoryInfoName_yd1fh_508 {
+  font-weight: var(--font-weight-bold);
+  font-size: 3rem;
+  color: #fff;
+  text-align: center;
+  line-height: var(--line-height);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 2rem;
+  max-width: 100%;
+  margin-bottom: -24px;
+}
+._ViewerStoryCaption_yd1fh_521 {
+  position: absolute;
+  top: calc(100% - 320px);
+  padding-top: 264px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  width: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-16);
+  white-space: pre-wrap;
+  text-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 0.75rem, rgb(0, 0, 0) calc(100% - 0.75rem), rgba(0, 0, 0, 0) 100%);
+}
+._ViewerStoryCaption_yd1fh_521 a {
+  color: #fff !important;
+  text-decoration: underline;
+}
+._ViewerStoryCaption_yd1fh_521._hasReply_yd1fh_545 {
+  padding-top: 214px;
+}
+._ViewerStoryCaption_yd1fh_521._hasMusic_yd1fh_548 {
+  bottom: 2rem;
+  padding-top: 232px;
+}
+._ViewerStoryCaption_yd1fh_521._hasReply_yd1fh_545._hasMusic_yd1fh_548 {
+  padding-top: 182px;
+}
+._ViewerStoryCaptionText_yd1fh_555 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: table;
+  word-break: break-word;
+  white-space: pre-wrap;
+  table-layout: fixed;
+}
+._ViewerStoryCaptionTextCell_yd1fh_564 {
+  display: table-cell;
+  vertical-align: bottom;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+          user-select: text;
+}
+._ViewerStoryMediaArea_yd1fh_154 {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(var(--rotate));
+  pointer-events: all;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--area-radius);
+  z-index: 1;
+  pointer-events: all;
+}
+._ViewerStoryMediaAreaWeather_yd1fh_579 {
+  overflow: visible;
+  border-radius: 0;
+}
+._ViewerStoryMediaAreaReaction_yd1fh_583 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: unset;
+}
+._ViewerStoryMediaAreaReactionBubbles_yd1fh_589 {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  border-radius: 50%;
+  filter: drop-shadow(0 0.125rem 0.25rem rgba(0, 0, 0, 0.1));
+  pointer-events: none;
+}
+._ViewerStoryMediaAreaReactionBubbles_yd1fh_589._dark_yd1fh_597 {
+  background-color: #000;
+  opacity: 0.5;
+}
+._ViewerStoryMediaAreaReactionBubbles_yd1fh_589._flipped_yd1fh_601 {
+  transform: scaleX(-1);
+}
+._ViewerStoryMediaAreaReactionBubble_yd1fh_589 {
+  position: absolute;
+  background-color: inherit;
+  border-radius: 50%;
+  width: 24%;
+  height: 24%;
+  top: 71%;
+  left: 71%;
+}
+._ViewerStoryMediaAreaReactionBubble_yd1fh_589._small_yd1fh_134 {
+  width: 10%;
+  height: 10%;
+  top: 93%;
+  left: 93%;
+}
+._ViewerStoryMediaAreaReactionInner_yd1fh_619 {
+  position: absolute;
+  width: 72%;
+  height: 72%;
+  pointer-events: none;
+  transform: scale(1);
+  transform-origin: center 5%;
+}
+body.animation-level-2 ._ViewerStoryMediaAreaReactionInner_yd1fh_619 {
+  transition: transform 0.15s ease-in-out;
+}
+._ViewerStoryMediaAreaReactionInner_yd1fh_619._hasCount_yd1fh_630 {
+  transform: scale(0.85);
+}
+._ViewerStoryMediaAreaReactionInner_yd1fh_619 .media-sticker {
+  border-radius: 0.625rem;
+}
+._ViewerStoryMediaAreaReactionCount_yd1fh_636 {
+  position: absolute;
+  bottom: 0;
+  font-weight: var(--font-weight-bold);
+  color: #000;
+  opacity: 0;
+}
+body.animation-level-1 ._ViewerStoryMediaAreaReactionCount_yd1fh_636 {
+  transition: opacity 0.15s ease-in-out;
+}
+._ViewerStoryMediaAreaReactionCount_yd1fh_636._hasCount_yd1fh_630 {
+  opacity: 1;
+}
+._ViewerStoryMediaAreaReactionCount_yd1fh_636._dark_yd1fh_597 {
+  color: #fff;
+}
+._ViewerStoryMediaAreaUrl_yd1fh_652 {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: match-parent;
+  font-size: 0.875em;
+  font-weight: var(--font-weight-normal);
+  color: rgba(255, 255, 255, 0.6);
+}
+._ViewerStoryMediaAreas_yd1fh_154 {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 1;
+  pointer-events: none;
+}
+._ViewerStoryReactions_yd1fh_669 {
+  --height: 3rem;
+  --bubble-side-offset: 0px;
+  --other-side-offset: 0px;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: var(--blur-off, blur(25px));
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: calc(100% - 1rem);
+}
+._ViewerStoryReactions_yd1fh_669 .btn-menu-reactions-bubble {
+  display: none;
+}
+._ViewerStoryReactions_yd1fh_669 .btn-menu-reactions-reaction {
+  --size: min(2.25rem, calc((var(--stories-width) - 5rem) / 7 - .5rem));
+}
+._ViewerStoryReactions_yd1fh_669 .btn-menu-reactions-more {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  text-shadow: none;
+  width: 1.875rem;
+  height: 1.875rem;
+  margin-inline: 0.375rem 0;
+  font-size: 1.25rem;
+}
+._ViewerStoryReactions_yd1fh_669 .btn-menu-reactions-description {
+  color: rgba(255, 255, 255, 0.6);
+}
+._ViewerStoryReactions_yd1fh_669._isLike_yd1fh_701 {
+  left: auto;
+  inset-inline-end: 0.5rem;
+  transform: none;
+}
+._ViewerStoryReactionCenter_yd1fh_706 {
+  --reaction-offset: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+._ViewerStoryRepost_yd1fh_717 {
+  margin-bottom: 0.25rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
+}
+._ViewerStory_yd1fh_46 .btn-icon {
+  color: #fff;
+  text-shadow: 0px 0 3px rgba(0, 0, 0, 0.2);
+}
+._Viewer_yd1fh_16 .stories-input {
+  --chat-input-height: 3rem;
+  --chat-input-border-radius: 16px;
+  --chat-input-focus-offset: 135px;
+  --chat-input-max-width: calc(var(--stories-width) + var(--chat-input-focus-offset));
+  --secondary-text-color: #707579;
+  --primary-text-color: #fff;
+  --focus-translateX: 0px;
+  --chat-input-background: rgba(0, 0, 0, .5);
+  --backdrop-filter: var(--blur-off, blur(25px));
+  position: absolute;
+  bottom: 0;
+  width: var(--stories-width);
+  max-width: var(--chat-input-max-width);
+  opacity: 1;
+}
+body.animation-level-1 ._Viewer_yd1fh_16 .stories-input {
+  transition: opacity var(--transition-standard-out) !important;
+}
+body.animation-level-2 ._Viewer_yd1fh_16 .stories-input {
+  transition: opacity var(--transition-standard-out), transform var(--transition-standard-out) !important;
+}
+._Viewer_yd1fh_16 .stories-input .rows-wrapper-wrapper {
+  transform: translateX(calc(var(--focus-translateX) * -1 * var(--reflect)));
+  transform-origin: center left;
+}
+body.animation-level-2 ._Viewer_yd1fh_16 .stories-input .rows-wrapper-wrapper {
+  transition: transform var(--transition-standard-out) !important;
+}
+._Viewer_yd1fh_16 .stories-input.is-focused {
+  --focus-translateX: calc(var(--chat-input-focus-offset) / 2);
+}
+._Viewer_yd1fh_16 .stories-input .rows-wrapper {
+  width: var(--stories-width);
+  max-width: var(--chat-input-max-width);
+}
+body.animation-level-2 ._Viewer_yd1fh_16 .stories-input .rows-wrapper {
+  transition: width var(--transition-standard-out) !important;
+}
+._Viewer_yd1fh_16 .stories-input .rows-wrapper .btn-icon {
+  margin-block: 0 2px;
+}
+._Viewer_yd1fh_16 .stories-input .rows-wrapper .btn-icon.active,
+._Viewer_yd1fh_16 .stories-input .rows-wrapper .attach-file.menu-open {
+  color: #fff;
+}
+._Viewer_yd1fh_16 .stories-input .btn-reaction {
+  --reaction-offset: 0px;
+  flex: 0 0 auto;
+}
+._Viewer_yd1fh_16 .stories-input .btn-reaction-default {
+  color: #FF3B30 !important;
+}
+._Viewer_yd1fh_16 .stories-input .btn-reaction-sticker {
+  width: 26px;
+  height: 26px;
+  position: relative;
+}
+._Viewer_yd1fh_16 .stories-input.is-focused .btn-reaction, ._Viewer_yd1fh_16 .stories-input.is-recording .btn-reaction {
+  display: none;
+}
+._Viewer_yd1fh_16 .stories-input.is-private:not(.is-focused):not(.is-recording) .btn-send-container {
+  display: none;
+}
+body.animation-level-1 ._Viewer_yd1fh_16 .stories-input .btn-send {
+  transition: background-color 0.2s;
+}
+._Viewer_yd1fh_16 .stories-input .btn-send.forward {
+  background-color: transparent !important;
+}
+html.no-touch ._Viewer_yd1fh_16 .stories-input .btn-send.forward:hover, html.no-touch ._Viewer_yd1fh_16 .stories-input .btn-send.forward:active {
+  background-color: var(--light-secondary-text-color) !important;
+}
+._Viewer_yd1fh_16 .stories-input .input-message-input {
+  caret-color: currentColor;
+}
+._Viewer_yd1fh_16 .stories-input .new-message-wrapper {
+  background-color: transparent;
+}
+._Viewer_yd1fh_16 .stories-input .rows-wrapper:before,
+._Viewer_yd1fh_16 .stories-input .bubble-tail,
+._Viewer_yd1fh_16 .stories-input .emoji-dropdown {
+  background-color: var(--chat-input-background) !important;
+  backdrop-filter: var(--backdrop-filter);
+}
+._Viewer_yd1fh_16 .stories-input .bubble-tail {
+  clip-path: url(#message-tail-clip);
+  transform: scale(-1);
+  inset-inline-end: -7px;
+  bottom: 0px;
+}
+._Viewer_yd1fh_16 .stories-input .record-ripple {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: var(--blur-off, blur(5px));
+  opacity: 1;
+}
+._Viewer_yd1fh_16 .emoji-dropdown {
+  --translateX: 0px;
+  bottom: calc(var(--chat-input-height) + 0.5rem);
+  border-radius: var(--chat-input-border-radius);
+  transform: translateX(var(--translateX)) scale(0);
+}
+._Viewer_yd1fh_16 .emoji-dropdown.active {
+  transform: translateX(var(--translateX)) scale(1);
+}
+body:not(.animation-level-2) ._Viewer_yd1fh_16 .emoji-dropdown {
+  transform: translateX(var(--translateX));
+}
+@media only screen and (max-height: 759px) {
+  ._Viewer_yd1fh_16 .emoji-dropdown {
+    --translateX: calc(-50% * var(--reflect));
+    inset-inline: 50% auto;
+    transform-origin: bottom center;
+  }
+}
+._Viewer_yd1fh_16 .autocomplete-helper {
+  background-color: var(--chat-input-background) !important;
+  backdrop-filter: var(--backdrop-filter);
+}
+._Viewer_yd1fh_16 .quiz-hint {
+  z-index: 5;
+}
+._Viewer_yd1fh_16 .reply {
+  --peer-color-rgb: 255, 255, 255;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+._ViewerClose_yd1fh_853 {
+  position: absolute;
+  top: 1rem;
+  inset-inline-end: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: none;
+}
+html.no-touch ._ViewerClose_yd1fh_853:hover, html.no-touch ._ViewerClose_yd1fh_853:active {
+  color: rgb(255, 255, 255);
+}
+._Viewer_yd1fh_16 ._noSound_yd1fh_863 {
+  color: rgba(255, 255, 255, 0.5);
+}
+._Viewer_yd1fh_16 img,
+._Viewer_yd1fh_16 video {
+  dynamic-range-limit: no-limit;
+}
+
+:where(.a11y) ._ViewerStoryHeaderLeft_yd1fh_271,
+:where(.a11y) ._ViewerStoryFooterLeft_yd1fh_366,
+:where(.a11y) ._ViewerStoryFooterReaction_yd1fh_406 {
+  color: inherit;
+  text-align: inherit;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._popup_i60io_16 {
+  --popup-width: 25rem;
+}
+
+._container_i60io_20 {
+  height: min(37.5rem, 100% - 2rem);
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--surface-color);
+}
+
+._strip_i60io_27 {
+  display: flex;
+  justify-content: safe center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  padding: 0.75rem 0.75rem 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+._strip_i60io_27::-webkit-scrollbar {
+  display: none;
+}
+._stripItem_i60io_39 {
+  position: relative;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.5;
+  background-color: var(--light-filled-secondary-text-color);
+}
+body.animation-level-1 ._stripItem_i60io_39 {
+  transition: opacity var(--transition-standard-in);
+}
+html.no-touch ._stripItem_i60io_39:hover, html.no-touch ._stripItem_i60io_39:active {
+  opacity: 0.8;
+}
+._stripItem_i60io_39._active_i60io_56 {
+  opacity: 1;
+}
+._stripItem_i60io_39._active_i60io_56:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--primary-color);
+}
+._stripMedia_i60io_66 {
+  position: absolute;
+  inset: 0;
+}
+._stripMedia_i60io_66 .media-photo,
+._stripMedia_i60io_66 .media-video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+._stripViews_i60io_76 {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  padding: 0.5rem 0 0.125rem;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-bold);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+}
+._stripViews_i60io_76 .tgico {
+  font-size: 0.75rem;
+}
+
+._header_i60io_94 {
+  flex: 0 0 auto;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  min-height: 3.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+._title_i60io_103 {
+  flex: 1 1 auto;
+}
+
+._tabs_i60io_107 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+._sort_i60io_112 {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  width: auto;
+  padding-inline: 0.5rem 0.25rem;
+  border-radius: 1.25rem;
+  font-size: 1.25rem;
+}
+._sortArrow_i60io_122 {
+  font-size: 1rem;
+}
+
+._search_i60io_126 {
+  flex: 0 0 auto;
+  width: auto;
+  margin: 0.5rem 0.75rem 0;
+}
+
+._body_i60io_132 {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+._scrollable_i60io_141 {
+  flex: 1 1 auto;
+}
+
+._list_i60io_145 {
+  padding: 0.5rem 0;
+}
+
+._row_i60io_149 {
+  padding-inline-end: 3.25rem !important;
+}
+._row_i60io_149._withPreview_i60io_152 {
+  padding-inline-end: 3.5rem !important;
+}
+
+._hidden_i60io_156 .dialog-avatar,
+._hidden_i60io_156 .row-title-row,
+._hidden_i60io_156 .row-subtitle-row {
+  opacity: 0.5;
+}
+
+._preview_i60io_162 {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 1rem;
+  width: 1.75rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  transform: translateY(-50%);
+  background-color: var(--light-filled-secondary-text-color);
+}
+._preview_i60io_162 .media-photo,
+._preview_i60io_162 .media-video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+._stub_i60io_180 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 15rem;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  color: var(--secondary-text-color);
+}
+._stubTitle_i60io_191 {
+  color: var(--primary-text-color);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
+}
+._stubText_i60io_196 {
+  line-height: var(--line-height-16);
+}
+._stubButton_i60io_199 {
+  margin-top: 1rem;
+  width: auto;
+  padding-inline: 2rem;
+}
+
+._hint_i60io_205 {
+  padding: 1rem 1.25rem;
+  text-align: center;
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  color: var(--secondary-text-color);
+}
+._hintClickable_i60io_212 {
+  cursor: pointer;
+}
+._hintClickable_i60io_212 b {
+  color: var(--primary-color);
+}._popup_1bhzd_1 {
+  --popup-width: 26.25rem;
+}
+
+._audienceIcon_1bhzd_5 {
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+._fields_1bhzd_11 {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+._error_1bhzd_18 {
+  color: var(--danger-color);
+  font-size: var(--font-size-14);
+  margin-bottom: 0.75rem;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Pill_1c7au_16 {
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 1rem;
+  padding: 0 0.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  text-shadow: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+html.no-touch ._Pill_1c7au_16:hover, html.no-touch ._Pill_1c7au_16:active {
+  background-color: rgba(0, 0, 0, 0.35);
+}._Pill_gutl2_1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  direction: ltr;
+  width: -moz-max-content;
+  width: max-content;
+  padding-left: calc(var(--weather-size) * 0.203);
+  padding-right: calc(var(--weather-size) * 0.2);
+  border-radius: var(--weather-radius);
+  background-color: var(--weather-color);
+  color: var(--weather-text-color);
+  font-size: calc(var(--weather-size) * 0.69);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: calc(var(--weather-size) * -0.0263);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+._Emoji_gutl2_25 {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--weather-size) * 0.71);
+  height: calc(var(--weather-size) * 0.71);
+  margin-right: calc(var(--weather-size) * 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--weather-size) * 0.58);
+}
+._Emoji_gutl2_25 .emoji {
+  width: 1em;
+  height: 1em;
+}
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Panel_musc5_16 {
+  display: flex;
+  align-items: center;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+._Wrapper_musc5_24 {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 2;
+  display: flex;
+}
+
+._Icon_musc5_33 {
+  flex: 0 0 auto;
+  margin-inline-end: 0.375rem;
+  font-size: 1rem;
+}
+
+._Text_musc5_39 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 0;
+}
+
+._Title_musc5_46 {
+  font-weight: var(--font-weight-normal);
+}
+
+._Separator_musc5_50 {
+  opacity: 0.28;
+}._media_1sjjs_1 {
+  overflow: visible;
+}
+
+._avatars_1sjjs_5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._avatars_1sjjs_5 .stacked-avatars {
+  --border-color: var(--light-filled-secondary-text-color);
+  --border-size: 2px;
+  --margin-right: -1.125rem;
+}
+
+._collapsed_1sjjs_16 ._avatars_1sjjs_5 .stacked-avatars {
+  --border-color: var(--surface-color);
+}._suggestion_mapi9_1 {
+  border-radius: 16px;
+}
+._suggestionSubtitle_mapi9_4 {
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-16);
+}
+._suggestionContainer_mapi9_8 {
+  overflow: hidden;
+  margin: 0.5rem;
+}
+.has-vertical-folders ._suggestionContainer_mapi9_8 {
+  margin-bottom: 0;
+}
+._suggestion_mapi9_1._danger_mapi9_15 {
+  background-color: var(--light-filled-danger-color) !important;
+}
+._suggestion_mapi9_1._danger_mapi9_15 ._suggestionTitle_mapi9_18 {
+  color: var(--danger-color);
+}
+._suggestion_mapi9_1._secondary_mapi9_21 {
+  background-color: var(--light-filled-secondary-text-color) !important;
+}
+
+._close_mapi9_25 {
+  font-size: 1.0625rem;
+  padding: 0.375rem;
+  position: absolute;
+  inset-inline-end: 0.25rem;
+  top: 0.25rem;
+  z-index: 1;
+}
+
+._connectionReview_mapi9_34 {
+  border-radius: var(--border-radius);
+  background-color: var(--light-filled-danger-color);
+  padding: 0.75rem 1rem 0.5rem;
+  text-align: center;
+}
+._connectionReviewTitle_mapi9_40 {
+  color: var(--danger-color);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-16);
+}
+._connectionReviewText_mapi9_46 {
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  margin-top: 0.25rem;
+}
+._connectionReviewActions_mapi9_52 {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+._connectionReviewButton_mapi9_57 {
+  min-width: 0;
+  flex: 1 1 0;
+  height: 2.25rem;
+  font-size: var(--font-size-14);
+}
+._connectionReviewReject_mapi9_63 {
+  color: var(--danger-color);
+}._button_7zgu5_1 {
+  width: 100%;
+  height: 3.75rem;
+  padding: 0;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+}._popup_1grhq_1 {
+  --popup-min-width: 26.25rem;
+  --popup-max-width: 26.25rem;
+  --popup-height: 26.25rem;
+}
+._popupFooter_1grhq_6 {
+  padding: 1.625rem 0 0;
+}
+
+._slider_1grhq_10 {
+  height: 100%;
+}
+._slider_1grhq_10 .tabs-tab {
+  background-color: var(--surface-color);
+  padding: 1rem;
+}
+._slider_1grhq_10 .tabs-tab ._page_1grhq_17 {
+  height: 100%;
+}._container_1f6m0_1 {
+  min-width: 0;
+}
+
+._noticeContainer_1f6m0_5 {
+  overflow: hidden;
+  margin: 0.5rem;
+}
+.has-vertical-folders ._noticeContainer_1f6m0_5 {
+  margin-bottom: 0;
+}
+
+._notice_1f6m0_5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0.75rem 0.625rem;
+  border-radius: 16px;
+  background-color: var(--light-filled-secondary-text-color);
+  text-align: center;
+}
+
+._title_1f6m0_23 {
+  color: var(--primary-text-color);
+  font-size: var(--font-size-14);
+  font-weight: 600;
+  line-height: var(--line-height-14);
+}
+
+._subtitle_1f6m0_30 {
+  margin-top: 0.125rem;
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-13);
+}
+
+._actions_1f6m0_37 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+._action_1f6m0_37 {
+  min-height: 1.875rem;
+  padding: 0.25rem 0.625rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-size-14);
+  font-weight: 600;
+  line-height: var(--line-height-14);
+}
+._action_1f6m0_37:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+._deny_1f6m0_64 {
+  color: var(--danger-color);
+}
+
+._popup_1f6m0_68 {
+  --popup-max-width: 25rem;
+}
+
+._popupBody_1f6m0_72 {
+  padding-inline: 1rem;
+}
+
+._popupSticker_1f6m0_76 {
+  margin-top: 1rem;
+}
+
+._warning_1f6m0_80 {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: var(--light-danger-color);
+  color: var(--danger-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+}._container_14ajw_1 {
+  margin: 0.5rem;
+}
+
+._bar_14ajw_5 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding-inline: 0.75rem 0.25rem;
+  border-radius: 1.25rem;
+  background-color: var(--light-filled-primary-color);
+  color: var(--primary-color);
+}
+
+._icon_14ajw_16 {
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+}
+
+._title_14ajw_21 {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: var(--font-weight-bold);
+}
+
+._close_14ajw_30 {
+  flex: 0 0 auto;
+  padding: 0.375rem;
+  font-size: 1.25rem;
+  color: inherit;
+}
+
+._collapsedIcon_14ajw_37 {
+  color: var(--primary-color);
+}

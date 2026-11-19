@@ -1,0 +1,64 @@
+._hero_11qo7_1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+._avatarMedia_11qo7_9 {
+  position: relative;
+  overflow: visible;
+}
+
+._peerAvatar_11qo7_14 {
+  flex: none;
+}
+
+._peerAvatarOverlay_11qo7_18 {
+  position: absolute;
+  inset-inline-end: -0.1875rem;
+  bottom: -0.1875rem;
+  display: flex;
+  border: 2px solid var(--surface-color);
+  border-radius: 50%;
+}
+
+._hiddenPeerIcon_11qo7_27 {
+  flex: 0 0 auto;
+  color: var(--chatlist-pinned-color, var(--secondary-text-color));
+}
+
+.chatlist-chat.active ._hiddenPeerIcon_11qo7_27 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+._editorFields_11qo7_36 {
+  padding: 0 1rem 1rem;
+}
+
+._primaryButton_11qo7_40 {
+  width: calc(100% - 2rem);
+  min-height: 3rem;
+  margin: 0 1rem 1.5rem;
+  border-radius: 1.5rem;
+}
+
+._saveCorner_11qo7_47 {
+  opacity: 1;
+  visibility: visible;
+}
+
+._empty_11qo7_52 {
+  padding: 1.5rem 1rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+}
+
+._footerAction_11qo7_58 {
+  width: 100%;
+}
+
+._pendingCount_11qo7_62 {
+  color: var(--primary-color);
+}

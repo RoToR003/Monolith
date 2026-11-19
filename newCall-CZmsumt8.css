@@ -1,0 +1,16 @@
+._row_h07f0_1 {
+  padding-inline-end: 5.75rem;
+}
+
+._modes_h07f0_5 {
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.25rem;
+}
+
+._picked_h07f0_14 {
+  color: var(--primary-color);
+}

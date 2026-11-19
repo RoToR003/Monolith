@@ -1,0 +1,55 @@
+._popup_a7zcj_1 {
+  --popup-min-width: 26.25rem;
+  --popup-max-width: 26.25rem;
+}
+._popupBody_a7zcj_5 {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+._privacyInfo_a7zcj_13 {
+  margin-top: 1.75rem;
+  text-align: center;
+  text-wrap: balance;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--secondary-text-color);
+}
+:where(.a11y) ._privacyInfoLink_a7zcj_21 {
+  color: inherit;
+}
+.high-contrast ._privacyInfoLink_a7zcj_21 {
+  color: var(--link-color);
+}
+._privacyInfoLink_a7zcj_21 {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+._datePicker_a7zcj_33 {
+  display: flex;
+  flex-direction: row;
+  gap: 0.625rem;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+._datePicker_a7zcj_33 ._day_a7zcj_40,
+._datePicker_a7zcj_33 ._year_a7zcj_41 {
+  width: 5rem;
+}
+._datePicker_a7zcj_33 ._month_a7zcj_44 {
+  flex: 1;
+}
+._datePicker_a7zcj_33 .input-field {
+  --height: 48px;
+  --border-radius: 12px;
+  --padding: 0.8125rem;
+}
+
+._monthMenu_a7zcj_53 {
+  width: calc(var(--parent-half-width) * 2);
+}

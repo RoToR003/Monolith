@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._popup_i96eh_16 {
+  --popup-max-width: 360px;
+}
+
+._header_i96eh_20 {
+  position: absolute;
+}
+
+._info_i96eh_24 {
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 1rem;
+  text-align: center;
+}._root_mjd38_1 {
+  min-height: 100%;
+}
+
+._danger_mjd38_5 {
+  color: var(--danger-color);
+}
+
+._requestActions_mjd38_9 {
+  order: 2;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+._requestAvatarMedia_mjd38_16 {
+  inset-block-start: 0.625rem;
+}
+
+._requestAction_mjd38_9 {
+  width: auto;
+  padding-inline: 1rem;
+  text-transform: none;
+}
+
+._bulkAction_mjd38_26 {
+  flex: 1;
+  justify-content: center;
+}
+
+._bulkActionUppercase_mjd38_31._bulkActionUppercase_mjd38_31 {
+  text-transform: uppercase;
+}
+
+._requestMetadata_mjd38_35 {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+._requestMetadataPill_mjd38_41 {
+  display: inline-flex;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1875rem;
+  padding: 0 0.375rem;
+  border-radius: 0.75rem;
+  background: var(--light-secondary-text-color);
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-12);
+  line-height: 1;
+}
+
+._requestMetadataIcon_mjd38_56 {
+  font-size: 0.875rem;
+}
+
+._stickyBulkActions_mjd38_60 {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  inset-inline: 0;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--surface-color);
+}
+
+._bulkActionsScrollable_mjd38_72 {
+  bottom: calc(3rem + 1.5rem + 1px);
+  height: auto;
+}
+
+._empty_mjd38_77 {
+  padding: 2rem 1rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+}
+
+._retryAction_mjd38_83 {
+  margin-top: 0.75rem;
+}
+
+._loadMoreSentinel_mjd38_87 {
+  height: 1px;
+}
+
+._captionAction_mjd38_91 {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--primary-color);
+  font: inherit;
+  cursor: pointer;
+}

@@ -1,0 +1,17 @@
+._part_xpc67_1,
+._piece_xpc67_2,
+._tail_xpc67_3,
+._clip_xpc67_4 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+._piece_xpc67_2 {
+  background-color: currentColor;
+}
+
+._clip_xpc67_4 {
+  overflow: hidden;
+}

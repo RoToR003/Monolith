@@ -1,0 +1,67 @@
+@charset "UTF-8";
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._heroHeader_1cz47_16 {
+  padding-bottom: 1rem;
+}
+
+._deviceIcon_1cz47_20 {
+  width: var(--sticker-size);
+  height: var(--sticker-size);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: calc(var(--sticker-size) / 2);
+}
+
+._deviceName_1cz47_31 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Short right-hand values (app name, OS, location). The cap is what the label
+   keeps, not what the value gets, so a long location elides instead of
+   squeezing "Location" down to "Locati…". */
+._value_1cz47_43 {
+  max-width: calc(100% - 5rem);
+}
+
+/* A free-form device string is a whole user agent: cap it so the label stays. */
+._deviceValue_1cz47_48 {
+  max-width: 60%;
+}
+
+._profileLink_1cz47_52 {
+  padding: 0;
+  border: 0;
+  color: var(--primary-color);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+._profileLink_1cz47_52:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+._manageRow_1cz47_65 {
+  color: var(--primary-color);
+}

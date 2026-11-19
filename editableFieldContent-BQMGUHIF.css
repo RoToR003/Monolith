@@ -1,0 +1,9 @@
+/* Applied to a contenteditable element that lives inside a SimpleFormField,
+   replacing the legacy input-field-input class. */
+._editableFieldContent_1iixc_3 {
+  word-break: break-word;
+  padding: 0.5rem 0;
+  min-height: 1em;
+  width: 100%;
+  font-size: inherit;
+}

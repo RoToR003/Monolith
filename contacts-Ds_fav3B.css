@@ -1,0 +1,44 @@
+._index_7dn5v_1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: 0.75rem;
+  width: 22px;
+  z-index: 2;
+  touch-action: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: default;
+}
+
+._letter_7dn5v_13 {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  color: var(--secondary-text-color);
+  pointer-events: none;
+}
+
+._active_7dn5v_24 {
+  color: var(--primary-color);
+}._item_392uh_1,
+._section_392uh_2 {
+  top: 0;
+}
+
+._reordering_392uh_6 ._item_392uh_1 {
+  --background: var(--surface-color);
+}
+
+._lifted_392uh_10 {
+  z-index: 1;
+}
+
+._section_392uh_2 {
+  height: 2.5rem;
+  pointer-events: none;
+}

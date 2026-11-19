@@ -1,0 +1,123 @@
+._popup_m0ozy_1 {
+  --popup-min-width: 360px;
+  --popup-max-width: 360px;
+}
+
+._container_m0ozy_6 {
+  max-width: min(360px, 100%);
+}
+
+._inviteLinkContainer_m0ozy_10 {
+  padding-inline: 0;
+}
+
+._openLinkBody_m0ozy_14 {
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-inline: 1rem;
+}
+
+._webPagePreview_m0ozy_21 {
+  margin-top: 1rem;
+}._videoCreatingWrapper_efr61_1 {
+  position: relative;
+  overflow: hidden;
+}
+
+._videoCreatingPreview_efr61_6 {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+
+._videoCreatingOverlay_efr61_13 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+._videoAttachmentWrapper_efr61_22 {
+  position: relative;
+  overflow: hidden;
+}
+
+._videoAttachmentVideo_efr61_27 {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+
+._videoAttachmentDim_efr61_34 {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+._videoAttachmentBadge_efr61_41 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: var(--font-weight-bold);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+._videoAttachmentBadgeIcon_efr61_53 {
+  font-size: 24px;
+}
+
+._linkAttachment_efr61_57 {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  cursor: pointer;
+  color: var(--message-primary-color, var(--primary-color));
+  background-color: var(--light-filled-message-primary-color);
+}
+._linkAttachment_efr61_57._withPhoto_efr61_71 {
+  color: white;
+}
+
+._linkAttachmentPhoto_efr61_75 {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+._linkAttachmentDim_efr61_82 {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+}
+._withPhoto_efr61_71 ._linkAttachmentDim_efr61_82 {
+  opacity: 1;
+}
+
+._linkAttachmentIcon_efr61_93 {
+  position: relative;
+  font-size: 1.25rem;
+  pointer-events: none;
+}

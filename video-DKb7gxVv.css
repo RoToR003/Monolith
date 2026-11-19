@@ -1,0 +1,42 @@
+._screen_gl7a7_1 {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--body-background-color);
+  color: var(--primary-text-color);
+}
+
+._content_gl7a7_13 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 22.5rem;
+  text-align: center;
+}
+
+._title_gl7a7_22 {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+}
+
+._description_gl7a7_27 {
+  color: var(--secondary-text-color);
+}
+
+._button_gl7a7_31 {
+  margin-top: 1rem;
+  width: auto;
+  padding-inline: 2rem;
+  text-transform: none;
+}._Preview_4b7lc_1 {
+  border-radius: 0.625rem;
+  border: 0.125rem solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+  display: flex;
+}

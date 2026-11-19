@@ -1,0 +1,20 @@
+._popup_14cus_1 {
+  --popup-width: 25rem;
+  --popup-height: 36rem;
+}
+
+._body_14cus_6 {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+._empty_14cus_12,
+._loading_14cus_13 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  color: var(--secondary-text-color);
+  min-height: 8rem;
+}

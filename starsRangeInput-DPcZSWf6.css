@@ -1,0 +1,96 @@
+@charset "UTF-8";
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._Container_o17o4_16 {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+._Row_o17o4_21 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 14px;
+}
+
+._Limit_o17o4_29 {
+  flex: 1;
+  color: var(--secondary-text-color);
+}
+._LimitLast_o17o4_33 {
+  text-align: end;
+}
+
+._Value_o17o4_37 {
+  display: flex;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+._InputWrapper_o17o4_43 {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+}
+._InputWrapper_o17o4_43 input {
+  opacity: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  cursor: pointer;
+}
+._InputWrapper_o17o4_43:active ._Thumb_o17o4_58 {
+  --scale: calc(24 / 20);
+}
+
+._Thumb_o17o4_58 {
+  pointer-events: none;
+  position: absolute;
+  --size: 20px;
+  width: var(--size);
+  height: var(--size);
+  top: 50%;
+  inset-inline-start: calc((100% - var(--size)) * var(--normalized) + var(--size) / 2);
+  border-radius: 50%;
+  transform: translate(calc(-50% * var(--reflect)), -50%) scale(var(--scale, 1));
+  background-color: var(--primary-color);
+}
+body.animation-level-1 ._Thumb_o17o4_58 {
+  transition: width 0.1s, height 0.1s, box-shadow 0.1s;
+}
+
+._Background_o17o4_78 {
+  pointer-events: none;
+  position: absolute;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--secondary-color);
+  left: 0;
+  width: 100%;
+}
+
+._Progress_o17o4_88 {
+  pointer-events: none;
+  position: absolute;
+  height: 4px;
+  border-radius: 2px;
+  width: var(--w);
+  inset-inline-start: 0;
+  background-color: var(--primary-color);
+}

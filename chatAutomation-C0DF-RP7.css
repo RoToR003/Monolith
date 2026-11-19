@@ -1,0 +1,32 @@
+._heroHeader_ubpua_1 {
+  padding-bottom: 1rem;
+}
+
+._recipientRow_ubpua_5 {
+  grid-template-columns: 0 minmax(0, 1fr) fit-content(50%);
+}
+
+._recipientTitle_ubpua_9 {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+._recipientSummary_ubpua_14 {
+  display: flex;
+  min-width: 0;
+  gap: 0.375rem;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--secondary-text-color);
+}
+
+._recipientSummaryText_ubpua_23 {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+._recipientSummaryIcon_ubpua_30 {
+  flex: 0 0 auto;
+}

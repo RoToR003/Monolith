@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/**
+ * The floating plate painted like a service message: the auth flow's corner buttons, and the empty
+ * column's tip toggle and its Previous / Next pills. Only the paint — where the plate sits and how
+ * big it is belongs to the call site.
+ *
+ * The hover shade is composed from the colour's own parts instead of being read from
+ * `--message-highlighting-hover-color`, which is declared on `.chat` (see `scss/base.scss`). Every
+ * one of these plates sits outside a chat, where that variable resolves to nothing and the plate
+ * drops out from under the cursor.
+ */
+/**
+ * The rows of a list `Sortable` is reordering make way for the dragged one by sliding into place.
+ * Apply it to the rows themselves.
+ */
+._version_1ugkw_16 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
+  margin: -0.25rem auto 0;
+  padding: 0.25rem 1rem 1.25rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-14);
+  color: var(--secondary-text-color);
+  text-align: center;
+  cursor: pointer;
+}
+html.no-touch ._version_1ugkw_16:hover, html.no-touch ._version_1ugkw_16:active {
+  color: var(--primary-text-color);
+}
+
+._versionOn_1ugkw_37 {
+  color: var(--primary-color);
+}

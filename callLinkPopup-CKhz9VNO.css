@@ -1,0 +1,53 @@
+._popup_f34oc_1 {
+  --popup-width: 22.5rem;
+}
+
+._body_f34oc_5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 1.5rem;
+}
+
+._card_f34oc_12 {
+  width: 16rem;
+  height: 16rem;
+  flex: 0 0 auto;
+  border-radius: 1.5rem;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+._qr_f34oc_24 {
+  width: 15rem !important;
+  height: 15rem !important;
+}
+
+._about_f34oc_29 {
+  margin-top: 1.0625rem;
+  text-align: center;
+  color: var(--secondary-text-color);
+}._popup_11e2g_1 {
+  --popup-width: 22.5rem;
+}
+
+._header_11e2g_5 {
+  position: absolute;
+}
+
+._inviteLink_11e2g_9 {
+  margin-top: 1rem;
+  margin-inline: 0.5rem;
+}
+
+._inviteLinkLast_11e2g_14 {
+  margin-bottom: 0.5rem;
+}
+
+._joinLine_11e2g_18 {
+  margin-bottom: 1rem;
+  margin-top: 0.125rem;
+}

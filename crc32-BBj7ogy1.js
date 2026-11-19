@@ -1,0 +1,32 @@
+//# allFunctionsCalledOnLoad
+//#region src/helpers/number/crc32.ts
+/**
+* Reflected CRC-32 (init 0xFFFFFFFF, reflected input/output, final XOR 0xFFFFFFFF) in its two polynomials:
+* - `crc32`: the standard IEEE 802.3 one (0xEDB88320), bit-identical to tdesktop's `base::crc32` (see
+*   `Telegram/SourceFiles/base/crc32hash.cpp`);
+* - `crc32c`: Castagnoli (0x82F63B78), the checksum of SCTP packets and of TON's bags of cells.
+*/
+function makeTable(polynomial) {
+	const table = /* @__PURE__ */ new Uint32Array(256);
+	for (let i = 0; i < 256; i++) {
+		let c = i;
+		for (let j = 0; j < 8; j++) c = c & 1 ? polynomial ^ c >>> 1 : c >>> 1;
+		table[i] = c >>> 0;
+	}
+	return table;
+}
+function run(table, data) {
+	let crc = 4294967295;
+	for (let i = 0; i < data.length; i++) crc = crc >>> 8 ^ table[crc & 255 ^ data[i]];
+	return (crc ^ 4294967295) >>> 0;
+}
+var CRC32_TABLE = makeTable(3988292384);
+var crc32cTable;
+function crc32(data) {
+	return run(CRC32_TABLE, data);
+}
+function crc32c(data) {
+	return run(crc32cTable ?? (crc32cTable = makeTable(2197175160)), data);
+}
+//#endregion
+export { crc32c as n, crc32 as t };
