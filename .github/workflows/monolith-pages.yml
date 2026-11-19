@@ -55,6 +55,16 @@ jobs:
           src/tests/monolithCountrySelection.test.ts
           src/tests/monolithPages.test.ts
           src/tests/monolithApiConfig.test.ts
+          src/tests/mediaPlaybackTime.test.ts
+          src/tests/finalizeRoundVideo.test.ts
+          src/tests/nativeVideoRecorderCamera.test.ts
+          src/tests/videoRecordingPanelCamera.test.tsx
+          src/tests/onMediaLoadObjectUrl.test.ts
+
+      - name: Run synthetic media pipeline checks
+        run: |
+          pnpm exec playwright install --with-deps chromium
+          node scripts/monolith-media-smoke.cjs
 
       - name: Read Pages configuration
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

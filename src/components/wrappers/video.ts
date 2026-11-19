@@ -22,6 +22,7 @@ import {fastRaf} from '@helpers/schedulers';
 import throttle from '@helpers/schedulers/throttle';
 import sequentialDom from '@helpers/sequentialDom';
 import toHHMMSS from '@helpers/string/toHHMMSS';
+import {finiteMediaDuration, mediaPlaybackTime} from '@helpers/mediaPlaybackTime';
 import {Message, PhotoSize, VideoSize} from '@layer';
 import {MyDocument} from '@appManagers/appDocsManager';
 import appDownloadManager from '@lib/appDownloadManager';
@@ -138,7 +139,7 @@ export default async function wrapVideo({doc, altDoc, container, message, boxWid
 
     let needPlayButton = false;
     if(doc.type !== 'gif') {
-      spanTime.innerText = toHHMMSS(doc.duration, false);
+      spanTime.innerText = toHHMMSS(finiteMediaDuration(doc.duration), false);
 
       if(!noPlayButton && doc.type !== 'round') {
         if(canAutoplay && !noAutoDownload) {
@@ -273,6 +274,8 @@ export default async function wrapVideo({doc, altDoc, container, message, boxWid
         middleware
       }) as HTMLVideoElement;
       onGlobalMedia?.(globalVideo);
+      const finalDoc = (message.media as {document?: MyDocument})?.document;
+      const getTiming = () => mediaPlaybackTime(globalVideo, finalDoc?.duration ?? doc.duration);
       const clear = () => {
         (hotReloadGuard.appImManager.chat.setPeerPromise || Promise.resolve()).finally(() => {
           if(isInDOM(globalVideo)) {
@@ -287,18 +290,14 @@ export default async function wrapVideo({doc, altDoc, container, message, boxWid
       };
 
       const onFrame = () => {
-        ctx.drawImage(globalVideo, 0, 0);
+        if(globalVideo.readyState >= 2) ctx.drawImage(globalVideo, 0, 0);
 
-        setProgress(globalVideo.currentTime / globalVideo.duration);
+        setProgress(getTiming().progress);
 
         return !globalVideo.paused;
       };
 
       const onTimeUpdate = () => {
-        if(!globalVideo.duration) {
-          return;
-        }
-
         if(!isInDOM(globalVideo)) {
           clear();
           return;
@@ -308,7 +307,7 @@ export default async function wrapVideo({doc, altDoc, container, message, boxWid
           onFrame();
         }
 
-        spanTime.firstChild.nodeValue = toHHMMSS(globalVideo.duration - globalVideo.currentTime, false);
+        spanTime.firstChild.nodeValue = toHHMMSS(getTiming().remaining, false);
       };
 
       const throttledTimeUpdate = throttle(() => {
@@ -349,7 +348,7 @@ export default async function wrapVideo({doc, altDoc, container, message, boxWid
         setIsPaused(true);
 
         setCurrentTime(video, 0);
-        spanTime.firstChild.nodeValue = toHHMMSS(globalVideo.duration, false);
+        spanTime.firstChild.nodeValue = toHHMMSS(getTiming().duration, false);
 
         if(globalVideo.currentTime) {
           setCurrentTime(globalVideo, 0);
@@ -564,11 +563,7 @@ export default async function wrapVideo({doc, altDoc, container, message, boxWid
 
   if(doc.type === 'video' && spanTime) {
     const onTimeUpdate = () => {
-      if(!video.duration) {
-        return;
-      }
-
-      spanTime.firstChild.nodeValue = toHHMMSS(video.duration - video.currentTime, false);
+      spanTime.firstChild.nodeValue = toHHMMSS(mediaPlaybackTime(video, doc.duration).remaining, false);
     };
 
     const throttledTimeUpdate = throttle(() => {

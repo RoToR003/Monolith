@@ -52,12 +52,12 @@ MONOLITH_PROXY_HTTPS=1 bash scripts/monolith.sh dev
 
 ## Перевірки та обмеження
 
-Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **47 вибраних unit-тестів**.
+Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **78 вибраних unit/regression-тестів у 10 файлах**.
 
-Повний typecheck не завершено в обмеженому sandbox. Вхід у користувацький акаунт, реальний iPhone/Safari, встановлення PWA, чати після входу, дзвінки й push ще потребують перевірки. Локальна збірка за замовчуванням полегшена й без мінімізації; Actions вмикає мінімізацію на окремому runner.
+Повний typecheck не завершено в обмеженому sandbox. Власник повідомив про успішні QR-вхід, надсилання, збереження сесії й базовий фото/PWA-чекліст на OnePlus 15. Виявлено проблеми голосових і щойно надісланих кружків; докладний статус і межі виправлень — [Android media status](docs/android-media-status.uk.md). Реальний iPhone/Safari, ширший чат-сценарій, дзвінки й push ще не прийняті. Локальна збірка за замовчуванням полегшена й без мінімізації; Actions вмикає мінімізацію на окремому runner.
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts src/tests/mediaPlaybackTime.test.ts src/tests/finalizeRoundVideo.test.ts src/tests/nativeVideoRecorderCamera.test.ts src/tests/videoRecordingPanelCamera.test.tsx src/tests/onMediaLoadObjectUrl.test.ts
 # Для smoke-тесту потрібен встановлений Playwright Chromium із системними бібліотеками:
 MONOLITH_REQUIRE_QR=1 bash scripts/monolith.sh smoke
 ```
@@ -67,6 +67,7 @@ MONOLITH_REQUIRE_QR=1 bash scripts/monolith.sh smoke
 - [MONOLITH.md](MONOLITH.md) — запуск, архітектурна база, перевірки та відомі обмеження.
 - [Початкова специфікація](docs/monolith-specification.uk.md) — план, а не перелік реалізованих можливостей.
 - [Походження коду](monolith.upstream.json) — pinned upstream commit і локальні патчі.
+- [Android: медіа та відкриті проблеми](docs/android-media-status.uk.md).
 - [Оригінальний README Telegram Web K](docs/UPSTREAM_README.md).
 - [Шаблони upstream CI](docs/upstream-ci/README.md) — збережені як документація, не запускаються автоматично.
 

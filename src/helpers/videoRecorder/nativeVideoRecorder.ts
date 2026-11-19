@@ -145,6 +145,8 @@ export default class NativeVideoRecorder {
   // can't be cancelled, so without this the camera LED would stay on forever.
   // See acquireStream.
   private acquisition: StreamAcquisition | undefined;
+  private cameraAcquisition: StreamAcquisition | undefined;
+  private switchingCamera = false;
 
   static isSupported = isNativeVideoRecorderSupported;
 
@@ -168,6 +170,80 @@ export default class NativeVideoRecorder {
   public setDeviceIds(videoDeviceId?: string, audioDeviceId?: string) {
     this.config.videoDeviceId = videoDeviceId || undefined;
     this.config.audioDeviceId = audioDeviceId || undefined;
+  }
+
+  public get facingMode(): 'user' | 'environment' {
+    const facing = this.stream?.getVideoTracks()[0]?.getSettings().facingMode;
+    return facing === 'environment' ? 'environment' : facing === 'user' ? 'user' : this.config.facingMode;
+  }
+
+  public async hasMultipleCameras(): Promise<boolean> {
+    try {
+      return (await navigator.mediaDevices.enumerateDevices()).filter((device) => device.kind === 'videoinput').length > 1;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  // Only replace the camera input. The encoder keeps recording the SAME canvas
+  // track and microphone, so switching never restarts the file or its timeline.
+  // Android often requires releasing the front camera before opening the rear.
+  public async switchCamera(): Promise<boolean> {
+    if(this.state !== 'recording' || !this.stream || this.switchingCamera) return false;
+    this.switchingCamera = true;
+    const stream = this.stream;
+    // Lifecycle state may change while getUserMedia/play is awaited.
+    const isCurrent = () => this.stream === stream && this.state !== 'inactive';
+    const oldTrack = stream.getVideoTracks()[0];
+    const settings = oldTrack?.getSettings();
+    const previousFacing = this.facingMode;
+    const targetFacing = previousFacing === 'user' ? 'environment' : 'user';
+    const base: MediaTrackConstraints = {
+      width: {ideal: 720}, height: {ideal: 720}, frameRate: {ideal: this.config.frameRate}
+    };
+    const attach = async(acquisition: StreamAcquisition) => {
+      const camera = await acquisition.promise;
+      if(!camera || !isCurrent()) {
+        acquisition.dispose();
+        return false;
+      }
+      const track = camera.getVideoTracks()[0];
+      if(!track) {
+        acquisition.dispose();
+        throw new Error('The selected camera returned no video track.');
+      }
+      stream.addTrack(track);
+      this.drawVideo.srcObject = null;
+      this.drawVideo.srcObject = stream;
+      await this.drawVideo.play().catch(() => {});
+      return isCurrent();
+    };
+    oldTrack?.stop();
+    if(oldTrack) stream.removeTrack(oldTrack);
+    this.cameraAcquisition?.dispose();
+    try {
+      this.cameraAcquisition = acquireStream({video: {...base, facingMode: {exact: targetFacing}}, audio: false});
+      if(!(await attach(this.cameraAcquisition))) return false;
+      this.config.facingMode = targetFacing;
+      this.config.videoDeviceId = undefined;
+      return true;
+    } catch(error) {
+      this.cameraAcquisition?.dispose();
+      if(!isCurrent()) return false;
+      // Restore the previous camera if the target is unavailable; do not
+      // silently leave a live microphone recording behind a black preview.
+      const previous: MediaTrackConstraints = settings?.deviceId ?
+        {...base, deviceId: {exact: settings.deviceId}} : {...base, facingMode: previousFacing};
+      this.cameraAcquisition = acquireStream({video: previous, audio: false});
+      try {
+        await attach(this.cameraAcquisition);
+      } catch(e) {
+        this.cameraAcquisition.dispose();
+      }
+      throw error;
+    } finally {
+      this.switchingCamera = false;
+    }
   }
 
   public async start(): Promise<void> {
@@ -472,6 +548,8 @@ export default class NativeVideoRecorder {
     // (see start()), which dispose() stops the instant it resolves.
     this.acquisition?.dispose();
     this.acquisition = undefined;
+    this.cameraAcquisition?.dispose();
+    this.cameraAcquisition = undefined;
 
     if(this.previewRecorder) {
       try {

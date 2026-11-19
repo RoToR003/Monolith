@@ -24,6 +24,10 @@ export default function VideoRecordingPanel(props: {
   mode: Accessor<VideoRecordingMode | undefined>,
   playing: Accessor<boolean>,
   progress: Accessor<number>,
+  canSwitchCamera: Accessor<boolean>,
+  switchingCamera: Accessor<boolean>,
+  mirrored: Accessor<boolean>,
+  onSwitchCamera?: () => void,
   // Refs fire synchronously while the body runs — that's how the handle below
   // gets the real DOM nodes (calling the component returns the HMR wrapper, not
   // the <div>). rootRef = the stage element to mount; ref = the preview <video>.
@@ -40,7 +44,8 @@ export default function VideoRecordingPanel(props: {
         props.overStories && 'video-recording-stage--over-stories',
         props.mode() === 'recording' && 'video-recording-stage--recording',
         props.mode() === 'paused' && 'video-recording-stage--paused',
-        props.playing() && 'video-recording-stage--playing'
+        props.playing() && 'video-recording-stage--playing',
+        !props.mirrored() && 'video-recording-stage--rear-camera'
       )}
     >
       <div
@@ -56,6 +61,24 @@ export default function VideoRecordingPanel(props: {
             props.ref(el);
           }}
         />
+        <button
+          type="button"
+          class="video-recording-switch-camera"
+          title="Змінити камеру"
+          aria-label="Змінити камеру"
+          aria-busy={props.switchingCamera()}
+          hidden={!props.canSwitchCamera() || props.mode() !== 'recording'}
+          disabled={props.switchingCamera()}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            props.onSwitchCamera?.();
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 7a9 9 0 0 0-15-2L2 8m0-5v5h5M4 17a9 9 0 0 0 15 2l3-3m0 5v-5h-5"/>
+          </svg>
+        </button>
         <ProgressRing
           size={STAGE_SIZE}
           strokeOpacity={0.9}
@@ -72,7 +95,9 @@ export interface VideoRecordingPanelHandle {
   readonly previewVideo: HTMLVideoElement;
   setMode(mode: VideoRecordingMode): void;
   getMode(): VideoRecordingMode | undefined;
-  startLivePreview(stream: MediaStream): void;
+  startLivePreview(stream: MediaStream, mirrored?: boolean): void;
+  setCanSwitchCamera(available: boolean): void;
+  setSwitchingCamera(switching: boolean): void;
   reset(): void;
   setPlaying(isPlaying: boolean): void;
   getIsPlaying(): boolean;
@@ -82,11 +107,14 @@ export interface VideoRecordingPanelHandle {
 
 // Imperative handle for the (non-Solid) ChatRecording controller. Owns its own
 // reactive root; destroy() disposes it.
-export function createVideoRecordingPanel(overStories?: boolean): VideoRecordingPanelHandle {
+export function createVideoRecordingPanel(overStories?: boolean, onSwitchCamera?: () => void): VideoRecordingPanelHandle {
   return createRoot((dispose) => {
     const [mode, setModeSignal] = createSignal<VideoRecordingMode | undefined>(undefined);
     const [playing, setPlayingSignal] = createSignal(false);
     const [progress, setProgressSignal] = createSignal(0);
+    const [canSwitchCamera, setCanSwitchCamera] = createSignal(false);
+    const [switchingCamera, setSwitchingCamera] = createSignal(false);
+    const [mirrored, setMirrored] = createSignal(true);
 
     let element: HTMLDivElement;
     let previewVideo: HTMLVideoElement;
@@ -101,6 +129,10 @@ export function createVideoRecordingPanel(overStories?: boolean): VideoRecording
       mode,
       playing,
       progress,
+      canSwitchCamera,
+      switchingCamera,
+      mirrored,
+      onSwitchCamera,
       rootRef: (stage) => element = stage,
       ref: (video) => previewVideo = video,
       overStories
@@ -130,7 +162,8 @@ export function createVideoRecordingPanel(overStories?: boolean): VideoRecording
     // Attach the live camera stream and reveal the circle only once the first
     // frame is actually painted — revealing immediately fades in a black circle
     // while the camera spins up. Cancelled if reset() runs first.
-    const startLivePreview = (stream: MediaStream) => {
+    const startLivePreview = (stream: MediaStream, mirror = true) => {
+      setMirrored(mirror);
       const token = ++liveToken;
       previewVideo.srcObject = stream;
       previewVideo.muted = true;
@@ -165,6 +198,8 @@ export function createVideoRecordingPanel(overStories?: boolean): VideoRecording
       setModeSignal(undefined);
       setPlayingSignal(false);
       setProgressSignal(0);
+      setCanSwitchCamera(false);
+      setSwitchingCamera(false);
 
       if(clearVideoTimer) clearTimeout(clearVideoTimer);
       clearVideoTimer = window.setTimeout(() => {
@@ -181,6 +216,8 @@ export function createVideoRecordingPanel(overStories?: boolean): VideoRecording
       setMode,
       getMode: () => mode(),
       startLivePreview,
+      setCanSwitchCamera,
+      setSwitchingCamera,
       reset,
       setPlaying: (isPlaying: boolean) => setPlayingSignal(isPlaying),
       getIsPlaying: () => playing(),

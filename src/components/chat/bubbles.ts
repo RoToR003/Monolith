@@ -1,3 +1,4 @@
+import finalizeRoundVideo from './bubbleParts/finalizeRoundVideo';
 import buttonKeyDown from '@helpers/solid/buttonKeyDown';
 import toastError from '@components/toastError';
 import makeMediaPreviewsAccessible from '@helpers/dom/mediaPreviewAccessibility';
@@ -1524,9 +1525,7 @@ export default class ChatBubbles {
             if(isAudioElement(element)) {
               element.replaceMessage(message);
             } else if(element.classList.contains('media-round')) {
-              element.dataset.mid = '' + message.mid;
-              delete element.dataset.isOutgoing;
-              (element as DeferredMediaElement).onLoad(true);
+              finalizeRoundVideo(element, message);
             } else {
               element.dataset.docId = '' + doc.id;
               (element as any).doc = doc;

@@ -68,3 +68,30 @@
   inset: 0;
   pointer-events: none;
 }
+
+// The rear camera is not mirrored; paused playback is always shown as encoded.
+.video-recording-stage--rear-camera .video-recording-preview {
+  transform: none;
+}
+
+.video-recording-switch-camera {
+  position: absolute;
+  z-index: 2;
+  right: 16%;
+  bottom: 9%;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(0, 0, 0, .55);
+  cursor: pointer;
+  touch-action: manipulation;
+
+  &[hidden] { display: none; }
+  &:disabled { opacity: .5; cursor: wait; }
+  &:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+}

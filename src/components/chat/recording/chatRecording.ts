@@ -131,7 +131,7 @@ export default class ChatRecording {
       // chat input (the same voiceRecordingPanel + btn-send the voice flow
       // uses). Mounted on <body> so it's reliably screen-centered.
       // * a story's reply is recorded over the stories viewer, which stands above the chat
-      this.videoRecordingPanel = createVideoRecordingPanel(isStory);
+      this.videoRecordingPanel = createVideoRecordingPanel(isStory, () => void this.switchVideoCamera());
       getOverlayRoot().append(this.videoRecordingPanel.element);
     }
 
@@ -450,7 +450,7 @@ export default class ChatRecording {
       this.liveWaveformAnalyser?.setPaused(false);
       this.waveformAnalyser?.setPaused(false);
       // Restore the live camera feed (reveals on its first frame).
-      this.videoRecordingPanel?.startLivePreview(this.videoRecorder.stream);
+      this.videoRecordingPanel?.startLivePreview(this.videoRecorder.stream, this.videoRecorder.facingMode === 'user');
       this.startVideoRecordingTimerLoop();
     } else {
       this.recordAccumulatedMs += Date.now() - this.recordStartTime;
@@ -1126,6 +1126,24 @@ export default class ChatRecording {
     });
   }
 
+  private async switchVideoCamera() {
+    if(!this.active || this.recordingType !== 'video' || this.recordPaused) return;
+    this.videoRecordingPanel?.setSwitchingCamera(true);
+    try {
+      await this.videoRecorder.switchCamera();
+    } catch(e) {
+      if(!this.active) return;
+      const cameraLive = this.videoRecorder.stream?.getVideoTracks().some((track) => track.readyState === 'live');
+      if(!cameraLive && !this.recordPaused) this.onVideoPauseToggleClick();
+      toast(cameraLive ? 'Не вдалося змінити камеру. Попередню камеру відновлено.' : 'Камера недоступна. Запис призупинено; можна зберегти або скасувати його.');
+    } finally {
+      this.videoRecordingPanel?.setSwitchingCamera(false);
+      if(this.active && this.recordingType === 'video' && !this.recordPaused && this.videoRecorder.stream) {
+        this.videoRecordingPanel?.startLivePreview(this.videoRecorder.stream, this.videoRecorder.facingMode === 'user');
+      }
+    }
+  }
+
   private async startVideoRecording() {
     if(!this.videoRecorder) return;
     const isAnyChat = this.input.chat.peerId.isAnyChat();
@@ -1205,7 +1223,11 @@ export default class ChatRecording {
     // Pipe the live camera into the 360x360 preview and reveal the circle only
     // once the first frame is actually painted — revealing immediately would
     // fade in a black circle while the camera spins up.
-    this.videoRecordingPanel?.startLivePreview(this.videoRecorder.stream);
+    this.videoRecordingPanel?.startLivePreview(this.videoRecorder.stream, this.videoRecorder.facingMode === 'user');
+
+    this.videoRecorder.hasMultipleCameras().then((available) => {
+      if(this.active && this.recordingType === 'video') this.videoRecordingPanel?.setCanSwitchCamera(available);
+    });
 
     // Live waveform: tap the captured audio track through a throwaway
     // AudioContext (MediaRecorder gives us no PCM). Mirror the voice flow —

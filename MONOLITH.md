@@ -44,7 +44,7 @@ MONOLITH_OPTIMIZE=1 NODE_OPTIONS=--max-old-space-size=4096 bash scripts/monolith
 
 ## Авторизація й API-реквізити
 
-У `.env` source tree upstream містяться його загальнодоступні development-реквізити для локальної тестової збірки. Публічний workflow **Monolith Pages** підставляє власні реквізити з repository secrets `TELEGRAM_API_ID` / `TELEGRAM_API_HASH`, перевіряючи формат та підключення в bundle без друку значень. Під час перевірки клієнт отримав QR-токен від Telegram, але **жодного користувацького акаунта не було авторизовано**.
+У `.env` source tree upstream містяться його загальнодоступні development-реквізити для локальної тестової збірки. Публічний workflow **Monolith Pages** підставляє власні реквізити з repository secrets `TELEGRAM_API_ID` / `TELEGRAM_API_HASH`, перевіряючи формат та підключення в bundle без друку значень. Під час перевірки клієнт отримав QR-токен від Telegram, асистент не входив у користувацький акаунт. Власник окремо повідомив про успішний QR-вхід і часткове Android/PWA-тестування.
 
 Перед особистим використанням/розгортанням зареєструйте власний застосунок на https://my.telegram.org/apps, скопіюйте `.env.monolith.example` у `.env.local`, розкоментуйте та заповніть `VITE_API_ID` і `VITE_API_HASH`. Потім перебудуйте/перезапустіть клієнт.
 
@@ -59,16 +59,16 @@ MONOLITH_OPTIMIZE=1 NODE_OPTIONS=--max-old-space-size=4096 bash scripts/monolith
 - Mobile Chromium: форма входу на ширині 390 px, без горизонтального переповнення.
 - У фінальному браузерному прогоні — без необроблених JavaScript-помилок і без помилок завантаження локальних ресурсів.
 - Service Worker активувався; manifest завантажується. Це не підтвердження повної працездатності iOS PWA/Web Push.
-- Unit-тести форматування номерів, upstream manifest, захисного патча вибору країни та нового Pages-пакування — **47/47 пройдено локально**.
+- Unit-тести форматування номерів, upstream manifest, захисного патча вибору країни та нового Pages-пакування — **78/78 у 10 файлах пройдено локально**, включно з новими регресіями кружків/таймера/камери й object URL.
 - Vite dev-сервер також стартує: домен прев’ю приймається (`200`), сторонній невідомий Host відхиляється (`403`).
 - HTTP-запити до `/.env`, `/.env.local`, `/.git/config`, `/src/index.ts`, `/package.json` на статичному сервері отримують `404`.
 
-Браузерний звіт: `docs/baseline-verification.json`. **Повний typecheck не завершено через ресурсні обмеження цього sandbox. Повний набір upstream-тестів не запускався.** Авторизація з підтвердженням QR/кодом/2FA, чати після входу, реальний iPhone/Safari, встановлення на головний екран, дзвінки та push-сповіщення ще потребують окремої перевірки.
+Браузерний звіт: `docs/baseline-verification.json`. **Повний typecheck не завершено через ресурсні обмеження цього sandbox. Повний набір upstream-тестів не запускався.** Власник повідомив про успішні QR-вхід, надсилання повідомлення, збереження входу та попередній фото/PWA-чекліст на OnePlus. Голосові мають невирішене спотворення; для кружків додано виправлення прив’язки до остаточного повідомлення/таймера та зміну камери, які ще потребують фізичного ретесту. Повний стан: `docs/android-media-status.uk.md`. Код входу, 2FA, ширший чат-сценарій, iPhone/Safari, дзвінки й push не прийняті.
 
 Повторення базових перевірок:
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts src/tests/mediaPlaybackTime.test.ts src/tests/finalizeRoundVideo.test.ts src/tests/nativeVideoRecorderCamera.test.ts src/tests/videoRecordingPanelCamera.test.tsx src/tests/onMediaLoadObjectUrl.test.ts
 
 # Для браузерних тестів потрібен Playwright Chromium з його системними бібліотеками.
 # Після setup, з активним Node.js 24/pnpm 11:
@@ -108,7 +108,7 @@ bash scripts/monolith-pages.sh deploy
 
 Ghost Mode, Anti-Recall, історії редагувань Monolith, фільтрів, Watcher, проксі перекладу, власного push-relay, серверної синхронізації та повного брендингу PWA. Оригінальні назви й іконки Telegram усередині upstream-інтерфейсу поки залишено. GitHub Pages тепер надає стабільний HTTPS-хостинг публічної тестової збірки: https://rotor003.github.io/Monolith/. Це ще не фінальний production-реліз; хостинг не додає бекенд чи неперевірені можливості Monolith. Upstream CI збережено в `docs/upstream-ci/` як неактивні шаблони; окремий власний Pages workflow активний. Telegram application secrets введені власником у GitHub, їхні значення не копіюються в source-файли чи чат. Інші backend-інтеграції не створені.
 
-Наступний крок — перевірити власну API-збірку на реальному Android/Chrome; iPhone/Safari — окремий подальший етап, після чого додавати налаштування Monolith і невеликі окремо протестовані модулі.
+Наступний крок — повторити медіатести виправленої збірки на OnePlus і розібрати пошкодження голосових; iPhone/Safari — окремий подальший етап, після чого додавати налаштування Monolith і невеликі окремо протестовані модулі.
 
 ## Ліцензія
 
