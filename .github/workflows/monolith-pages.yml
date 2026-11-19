@@ -58,6 +58,8 @@ jobs:
           src/tests/mediaPlaybackTime.test.ts
           src/tests/finalizeRoundVideo.test.ts
           src/tests/nativeVideoRecorderCamera.test.ts
+          src/tests/preferredCamera.test.ts
+          src/tests/progressRing.test.ts
           src/tests/videoRecordingPanelCamera.test.tsx
           src/tests/onMediaLoadObjectUrl.test.ts
 
@@ -65,6 +67,7 @@ jobs:
         run: |
           pnpm exec playwright install --with-deps chromium
           node scripts/monolith-media-smoke.cjs
+          node scripts/monolith-recording-ui-smoke.mjs
 
       - name: Read Pages configuration
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

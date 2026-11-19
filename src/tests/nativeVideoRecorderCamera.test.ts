@@ -40,6 +40,7 @@ function subject() {
 
 beforeEach(() => {
   vi.resetAllMocks();
+  mocks.enumerateDevices.mockResolvedValue([]);
   vi.stubGlobal('navigator', {mediaDevices: {enumerateDevices: mocks.enumerateDevices}});
 });
 afterEach(() => vi.unstubAllGlobals());
@@ -85,6 +86,7 @@ describe('round-video camera switching', () => {
     let resolve: (stream: MediaStream) => void;
     mocks.getStream.mockReturnValueOnce(new Promise<MediaStream>((r) => resolve = r));
     const switching = s.recorder.switchCamera();
+    await Promise.resolve();await Promise.resolve();
     s.recorder.releaseStream();
     resolve(stream([rear]));
     expect(await switching).toBe(false);
@@ -98,6 +100,7 @@ describe('round-video camera switching', () => {
     let resolve: (stream: MediaStream) => void;
     mocks.getStream.mockReturnValueOnce(new Promise<MediaStream>((r) => resolve = r));
     const switching = s.recorder.switchCamera();
+    await Promise.resolve();await Promise.resolve();
     s.recorder.stop();
     resolve(stream([rear]));
     expect(await switching).toBe(false);
@@ -111,6 +114,7 @@ describe('round-video camera switching', () => {
     mocks.getStream.mockReturnValueOnce(new Promise<MediaStream>((r) => resolve = r));
     const first = s.recorder.switchCamera();
     expect(await s.recorder.switchCamera()).toBe(false);
+    await Promise.resolve();await Promise.resolve();
     resolve(stream([track('video', 'back', 'environment')]));
     expect(await first).toBe(true);
     expect(mocks.getStream).toHaveBeenCalledOnce();
@@ -121,6 +125,62 @@ describe('round-video camera switching', () => {
     expect(await s.recorder.switchCamera()).toBe(false);
     expect(mocks.getStream).not.toHaveBeenCalled();
     expect(s.front.stop).not.toHaveBeenCalled();
+  });
+
+  it('requests the main rear device exactly instead of letting facingMode choose telephoto', async() => {
+    const s = subject(), main = track('video', 'main', 'environment');
+    mocks.enumerateDevices.mockResolvedValue([
+      {kind: 'videoinput', deviceId: 'tele', label: 'Back telephoto 3x'},
+      {kind: 'videoinput', deviceId: 'main', label: 'Back main camera 1x'},
+      {kind: 'videoinput', deviceId: 'front', label: 'Front camera'}
+    ]);
+    mocks.getStream.mockResolvedValueOnce(stream([main]));
+    expect(await s.recorder.switchCamera()).toBe(true);
+    expect(mocks.getStream.mock.calls[0][0].video.deviceId).toEqual({exact: 'main'});
+    expect(s.raw.getVideoTracks()).toEqual([main]);
+    expect(s.mic.stop).not.toHaveBeenCalled();
+  });
+
+  it('returns to the original front ID after switching even when another selfie camera exists', async() => {
+    const s = subject();
+    mocks.enumerateDevices.mockResolvedValue([
+      {kind: 'videoinput', deviceId: 'front-wide', label: 'Front camera wide'},
+      {kind: 'videoinput', deviceId: 'main', label: 'Back main'},
+      {kind: 'videoinput', deviceId: 'front', label: 'Front camera'}
+    ]);
+    mocks.getStream.mockResolvedValueOnce(stream([track('video', 'main', 'environment')]))
+    .mockResolvedValueOnce(stream([track('video', 'front', 'user')]));
+    await s.recorder.switchCamera();await s.recorder.switchCamera();
+    expect(mocks.getStream.mock.calls[1][0].video.deviceId).toEqual({exact: 'front'});
+  });
+
+  it('does not silently accept a different lens if the exact-device acquisition falls back', async() => {
+    const s = subject(), wrong = track('video', 'tele', 'environment'), restored = track('video', 'front', 'user');
+    mocks.enumerateDevices.mockResolvedValue([{kind: 'videoinput', deviceId: 'main', label: 'Back main'}]);
+    mocks.getStream.mockResolvedValueOnce(stream([wrong])).mockResolvedValueOnce(stream([restored]));
+    await expect(s.recorder.switchCamera()).rejects.toThrow('selected camera');
+    expect(wrong.stop).toHaveBeenCalled();
+    expect(s.raw.getVideoTracks()).toEqual([restored]);
+    expect(s.mic.stop).not.toHaveBeenCalled();
+  });
+
+  it('keeps known front identity even if enumeration becomes unavailable on the return switch', async() => {
+    const s = subject();
+    mocks.getStream.mockResolvedValueOnce(stream([track('video', 'back', 'environment')]))
+    .mockResolvedValueOnce(stream([track('video', 'front', 'user')]));
+    await s.recorder.switchCamera();
+    mocks.enumerateDevices.mockRejectedValueOnce(new Error('Enumeration unavailable'));
+    await s.recorder.switchCamera();
+    expect(mocks.getStream.mock.calls[1][0].video.deviceId).toEqual({exact: 'front'});
+  });
+
+  it('does not acquire any new camera after teardown during device enumeration', async() => {
+    const s = subject();let resolve: (devices: MediaDeviceInfo[]) => void;
+    mocks.enumerateDevices.mockReturnValueOnce(new Promise<MediaDeviceInfo[]>((r) => resolve = r));
+    const pending = s.recorder.switchCamera();s.recorder.releaseStream();resolve([]);
+    expect(await pending).toBe(false);
+    expect(mocks.getStream).not.toHaveBeenCalled();
+    expect(s.mic.stop).toHaveBeenCalled();
   });
 
   it('shows capability only when more than one camera is enumerated', async() => {

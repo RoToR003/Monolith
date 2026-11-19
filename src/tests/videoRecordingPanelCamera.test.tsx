@@ -37,6 +37,14 @@ describe('round-video camera control', () => {
     panel.destroy();
   });
 
+  it('leaves both preview axes to one responsive CSS diameter instead of fixed inline width/height', () => {
+    const panel = createVideoRecordingPanel();
+    const circle = panel.element.querySelector<HTMLElement>('.video-recording-circle');
+    expect(circle.style.width).toBe('');expect(circle.style.height).toBe('');
+    expect(circle.style.getPropertyValue('--video-recording-size')).toBe('360px');
+    panel.destroy();
+  });
+
   it('does not mirror the rear-camera preview', () => {
     const panel = createVideoRecordingPanel();
     panel.startLivePreview({} as MediaStream, false);

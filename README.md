@@ -52,12 +52,12 @@ MONOLITH_PROXY_HTTPS=1 bash scripts/monolith.sh dev
 
 ## Перевірки та обмеження
 
-Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **78 вибраних unit/regression-тестів у 10 файлах**.
+Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **97 вибраних unit/regression-тестів у 12 файлах**.
 
 Повний typecheck не завершено в обмеженому sandbox. Власник повідомив про успішні QR-вхід, надсилання, збереження сесії й базовий фото/PWA-чекліст на OnePlus 15. Виявлено проблеми голосових і щойно надісланих кружків; докладний статус і межі виправлень — [Android media status](docs/android-media-status.uk.md). Реальний iPhone/Safari, ширший чат-сценарій, дзвінки й push ще не прийняті. Локальна збірка за замовчуванням полегшена й без мінімізації; Actions вмикає мінімізацію на окремому runner.
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts src/tests/mediaPlaybackTime.test.ts src/tests/finalizeRoundVideo.test.ts src/tests/nativeVideoRecorderCamera.test.ts src/tests/videoRecordingPanelCamera.test.tsx src/tests/onMediaLoadObjectUrl.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts src/tests/mediaPlaybackTime.test.ts src/tests/finalizeRoundVideo.test.ts src/tests/nativeVideoRecorderCamera.test.ts src/tests/videoRecordingPanelCamera.test.tsx src/tests/onMediaLoadObjectUrl.test.ts src/tests/preferredCamera.test.ts src/tests/progressRing.test.ts
 # Для smoke-тесту потрібен встановлений Playwright Chromium із системними бібліотеками:
 MONOLITH_REQUIRE_QR=1 bash scripts/monolith.sh smoke
 ```

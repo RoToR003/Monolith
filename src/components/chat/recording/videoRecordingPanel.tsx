@@ -5,7 +5,7 @@
 //
 // All recording *controls* (trash / waveform / timer / pause / preview / send)
 // are the regular VoiceRecordingPanel + send button that live in the chat input
-// — this owns none of them. ChatRecording drives the voice panel for video
+// — the only extra control here is the discreet camera-flip button. ChatRecording drives the voice panel for video
 // exactly as for audio; this overlay is purely the кружок.
 //
 // Authored in Solid: reactive signals (mode / playing / progress) back the JSX,
@@ -50,7 +50,7 @@ export default function VideoRecordingPanel(props: {
     >
       <div
         class="video-recording-circle"
-        style={{width: STAGE_SIZE + 'px', height: STAGE_SIZE + 'px'}}
+        style={{'--video-recording-size': STAGE_SIZE + 'px'}}
       >
         <video
           class="video-recording-preview"
@@ -75,8 +75,9 @@ export default function VideoRecordingPanel(props: {
             props.onSwitchCamera?.();
           }}
         >
-          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 7a9 9 0 0 0-15-2L2 8m0-5v5h5M4 17a9 9 0 0 0 15 2l3-3m0 5v-5h-5"/>
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 6l1.5-2h5L16 6h3a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/>
+            <path d="M8 12a4.5 4.5 0 0 1 7-1l1.5 1m0-2.5V12H14m2 3a4.5 4.5 0 0 1-7 1l-1.5-1m0 2.5V15H10"/>
           </svg>
         </button>
         <ProgressRing

@@ -59,16 +59,16 @@ MONOLITH_OPTIMIZE=1 NODE_OPTIONS=--max-old-space-size=4096 bash scripts/monolith
 - Mobile Chromium: форма входу на ширині 390 px, без горизонтального переповнення.
 - У фінальному браузерному прогоні — без необроблених JavaScript-помилок і без помилок завантаження локальних ресурсів.
 - Service Worker активувався; manifest завантажується. Це не підтвердження повної працездатності iOS PWA/Web Push.
-- Unit-тести форматування номерів, upstream manifest, захисного патча вибору країни та нового Pages-пакування — **78/78 у 10 файлах пройдено локально**, включно з новими регресіями кружків/таймера/камери й object URL.
+- Unit-тести форматування номерів, upstream manifest, захисного патча вибору країни та нового Pages-пакування — **97/97 у 12 файлах пройдено локально**, включно з новими регресіями кружків/таймера/камери й object URL.
 - Vite dev-сервер також стартує: домен прев’ю приймається (`200`), сторонній невідомий Host відхиляється (`403`).
 - HTTP-запити до `/.env`, `/.env.local`, `/.git/config`, `/src/index.ts`, `/package.json` на статичному сервері отримують `404`.
 
-Браузерний звіт: `docs/baseline-verification.json`. **Повний typecheck не завершено через ресурсні обмеження цього sandbox. Повний набір upstream-тестів не запускався.** Власник повідомив про успішні QR-вхід, надсилання повідомлення, збереження входу та попередній фото/PWA-чекліст на OnePlus. Голосові мають невирішене спотворення; для кружків додано виправлення прив’язки до остаточного повідомлення/таймера та зміну камери, які ще потребують фізичного ретесту. Повний стан: `docs/android-media-status.uk.md`. Код входу, 2FA, ширший чат-сценарій, iPhone/Safari, дзвінки й push не прийняті.
+Браузерний звіт: `docs/baseline-verification.json`. **Повний typecheck не завершено через ресурсні обмеження цього sandbox. Повний набір upstream-тестів не запускався.** Власник повідомив про успішні QR-вхід, надсилання повідомлення, збереження входу та попередній фото/PWA-чекліст на OnePlus. Голосові мають невирішене спотворення; для кружків додано виправлення прив’язки до остаточного повідомлення/таймера та зміну камери, перший ретест підтвердив виправлення відтворення/таймера, але виявив телеоб’єктив і овальне прев’ю. Другий патч вибору модуля/форми/кнопки ще потребує фізичного ретесту. Повний стан: `docs/android-media-status.uk.md`. Код входу, 2FA, ширший чат-сценарій, iPhone/Safari, дзвінки й push не прийняті.
 
 Повторення базових перевірок:
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts src/tests/mediaPlaybackTime.test.ts src/tests/finalizeRoundVideo.test.ts src/tests/nativeVideoRecorderCamera.test.ts src/tests/videoRecordingPanelCamera.test.tsx src/tests/onMediaLoadObjectUrl.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts src/tests/monolithApiConfig.test.ts src/tests/mediaPlaybackTime.test.ts src/tests/finalizeRoundVideo.test.ts src/tests/nativeVideoRecorderCamera.test.ts src/tests/videoRecordingPanelCamera.test.tsx src/tests/onMediaLoadObjectUrl.test.ts src/tests/preferredCamera.test.ts src/tests/progressRing.test.ts
 
 # Для браузерних тестів потрібен Playwright Chromium з його системними бібліотеками.
 # Після setup, з активним Node.js 24/pnpm 11:

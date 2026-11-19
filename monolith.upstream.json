@@ -23,7 +23,8 @@
     "vite.monolith.config.ts and scripts/monolith-pages.mjs: GitHub Pages project paths, test-build identity, scoped PWA manifests and GPL/source links; Telegram protocol unchanged.",
     "scripts/monolith-api-config.mjs and Pages workflow: validate build-time app configuration without printing values, mark own-API provenance and deploy via least-privilege Actions.",
     "src/components/chat/bubbleParts/finalizeRoundVideo.ts and wrappers/video.ts: bind newly sent round videos to final server messages and reject non-finite playback times.",
-    "src/helpers/videoRecorder/nativeVideoRecorder.ts and recording panel: switch camera inputs without restarting the microphone/canvas recorder; physical Android retest pending."
+    "src/helpers/videoRecorder/nativeVideoRecorder.ts and recording panel: switch camera inputs without restarting the microphone/canvas recorder; physical Android retest pending.",
+    "src/helpers/videoRecorder/preferredCamera.ts, recording preview SCSS and ProgressRing: prefer an exact primary rear-lens device, keep a square responsive preview/ring, restyle camera control; physical follow-up retest pending."
   ],
   "notes": "Stage 0 public test baseline only. No Monolith RPC interception, anti-recall, ghost mode, user session, production push relay or hosted backend has been implemented. GitHub Pages hosts static client files only. Upstream CI is retained as inactive documentation templates.",
   "github": {
@@ -56,17 +57,19 @@
   },
   "testing": {
     "primaryPlatform": "Android / Google Chrome; partial owner-reported OnePlus 15 tests completed, media defects open",
-    "selectedUnitTestCount": 78,
+    "selectedUnitTestCount": 97,
     "fullTypecheckCompleted": false,
     "authenticatedTestingCompleted": false,
     "actualIosDeviceTested": false,
-    "selectedUnitTestFiles": 10,
+    "selectedUnitTestFiles": 12,
     "ownerReportedAndroidBasics": "QR login, message send, retained sign-in and previous photo/PWA checklist reported passed",
     "knownOpenIssues": [
-      "Voice capture is distorted in both Chrome/PWA and other-client playback; root cause not established",
+      "Voice capture is still distorted in Chrome/PWA and other-client playback; root cause unestablished, original neutral recording not yet supplied",
       "Phone login code delivery missing; QR works",
-      "Round-video fixes and real camera switching await physical retest"
+      "Primary rear lens selection, circular responsive recording preview and redesigned control await a new physical retest"
     ],
-    "syntheticMediaScript": "scripts/monolith-media-smoke.cjs"
+    "syntheticMediaScript": "scripts/monolith-media-smoke.cjs",
+    "ownerReportedRoundVideoRetest": "First patch fixed new round playback/timer; camera control works but chose telephoto, visual oval/button defects reported",
+    "syntheticRecordingUiScript": "scripts/monolith-recording-ui-smoke.mjs"
   }
 }

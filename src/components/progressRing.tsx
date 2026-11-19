@@ -49,6 +49,7 @@ export default function ProgressRing(props: ProgressRingProps): JSX.Element {
       class={classNames('progress-ring', props.class)}
       width={props.size}
       height={props.size}
+      viewBox={`0 0 ${props.size} ${props.size}`}
       style={{transform: 'rotate(-90deg)'}}
     >
       <circle

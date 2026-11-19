@@ -11,6 +11,7 @@ describe('createProgressRing', () => {
     const initialRadius = getProgressRingRadius(280);
     const initialCircumference = getProgressRingCircumference(280);
     expect(ring.element.getAttribute('width')).toBe('280');
+    expect(ring.element.getAttribute('viewBox')).toBe('0 0 280 280');
     expect(ring.circle.getAttribute('cx')).toBe('140');
     expect(ring.circle.getAttribute('r')).toBe('' + initialRadius);
     expect(parseFloat(ring.circle.style.strokeDashoffset)).toBeCloseTo(initialCircumference * 0.75);
@@ -21,6 +22,7 @@ describe('createProgressRing', () => {
     const resizedCircumference = getProgressRingCircumference(240);
     expect(ring.element.getAttribute('width')).toBe('240');
     expect(ring.element.getAttribute('height')).toBe('240');
+    expect(ring.element.getAttribute('viewBox')).toBe('0 0 240 240');
     expect(ring.circle.getAttribute('cx')).toBe('120');
     expect(ring.circle.getAttribute('cy')).toBe('120');
     expect(ring.circle.getAttribute('r')).toBe('' + resizedRadius);

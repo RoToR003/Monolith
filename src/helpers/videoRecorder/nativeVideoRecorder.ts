@@ -27,6 +27,7 @@
 
 import {IS_APPLE_MOBILE, IS_SAFARI} from '@environment/userAgent';
 import acquireStream, {StreamAcquisition} from '@lib/calls/helpers/acquireStream';
+import preferredCamera, {CameraDevice, CameraFacing, describeCamera} from './preferredCamera';
 
 export interface NativeVideoRecorderConfig {
   // Square output dimensions written to the encoded file. 400 = the larger of
@@ -147,6 +148,7 @@ export default class NativeVideoRecorder {
   private acquisition: StreamAcquisition | undefined;
   private cameraAcquisition: StreamAcquisition | undefined;
   private switchingCamera = false;
+  private camerasByFacing: Partial<Record<CameraFacing, string>> = {};
 
   static isSupported = isNativeVideoRecorderSupported;
 
@@ -177,12 +179,17 @@ export default class NativeVideoRecorder {
     return facing === 'environment' ? 'environment' : facing === 'user' ? 'user' : this.config.facingMode;
   }
 
-  public async hasMultipleCameras(): Promise<boolean> {
+  private async listCameras(): Promise<CameraDevice[]> {
     try {
-      return (await navigator.mediaDevices.enumerateDevices()).filter((device) => device.kind === 'videoinput').length > 1;
+      return (await navigator.mediaDevices.enumerateDevices())
+      .filter((device) => device.kind === 'videoinput').map(describeCamera);
     } catch(e) {
-      return false;
+      return [];
     }
+  }
+
+  public async hasMultipleCameras(): Promise<boolean> {
+    return (await this.listCameras()).length > 1;
   }
 
   // Only replace the camera input. The encoder keeps recording the SAME canvas
@@ -192,51 +199,74 @@ export default class NativeVideoRecorder {
     if(this.state !== 'recording' || !this.stream || this.switchingCamera) return false;
     this.switchingCamera = true;
     const stream = this.stream;
-    // Lifecycle state may change while getUserMedia/play is awaited.
     const isCurrent = () => this.stream === stream && this.state !== 'inactive';
     const oldTrack = stream.getVideoTracks()[0];
     const settings = oldTrack?.getSettings();
     const previousFacing = this.facingMode;
     const targetFacing = previousFacing === 'user' ? 'environment' : 'user';
+    if(settings?.deviceId) this.camerasByFacing[previousFacing] = settings.deviceId;
     const base: MediaTrackConstraints = {
       width: {ideal: 720}, height: {ideal: 720}, frameRate: {ideal: this.config.frameRate}
     };
-    const attach = async(acquisition: StreamAcquisition) => {
+    const attach = async(acquisition: StreamAcquisition, facing: CameraFacing, deviceId?: string) => {
       const camera = await acquisition.promise;
       if(!camera || !isCurrent()) {
         acquisition.dispose();
         return false;
       }
       const track = camera.getVideoTracks()[0];
-      if(!track) {
+      const actual = track?.getSettings();
+      // getStream can recover a stale exact device by using a default. That is
+      // useful for calls, but must not silently substitute a different lens.
+      if(!track || (deviceId && actual?.deviceId && actual.deviceId !== deviceId) ||
+        (actual?.facingMode && actual.facingMode !== facing)) {
         acquisition.dispose();
-        throw new Error('The selected camera returned no video track.');
+        throw new Error('The selected camera is unavailable.');
       }
       stream.addTrack(track);
       this.drawVideo.srcObject = null;
       this.drawVideo.srcObject = stream;
       await this.drawVideo.play().catch(() => {});
-      return isCurrent();
+      if(!isCurrent()) {
+        acquisition.dispose();
+        stream.removeTrack(track);
+        return false;
+      }
+      if(actual?.deviceId) this.camerasByFacing[facing] = actual.deviceId;
+      return true;
     };
-    oldTrack?.stop();
-    if(oldTrack) stream.removeTrack(oldTrack);
-    this.cameraAcquisition?.dispose();
     try {
-      this.cameraAcquisition = acquireStream({video: {...base, facingMode: {exact: targetFacing}}, audio: false});
-      if(!(await attach(this.cameraAcquisition))) return false;
+      // Enumerate while permission is live, before releasing the old lens. Use
+      // an exact primary-lens ID rather than letting facingMode pick telephoto.
+      const devices = await this.listCameras();
+      if(!isCurrent()) return false;
+      const target = preferredCamera(devices, targetFacing, {
+        currentDeviceId: settings?.deviceId,
+        preferredDeviceId: this.camerasByFacing[targetFacing],
+        oppositeDeviceId: this.camerasByFacing[previousFacing]
+      });
+      const targetId = target?.deviceId || (!devices.length && this.camerasByFacing[targetFacing]);
+      oldTrack?.stop();
+      if(oldTrack) stream.removeTrack(oldTrack);
+      this.cameraAcquisition?.dispose();
+      this.cameraAcquisition = acquireStream({video: {
+        ...base,
+        facingMode: {exact: targetFacing},
+        ...(targetId && {deviceId: {exact: targetId}})
+      }, audio: false});
+      if(!(await attach(this.cameraAcquisition, targetFacing, targetId))) return false;
       this.config.facingMode = targetFacing;
       this.config.videoDeviceId = undefined;
       return true;
     } catch(error) {
       this.cameraAcquisition?.dispose();
       if(!isCurrent()) return false;
-      // Restore the previous camera if the target is unavailable; do not
-      // silently leave a live microphone recording behind a black preview.
       const previous: MediaTrackConstraints = settings?.deviceId ?
-        {...base, deviceId: {exact: settings.deviceId}} : {...base, facingMode: previousFacing};
+        {...base, deviceId: {exact: settings.deviceId}, facingMode: {exact: previousFacing}} :
+        {...base, facingMode: {exact: previousFacing}};
       this.cameraAcquisition = acquireStream({video: previous, audio: false});
       try {
-        await attach(this.cameraAcquisition);
+        await attach(this.cameraAcquisition, previousFacing, settings?.deviceId);
       } catch(e) {
         this.cameraAcquisition.dispose();
       }
@@ -265,8 +295,9 @@ export default class NativeVideoRecorder {
       height: {ideal: 720},
       frameRate: {ideal: this.config.frameRate}
     };
-    if(this.config.videoDeviceId) {
-      video.deviceId = {exact: this.config.videoDeviceId};
+    const knownDeviceId = this.config.videoDeviceId || this.camerasByFacing[this.config.facingMode];
+    if(knownDeviceId) {
+      video.deviceId = {exact: knownDeviceId};
     } else {
       video.facingMode = this.config.facingMode;
     }
@@ -287,6 +318,11 @@ export default class NativeVideoRecorder {
     // camera doesn't go live with no owner.
     if(!stream) return;
     this.stream = stream;
+    const cameraSettings = stream.getVideoTracks()[0]?.getSettings();
+    if(cameraSettings?.facingMode === 'user' || cameraSettings?.facingMode === 'environment') {
+      this.config.facingMode = cameraSettings.facingMode;
+      if(cameraSettings.deviceId) this.camerasByFacing[cameraSettings.facingMode] = cameraSettings.deviceId;
+    }
 
     // Off-DOM <video> that decodes the raw camera feed for the canvas.
     this.drawVideo = document.createElement('video');
