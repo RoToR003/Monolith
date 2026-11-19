@@ -1,18 +1,55 @@
 import {defineConfig, mergeConfig, type Plugin} from 'vite';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import upstream from './vite.config';
+import {distributionAssets, normalizeBasePath, PAGES_BASE, PAGES_URL} from './scripts/monolith-pages.mjs';
 
 // Keep Telegram's protocol implementation unchanged.
 // Environment-specific changes live here, not in upstream's Vite configuration.
+const isPages = process.env.MONOLITH_PAGES === '1';
+const pagesBase = normalizeBasePath(process.env.MONOLITH_BASE_PATH || PAGES_BASE);
+const root = fileURLToPath(new URL('.', import.meta.url));
+const sourceCommit = isPages ? (process.env.MONOLITH_SOURCE_COMMIT ||
+  execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim()) : undefined;
+
 const identity: Plugin = {
   name: 'monolith-development-identity',
   transformIndexHtml: {
     order: 'post',
     handler(html) {
-      return html
-      .replace(/<title>[^<]*<\/title>/, '<title>Monolith — Telegram Web K · Development</title>')
+      let result = html
+      .replace(/<title>[^<]*<\/title>/, `<title>Monolith — Telegram Web K${isPages ? '' : ' · Development'}</title>`)
       .replaceAll('content="Telegram Web"', 'content="Monolith — Telegram Web K"')
-      .replaceAll('content="https://web.telegram.org/k/"', 'content="./"')
-      .replaceAll('content="https://web.telegram.org/"', 'content="./"');
+      .replaceAll('content="https://web.telegram.org/k/"', `content="${isPages ? PAGES_URL : './'}"`)
+      .replaceAll('content="https://web.telegram.org/"', `content="${isPages ? PAGES_URL : './'}"`)
+      .replaceAll('href="https://web.telegram.org/"', `href="${isPages ? PAGES_URL : './'}"`);
+      if(isPages) {
+        result = result.replace('</head>', `
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <meta name="monolith-source-commit" content="${sourceCommit}">
+    <link rel="license" href="${pagesBase}LICENSE.txt">
+    <style>
+      #monolith-legal-link{display:none;position:fixed;z-index:20;left:12px;bottom:max(10px,env(safe-area-inset-bottom));padding:6px 10px;border-radius:20px;background:rgba(255,255,255,.9);color:#384653;font:11px/1.3 system-ui,sans-serif;text-decoration:none}
+      body.has-auth-pages #monolith-legal-link{display:block}
+      #monolith-legal-link:focus-visible{outline:2px solid #2481cc;outline-offset:3px}
+    </style>
+  </head>`).replace('</body>', `
+    <a id="monolith-legal-link" href="${pagesBase}about.html" target="_blank" rel="license noopener noreferrer" aria-label="Monolith: вихідний код, GPLv3 і статус тестової версії">Monolith · код і GPLv3</a>
+  </body>`);
+      }
+      return result;
+    }
+  }
+};
+
+const pagesDistribution: Plugin = {
+  name: 'monolith-pages-distribution',
+  apply: 'build',
+  generateBundle() {
+    if(!isPages) return;
+    for(const [fileName, source] of Object.entries(distributionAssets(sourceCommit, root, pagesBase))) {
+      this.emitFile({type: 'asset', fileName, source});
     }
   }
 };
@@ -26,7 +63,8 @@ const headers = {
 };
 
 export default mergeConfig(upstream, defineConfig({
-  plugins: [identity],
+  base: isPages ? pagesBase : undefined,
+  plugins: [identity, pagesDistribution],
   server: {
     host: '0.0.0.0',
     port,
@@ -44,13 +82,13 @@ export default mergeConfig(upstream, defineConfig({
     headers
   },
   build: {
-    outDir: 'dist',
-    // Our sparse checkout omits old generated bundles from public/.
-    // The resulting dist/ includes the actual static source assets and stands alone.
+    // A Pages build must not replace the working root-path Arena preview.
+    outDir: isPages ? '.cache/monolith-pages/site' : 'dist',
+    // The resulting output includes static assets and stands alone.
     copyPublicDir: true,
     sourcemap: false,
-    // Prefer a reproducible low-memory development bundle in the 2 GiB sandbox.
-    // Set MONOLITH_OPTIMIZE=1 on a larger machine for upstream's minified output.
+    // Prefer a reproducible low-memory bundle in the 2 GiB sandbox.
+    // MONOLITH_OPTIMIZE=1 enables upstream's minification on larger machines.
     minify: process.env.MONOLITH_OPTIMIZE === '1' ? undefined : false,
     reportCompressedSize: false
   }

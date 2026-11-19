@@ -4,7 +4,10 @@ const fs = require('node:fs');
 const express = require('express');
 const compression = require('compression');
 
-const root = path.resolve(__dirname, '..', 'dist');
+const isPages = process.env.MONOLITH_PAGES === '1';
+const root = path.resolve(__dirname, '..', isPages ? '.cache/monolith-pages/site' : 'dist');
+const basePath = isPages ? (process.env.MONOLITH_BASE_PATH || '/Monolith/') : '/';
+if(!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(basePath)) throw new Error('Invalid static base path');
 const port = Number(process.env.MONOLITH_PORT || process.env.PORT || 5173);
 if(!fs.existsSync(path.join(root, 'index.html'))) {
   console.error('No build found. Run: bash scripts/monolith.sh build');
@@ -16,7 +19,7 @@ app.disable('x-powered-by');
 app.use((_req, res, next) => {
   res.set({
     'Cache-Control': 'no-store',
-    'Service-Worker-Allowed': '/',
+    ...(isPages ? {} : {'Service-Worker-Allowed': '/'}),
     'Referrer-Policy': 'no-referrer',
     'X-Content-Type-Options': 'nosniff'
   });
@@ -26,8 +29,9 @@ app.use(compression());
 app.get('/__monolith/health', (_req, res) => {
   res.json({project: 'Monolith', stage: 'upstream-baseline', accountRequired: true});
 });
-app.use(express.static(root, {dotfiles: 'deny', index: 'index.html', maxAge: 0}));
-app.get('/share/', (_req, res) => res.sendFile(path.join(root, 'index.html')));
+if(basePath !== '/') app.get('/', (_req, res) => res.redirect(basePath));
+app.use(basePath, express.static(root, {dotfiles: 'deny', index: 'index.html', maxAge: 0}));
+if(!isPages) app.get('/share/', (_req, res) => res.sendFile(path.join(root, 'index.html')));
 app.use((_req, res) => res.status(404).type('text/plain').send('Not found'));
 
 const server = app.listen(port, '0.0.0.0', () => {

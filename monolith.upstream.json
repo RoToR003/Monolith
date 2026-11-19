@@ -19,9 +19,10 @@
   "checkout": "Pinned Telegram Web K source imported onto a separate branch of the existing Monolith repository; original main history is preserved. Obsolete prebuilt public bundles are omitted. In Arena, unchanged public upstream binary blobs may be fetched lazily from the public upstream remote.",
   "runtimeSnapshot": "assets/monolith/vendor-runtime.json",
   "clientPatches": [
-    "src/components/countryInputField.ts: safely ignore nearest-DC countries missing from the phone-country list."
+    "src/components/countryInputField.ts: safely ignore nearest-DC countries missing from the phone-country list.",
+    "vite.monolith.config.ts and scripts/monolith-pages.mjs: GitHub Pages project paths, test-build identity, scoped PWA manifests and GPL/source links; Telegram protocol unchanged."
   ],
-  "notes": "Stage 0 development baseline only. No Monolith RPC interception, anti-recall, ghost mode, user session, production push relay, hosted backend or external app deployment has been implemented. Upstream CI is retained as inactive documentation templates.",
+  "notes": "Stage 0 public test baseline only. No Monolith RPC interception, anti-recall, ghost mode, user session, production push relay or hosted backend has been implemented. GitHub Pages hosts static client files only. Upstream CI is retained as inactive documentation templates.",
   "github": {
     "repository": "RoToR003/Monolith",
     "url": "https://github.com/RoToR003/Monolith",
@@ -29,6 +30,17 @@
     "workBranch": "monolith/baseline",
     "baseBranch": "main",
     "baseCommit": "96c397b0bf3f2564e39bc5a531aeaba16f64855d",
-    "visibility": "private"
+    "visibility": "public",
+    "visibilityAuthorizedOn": "2026-11-19"
+  },
+  "hosting": {
+    "provider": "GitHub Pages",
+    "url": "https://rotor003.github.io/Monolith/",
+    "basePath": "/Monolith/",
+    "publishBranch": "gh-pages",
+    "sourceBranch": "monolith/baseline",
+    "mode": "Deploy from a branch; build locally with scripts/monolith-pages.sh deploy",
+    "status": "public test baseline; not a completed production release",
+    "sourceAccess": "Public source commit link in about.html; no source archives on site"
   }
 }

@@ -6,6 +6,16 @@
 
 Робоча гілка: **`monolith/baseline`**. Початкову гілку `main` та її історію під час імпорту не змінено.
 
+## Відкрити сайт
+
+**[Monolith · публічна тестова версія →](https://rotor003.github.io/Monolith/)**
+
+HTTPS-хостинг: GitHub Pages, окрема гілка `gh-pages`. Репозиторій відкрито з дозволу власника. На екрані входу є посилання на GPLv3 і точний вихідний код збірки, без окремих архівів на сайті. `main` не використовується для публікації й не змінюється.
+
+[Як оновлювати сайт та перевіряти збірку](docs/github-pages.md). Push коду в `monolith/baseline` сам собою не перебудовує сайт: після source commit/push виконайте `bash scripts/monolith-pages.sh deploy`.
+
+Це тестова база зі загальнодоступними upstream development API defaults, не фінальний реліз для щоденного користування.
+
 ## Швидкий старт
 
 ```bash
@@ -15,7 +25,7 @@ bash scripts/monolith.sh setup
 bash scripts/monolith.sh serve
 ```
 
-Для приватного репозиторію спочатку авторизуйте Git у своєму акаунті GitHub.
+Репозиторій публічний для отримання вихідного коду GPL-версії; для завантаження коду авторизація не потрібна.
 
 Локальний сервер: `http://localhost:5173`. В Arena використовуйте живе HTTPS-прев’ю. `setup` встановлює ізольовані Node.js **24.11.1** / pnpm **11.16.0** та залежності за lockfile. Системні версії Node.js не змінюються.
 
@@ -40,12 +50,12 @@ MONOLITH_PROXY_HTTPS=1 bash scripts/monolith.sh dev
 
 ## Перевірки та обмеження
 
-Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **12 вибраних unit-тестів**.
+Перевірено локальну збірку, отримання QR-токена Telegram, форми входу на desktop/mobile Chromium, Service Worker і **25 вибраних unit-тестів**.
 
 Повний typecheck не завершено в обмеженому sandbox. Вхід у користувацький акаунт, реальний iPhone/Safari, встановлення PWA, чати після входу, дзвінки й push ще потребують перевірки. За замовчуванням збірка полегшена й без мінімізації.
 
 ```bash
-bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts
+bash scripts/monolith.sh test src/tests/formatPhoneNumber.test.ts src/tests/webManifest.test.ts src/tests/monolithCountrySelection.test.ts src/tests/monolithPages.test.ts
 # Для smoke-тесту потрібен встановлений Playwright Chromium із системними бібліотеками:
 MONOLITH_REQUIRE_QR=1 bash scripts/monolith.sh smoke
 ```
@@ -62,4 +72,4 @@ MONOLITH_REQUIRE_QR=1 bash scripts/monolith.sh smoke
 
 База: [morethanwords/tweb](https://github.com/morethanwords/tweb), commit `2e4bbb52b6aec5e95ee32e5c2882c1f05de32200`.
 
-Ліцензія **GPL-3.0-only**, див. [LICENSE](LICENSE). Збережені авторські та ліцензійні повідомлення upstream. Приватність репозиторію сама по собі не скасовує вимог GPL при розповсюдженні копій. Це не офіційний застосунок Telegram.
+Ліцензія **GPL-3.0-only**, див. [LICENSE](LICENSE). Збережені авторські та ліцензійні повідомлення upstream. Відповідний код публічної збірки доступний за посиланням на її точний commit у `about.html`. Це не офіційний застосунок Telegram.
